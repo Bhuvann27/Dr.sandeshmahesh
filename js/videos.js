@@ -9,5 +9,5 @@
   function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
   if(!configured()){render([]);return;}
   const c=window.supabase.createClient(window.SUPABASE_CONFIG.url,window.SUPABASE_CONFIG.anonKey);
-  c.from('youtube_videos').select('video_id,title,description').eq('status','published').eq('featured',true).order('sort_order',{ascending:true}).limit(6).then(({data,error})=>{if(error)render([]);else render(data||[])});
+  c.from('youtube_videos').select('video_id,title,description').eq('doctor_id',window.SUPABASE_CONFIG.doctorId).eq('visible',true).order('sort_order',{ascending:true}).limit(6).then(({data,error})=>{if(error)render([]);else render(data||[])});
 })();
