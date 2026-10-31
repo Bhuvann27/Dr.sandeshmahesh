@@ -15,7 +15,6 @@ jobs:
     steps:
       - name: Checkout Sandesh site
         uses: actions/checkout@v4
-
       - name: Copy the reusable desktop hero sequence
         shell: bash
         run: |
@@ -26,7 +25,6 @@ jobs:
             file=$(printf 'frame_%04d.webp' "$i")
             curl --fail --location --retry 3 --silent --show-error "$base/$file" -o "assets/hero-sequence-desktop/$file"
           done
-
       - name: Copy generic ANISE assistant artwork
         shell: bash
         run: |
@@ -34,7 +32,6 @@ jobs:
           mkdir -p assets/chatbot
           curl --fail --location --retry 3 --silent --show-error 'https://raw.githubusercontent.com/Bhuvann27/Dr.amogh/main/assets/chatbot/anise-assistant.svg' -o assets/chatbot/anise-assistant.svg
           curl --fail --location --retry 3 --silent --show-error 'https://raw.githubusercontent.com/Bhuvann27/Dr.amogh/main/assets/chatbot/anise-assistant.webp' -o assets/chatbot/anise-assistant.webp
-
       - name: Commit copied assets
         shell: bash
         run: |
@@ -42,9 +39,6 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add assets/hero-sequence-desktop assets/chatbot
-          if git diff --cached --quiet; then
-            echo 'No asset changes to commit.'
-            exit 0
-          fi
+          if git diff --cached --quiet; then echo 'No asset changes to commit.'; exit 0; fi
           git commit -m 'Copy reusable reference assets locally'
           git push
