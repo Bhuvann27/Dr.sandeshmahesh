@@ -1,0 +1,44 @@
+/* Final Amogh parity layer for Sandesh. Loaded last so older overrides cannot fight the reference layout. */
+.coat-track{position:relative!important;height:260vh!important;background:#0E0E0E!important}
+.coat-stage{position:sticky!important;top:0!important;height:100vh!important;width:100%!important;overflow:hidden!important}
+.photo-frame{background:var(--stone);overflow:hidden}
+.photo-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 18%!important}
+.identity-photo img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important}
+.section-stories-focus .story-card{position:relative;display:flex;flex-direction:column;min-height:390px}
+.section-stories-focus .story-card .story-cta{margin-top:auto!important;align-self:flex-start!important;padding-top:18px}
+#insights.section-dark{background:var(--paper)!important;color:var(--ink)!important}
+#insights .section-head h2{color:var(--ink)!important}
+#insights .section-head p{color:var(--text-dim)!important}
+#insights .youtube-grid{min-height:0!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+#insights .video-empty{min-height:0!important;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--stone);grid-column:1/-1}
+#insights .video-channel-link{display:flex;justify-content:flex-start;margin-top:26px}
+#insights .text-link{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink)!important;font-weight:700}
+#consult.section-stone{background:var(--ink)!important;color:var(--paper)!important}
+#consult .section-head h2{color:var(--paper)!important}
+#consult .section-head p{color:rgba(251,249,244,.68)!important}
+#consult .booking-panel{display:block!important}
+#consult .booking-side{display:none!important}
+#consult .booking-form{max-width:920px;margin:0 auto;background:var(--paper);border:1px solid rgba(251,249,244,.16);border-top:4px solid var(--orange);border-radius:22px;padding:clamp(24px,4vw,42px);box-shadow:0 25px 70px rgba(0,0,0,.28)}
+#consult .booking-stage{display:none}
+#consult .booking-stage.is-active{display:block}
+#consult .booking-stage-date{max-width:560px;margin:0 auto}
+#consult .booking-stage h3{font-size:clamp(1.35rem,3vw,2rem);margin-bottom:8px;color:var(--ink)}
+#consult .booking-stage p{color:var(--text-dim);margin:0 0 20px}
+#consult .booking-stage label{display:block;font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+#consult #bookingDate{width:100%;padding:15px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;font:inherit;color:var(--ink)}
+#consult .booking-slots-wrap{margin-top:24px}
+#consult .booking-label{font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--text-dim);margin-bottom:12px}
+#consult .booking-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#consult .slot{display:block;cursor:pointer}
+#consult .slot input{position:absolute;opacity:0;pointer-events:none}
+#consult .slot span{display:block;text-align:center;padding:13px 10px;border:1px solid var(--line);border-radius:999px;font-weight:700;color:var(--ink);background:var(--paper);transition:.2s}
+#consult .slot input:checked+span{background:var(--orange);border-color:var(--orange);color:#fff}
+#consult .booking-next,#consult .booking-back{display:inline-flex;align-items:center;justify-content:center;margin-top:22px;padding:13px 20px;border-radius:999px;border:1px solid var(--line);font:inherit;font-weight:800;cursor:pointer}
+#consult .booking-next{background:var(--orange);border-color:var(--orange);color:#fff}
+#consult .booking-back{background:transparent;color:var(--ink);margin-right:8px}
+#consult .booking-summary{padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--stone);margin-bottom:20px}
+#consult .booking-summary strong{display:block;margin-bottom:5px}
+#consult .booking-message{margin-top:16px}
+#consult .booking-form>#bookingSubmit{display:none}
+@media(max-width:880px){#insights .youtube-grid{grid-template-columns:1fr 1fr}#consult .booking-form{padding:22px 18px 28px}.section-stories-focus .story-card .story-cta{align-self:flex-start!important}}
+@media(max-width:640px){#insights .youtube-grid{grid-template-columns:1fr}.booking-grid{grid-template-columns:1fr!important}.booking-slots{grid-template-columns:1fr 1fr!important}.section-stories-focus .story-card{min-height:0}.section-stories-focus .story-card .story-cta{padding-top:20px}}
