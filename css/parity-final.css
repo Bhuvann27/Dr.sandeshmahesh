@@ -4,7 +4,7 @@
 .mobile-nav-row a{flex:none;white-space:nowrap;padding:7px 14px;border:1px solid var(--line);border-radius:999px;font-size:.82rem;font-weight:600;color:var(--ink)}
 .mobile-nav-row.is-on-dark{background:rgba(23,19,15,.72);border-bottom-color:var(--line-light)}
 .mobile-nav-row.is-on-dark a{color:var(--paper);border-color:var(--line-light)}
-.mobile-nav-row a.active{background:var(--orange);border-color:var(--orange);color:#fff}
+.mobile-nav-row a.active{background:var(--orange);border-color:var(--orange);color:#fff!important}
 .site-nav.hero-cinematic .nav-links{display:none}
 .mobile-nav-row.hero-cinematic{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-10px)}
 .site-nav,.mobile-nav-row{transition:opacity .28s ease,visibility .28s ease,transform .28s ease,background-color .3s,border-color .3s}
@@ -12,5 +12,6 @@
 .floating-contact.show{opacity:1;visibility:visible;pointer-events:auto;transform:none}
 .site-assistant{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s}
 .site-assistant.show{opacity:1;visibility:visible;pointer-events:auto;transform:none}
-@media(max-width:880px){.mobile-nav-row{display:flex}.floating-contact{right:14px;bottom:14px}.floating-contact a{width:48px;height:48px}.site-assistant{right:14px!important;bottom:132px!important}.site-assistant .assistant-toggle{width:48px;height:48px}}
+/* Amogh uses the horizontal mobile navigation only below 720px. */
+@media(max-width:720px){.mobile-nav-row{display:flex}.floating-contact{right:14px;bottom:14px}.floating-contact a{width:48px;height:48px}.site-assistant{right:14px!important;bottom:132px!important}.site-assistant .assistant-toggle{width:48px;height:48px}}
 @media(prefers-reduced-motion:reduce){.floating-contact,.site-assistant{transition:none}}
