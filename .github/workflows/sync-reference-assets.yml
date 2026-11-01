@@ -1,7 +1,6 @@
 name: Sync reusable reference assets
 
 # Keep the Amogh cinematic hero assets locally so Sandesh uses the same working interaction system.
-# This workflow intentionally runs when this file changes and can also be dispatched manually.
 on:
   push:
     paths:
@@ -39,7 +38,7 @@ jobs:
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+users.noreply.github.com'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add assets/hero-sequence-desktop assets/chatbot
           if git diff --cached --quiet; then echo 'No asset changes to commit.'; exit 0; fi
           git commit -m 'Copy reusable reference assets locally'
