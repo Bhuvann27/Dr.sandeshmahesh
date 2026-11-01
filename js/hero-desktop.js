@@ -79,7 +79,7 @@
     draw(Math.round(t*(FRAME_COUNT-1)));
 
     const h1=document.getElementById('hook1'),h2=document.getElementById('hook2'),h3=document.getElementById('hook3');
-    if(h1) h1.style.opacity=fade(p,.04,.18,.28);
+    if(h1) h1.style.opacity=p<=.05?1:(p>=.18?0:1-(p-.05)/.13); // opening hook shows on load, fades as scrolling starts
     if(h2) h2.style.opacity=fade(p,.18,.36,.28);
     if(h3){ h3.style.opacity=fade(p,.34,.60,.24); h3.style.transform='translateX(-50%)'; }
 

@@ -176,6 +176,15 @@
     photo:[0.76, 0.81],
   };
 
+  // The opening hook is visible as soon as the page loads (it does not wait
+  // for scroll). It holds briefly, then fades out as the user starts scrolling.
+  function hook1Opacity(p, end){
+    const hold = 0.05;
+    if(p <= hold) return 1;
+    if(p >= end) return 0;
+    return 1 - (p - hold) / (end - hold);
+  }
+
   function fadeWindow(p, start, end, fadeFrac){
     const span = end - start;
     const fadeIn = start + span * fadeFrac;
@@ -205,6 +214,9 @@
       ScrollTrigger.config({ignoreMobileResize:true});
     }
 
+    // Opening hook is visible immediately on load, before any scroll event.
+    if(hook1) hook1.style.opacity = 1;
+
     ScrollTrigger.create({
       trigger: track,
       start: "top top",
@@ -215,7 +227,7 @@
 
         renderRotation(Math.min(p, ROTATION_END));
 
-        if(hook1) hook1.style.opacity = fadeWindow(p, HOOK1_WINDOW[0], HOOK1_WINDOW[1], 0.28);
+        if(hook1) hook1.style.opacity = hook1Opacity(p, HOOK1_WINDOW[1]);
         hook2.style.opacity = fadeWindow(p, HOOK2_WINDOW[0], HOOK2_WINDOW[1], 0.3);
         if(hook3) hook3.style.opacity = fadeWindow(p, HOOK3_WINDOW[0], HOOK3_WINDOW[1], 0.3);
 
