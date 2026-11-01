@@ -1,0 +1,13 @@
+/* Final parity corrections inherited from the proven Amogh interaction rules. */
+.mobile-nav-row{display:none;position:fixed;top:60px;left:0;right:0;z-index:499;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:10px var(--pad);gap:10px;background:rgba(251,249,244,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.mobile-nav-row::-webkit-scrollbar{display:none}
+.mobile-nav-row a{flex:none;white-space:nowrap;padding:7px 14px;border:1px solid var(--line);border-radius:999px;font-size:.82rem;font-weight:600;color:var(--ink)}
+.mobile-nav-row.is-on-dark{background:rgba(23,19,15,.72);border-bottom-color:var(--line-light)}
+.mobile-nav-row.is-on-dark a{color:var(--paper);border-color:var(--line-light)}
+.mobile-nav-row a.active{background:var(--orange);border-color:var(--orange);color:#fff}
+.floating-contact{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s}
+.floating-contact.show{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.site-assistant{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s}
+.site-assistant.show{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+@media(max-width:880px){.mobile-nav-row{display:flex}.floating-contact{right:14px;bottom:14px}.floating-contact a{width:48px;height:48px}.site-assistant{right:14px!important;bottom:132px!important}.site-assistant .assistant-toggle{width:48px;height:48px}}
+@media(prefers-reduced-motion:reduce){.floating-contact,.site-assistant{transition:none}}
