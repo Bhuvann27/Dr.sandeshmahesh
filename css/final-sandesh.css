@@ -1,0 +1,71 @@
+/* Clean final presentation layer. This intentionally overrides the experimental parity files without changing the reference repo. */
+
+/* Mobile: use the supplied Sandesh portrait instead of an empty desktop canvas. */
+.mobile-hero-photo{display:none}
+@media(max-width:880px){
+  .coat-track{height:100svh!important;background:var(--ink)!important}
+  .coat-stage{position:sticky!important;top:0!important;height:100svh!important;background:var(--ink)!important}
+  .coat-imgwrap{display:block!important;inset:0!important;padding:0!important}
+  #heroCanvas{display:none!important}
+  .mobile-hero-photo{display:block!important;position:absolute;inset:0;overflow:hidden;background:#17130f}
+  .mobile-hero-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:saturate(.9)}
+  .mobile-hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,12,9,.05) 15%,rgba(15,12,9,.12) 45%,rgba(15,12,9,.76) 100%)}
+  .hook-line{display:none!important}
+  .identity-block{bottom:9%!important;width:88vw!important;opacity:1!important;transform:translateX(-50%)!important;text-shadow:0 4px 22px rgba(0,0,0,.6)}
+  .identity-line{opacity:1!important;transform:none!important}
+  .identity-photo{display:none!important}
+  .identity-name{font-size:clamp(1.65rem,7vw,2.35rem)!important;color:#fff!important}
+  .identity-qual,.identity-hosp{color:rgba(255,255,255,.82)!important}
+  .scroll-progress{display:none!important}
+  .scroll-cue{bottom:20px!important;color:rgba(255,255,255,.78)!important}
+}
+
+/* Doctor portrait section: make the supplied photograph actually visible and premium. */
+.photo-section{display:grid!important;grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr)!important;gap:clamp(34px,6vw,86px)!important;align-items:center!important}
+.photo-frame{display:block!important;min-height:520px!important;border-radius:22px!important;overflow:hidden!important;background:var(--stone)!important;border:1px solid var(--line)!important}
+.photo-frame img{display:block!important;width:100%!important;height:100%!important;min-height:520px!important;object-fit:cover!important;object-position:center 20%!important}
+@media(max-width:760px){.photo-section{grid-template-columns:1fr!important;gap:30px!important}.photo-frame,.photo-frame img{min-height:430px!important}.photo-frame{max-width:520px}}
+
+/* Patient story cards: equal height, CTA locked to the bottom. */
+.section-stories-focus .story-cards-focus{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important;align-items:stretch!important}
+.section-stories-focus .story-card{min-height:410px!important;height:100%!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;box-sizing:border-box!important}
+.section-stories-focus .story-card .story-cta{margin-top:auto!important;align-self:flex-start!important;position:static!important}
+@media(max-width:700px){.section-stories-focus .story-cards-focus{grid-template-columns:1fr!important}.section-stories-focus .story-card{min-height:330px!important}}
+
+/* Educational videos: light section, no artificial blank block. */
+#insights.section-dark{background:var(--paper)!important;color:var(--ink)!important}
+#insights .section-head h2,#insights .section-head p{color:var(--ink)!important}
+#insights .section-head p{color:var(--text-dim)!important}
+#insights .youtube-grid{display:grid!important;grid-template-columns:1fr!important;gap:20px!important;min-height:0!important}
+.youtube-channel-card{display:grid!important;grid-template-columns:minmax(240px,.72fr) minmax(0,1.28fr)!important;min-height:340px!important;border:1px solid var(--line)!important;border-radius:22px!important;overflow:hidden!important;background:var(--stone)!important;color:var(--ink)!important;transition:transform .35s var(--ease),box-shadow .35s var(--ease)!important}
+.youtube-channel-card:hover{transform:translateY(-4px);box-shadow:0 22px 55px rgba(23,19,15,.12)}
+.youtube-channel-art{display:grid;place-items:center;background:#17130f;color:#e0a24e;min-height:340px}
+.youtube-play-circle{width:86px;height:86px;border:1px solid #e0a24e;border-radius:50%;display:grid;place-items:center;padding-left:4px;font-size:1.45rem}
+.youtube-channel-copy{padding:clamp(30px,5vw,58px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.youtube-channel-copy small{font-size:.7rem;letter-spacing:.13em;font-weight:800;color:var(--orange)}
+.youtube-channel-copy strong{font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;max-width:12ch;margin:12px 0 16px}
+.youtube-channel-copy p{max-width:48ch;color:var(--text-dim);margin:0 0 22px}
+.youtube-channel-copy span:last-child{font-size:.78rem;font-weight:800;letter-spacing:.08em}
+.youtube-card{display:block;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--stone);color:var(--ink)}
+.youtube-thumb{position:relative;aspect-ratio:16/9;background:#17130f;overflow:hidden}.youtube-thumb img{width:100%;height:100%;object-fit:cover}.youtube-play{position:absolute;left:18px;bottom:18px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:#fff}.youtube-card-copy{padding:18px}.youtube-card-copy small{display:block;color:var(--orange);font-weight:800;font-size:.68rem;letter-spacing:.1em}.youtube-card-copy strong{display:block;margin:7px 0 10px}.youtube-card-copy span{font-size:.72rem;font-weight:800;letter-spacing:.07em}
+@media(max-width:700px){.youtube-channel-card{grid-template-columns:1fr!important}.youtube-channel-art{min-height:220px}.youtube-channel-copy strong{font-size:2rem}}
+
+/* Consultation: dark, spacious, actual staged booking widget. */
+#consult.section-stone{background:var(--ink)!important;color:var(--paper)!important}
+#consult .section-head h2{color:var(--paper)!important}
+#consult .section-head p{color:rgba(251,249,244,.68)!important}
+#consult .booking-panel{display:block!important}
+#consult .booking-side{display:none!important}
+#consult .booking-parity-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.52fr);gap:clamp(28px,5vw,76px);align-items:start}
+#consult .booking-parity-card{background:var(--paper);color:var(--ink);border-radius:24px;padding:clamp(24px,4vw,42px);border-top:4px solid var(--orange);box-shadow:0 24px 70px rgba(0,0,0,.28)}
+#consult .booking-parity-summary{padding:26px 0;color:var(--paper);max-width:420px}
+#consult .booking-parity-summary strong{display:block;font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.05;margin:12px 0}
+#consult .booking-parity-summary p{color:rgba(251,249,244,.68);max-width:40ch}.mini-note{font-size:.78rem;margin-top:28px!important;padding-top:20px;border-top:1px solid rgba(251,249,244,.16)}
+.booking-step-label{font-size:.7rem;font-weight:800;letter-spacing:.13em;color:var(--orange);margin-bottom:14px}.date-picker-field{display:block;position:relative;border:1px solid var(--line);border-radius:16px;padding:20px;background:#fff;cursor:pointer}.date-picker-text{font-weight:700}.date-picker-field input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.date-picker-hint,.booking-step-context{color:var(--text-dim);font-size:.84rem;margin:10px 0 0}.booking-progress{display:flex;align-items:center;gap:8px;margin:18px 0 26px}.booking-progress span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--stone);color:var(--text-dim);font-size:.72rem;font-weight:800}.booking-progress span.is-done,.booking-progress span.is-active{background:var(--orange);color:#fff}.booking-progress i{height:1px;flex:1;background:var(--line)}
+.slot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}.slot-chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:13px 10px;font-weight:750;cursor:pointer;color:var(--ink);transition:.2s}.slot-chip:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-1px)}
+.booking-selection{border:1px solid var(--line);border-radius:16px;background:var(--stone);padding:16px 18px;margin:18px 0}.booking-selection-label,.review-card-label{display:block;font-size:.66rem;font-weight:800;letter-spacing:.11em;color:var(--text-dim);margin-bottom:6px}.booking-selection strong{display:block}.booking-step-actions{display:flex;gap:10px;align-items:center;margin-top:24px}.btn-ghost-sm{border:1px solid var(--line);background:transparent;border-radius:999px;padding:11px 16px;font-weight:750;cursor:pointer}.field-group{margin-top:16px}.field-group label{display:block;font-size:.75rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text-dim);margin-bottom:7px}.field-input{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font:inherit}.phone-input-wrap{display:flex}.phone-prefix{display:flex;align-items:center;padding:0 14px;border:1px solid var(--line);border-right:0;border-radius:13px 0 0 13px;background:var(--stone);font-weight:700;color:var(--text-dim)}.phone-input-wrap .field-input{border-radius:0 13px 13px 0}.review-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}.review-card-section{padding:18px;border-bottom:1px solid var(--line)}.review-card-section:last-child{border-bottom:0}.review-line{display:flex;justify-content:space-between;gap:16px;padding:7px 0;font-size:.86rem}.review-line span{color:var(--text-dim)}.review-line strong{text-align:right}.review-note{margin-top:16px;padding:15px 17px;border-left:3px solid var(--orange);background:var(--stone);font-size:.84rem}.review-note p{margin:5px 0 0;color:var(--text-dim)}.booking-error-text{color:#b52f18;font-size:.82rem}.booking-success-icon{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#e4f2e6;color:#1e7a34;font-size:1.4rem;margin-bottom:16px}
+@media(max-width:800px){#consult .booking-parity-wrap{grid-template-columns:1fr}#consult .booking-parity-summary{padding:0 4px}.slot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.slot-grid{grid-template-columns:1fr 1fr}.booking-step-actions{flex-wrap:wrap}.booking-step-actions .btn{width:100%}}
+
+/* Keep old floating/assistant controls calm and out of the way. */
+.floating-contact{z-index:950!important}.site-assistant{z-index:940!important}
