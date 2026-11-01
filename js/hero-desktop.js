@@ -5,15 +5,14 @@
   if(!track||!stage)return;
   const controlsStyle=document.createElement("style");controlsStyle.textContent=`
     .floating-contact a{font-size:0!important}
+    .floating-contact a:first-child{display:none!important}
     .floating-contact a::before{content:"";display:block;width:23px;height:23px;background-repeat:no-repeat;background-position:center;background-size:contain}
-    .floating-contact a[aria-label="Email"]::before{background-image:url("assets/icons/email.svg")}
     .floating-contact a[aria-label="WhatsApp"]::before{background-image:url("assets/icons/whatsapp.svg")}
     .floating-contact a[aria-label="Call"]::before{background-image:url("assets/icons/phone.svg")}
-    .floating-contact .whatsapp{background:#25D366;color:#fff}
-    .floating-contact .phone{background:#F2540C;color:#fff}
+    .floating-contact .whatsapp{background:#2FAE60;color:#fff}
+    .floating-contact .phone{background:#17130F;color:#fff}
     .floating-contact .whatsapp::before,.floating-contact .phone::before{filter:brightness(0) invert(1)}
-    .floating-contact a:first-child{background:#FBF9F4;color:#17130F}
-    .site-assistant{bottom:calc(max(28px,env(safe-area-inset-bottom,0px)) + 188px)!important}
+    .site-assistant{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 138px)!important}
     #consult.section-stone{background:var(--ink);color:var(--paper)}
     #consult .section-head h2{color:var(--paper)}
     #consult .section-head>p{color:rgba(251,249,244,.72)}
@@ -23,20 +22,11 @@
     #consult .booking-side{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:28px;position:sticky;top:90px;box-shadow:0 14px 40px rgba(0,0,0,.12)}
     #consult .booking-side>span{color:var(--orange)}
     @media(max-width:780px){#consult .booking-panel{display:flex;flex-direction:column;gap:16px}#consult .booking-form{border-top-width:3px;border-radius:18px;padding:22px 18px 24px}#consult .booking-side{position:static;width:100%;background:rgba(251,249,244,.07);color:var(--paper);border-color:rgba(251,249,244,.14);box-shadow:none}#consult .booking-side p{color:rgba(251,249,244,.72)}#consult .booking-side .btn-secondary{color:var(--paper);border-color:rgba(251,249,244,.25)}}
-    @media(max-width:640px){.site-assistant{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 178px)!important}.floating-contact a{width:48px;height:48px}.floating-contact{gap:10px}}
+    @media(max-width:640px){.site-assistant{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 114px)!important}.floating-contact a{width:50px;height:50px}.floating-contact{gap:10px}}
   `;document.head.appendChild(controlsStyle);
-  function setPostHeroVisibility(onHero){
-    const floating=document.getElementById("floatingContact")||document.querySelector(".floating-contact");
-    const assistant=document.querySelector(".site-assistant");
-    floating?.classList.toggle("show",!onHero);
-    assistant?.classList.toggle("show",!onHero);
-  }
-  function mobileSync(){
-    const max=Math.max(1,track.offsetHeight-window.innerHeight),p=Math.max(0,Math.min(1,-track.getBoundingClientRect().top/max));
-    const navs=[document.getElementById("siteNav"),document.getElementById("mobileNav")].filter(Boolean),onHero=p<.96;
-    navs.forEach(el=>el.classList.toggle("is-on-dark",onHero));setPostHeroVisibility(onHero);
-  }
-  if(window.innerWidth<881){mobileSync();window.addEventListener("scroll",mobileSync,{passive:true});window.addEventListener("resize",mobileSync,{passive:true});return;}
+  function setPostHeroVisibility(onHero){const floating=document.getElementById("floatingContact")||document.querySelector(".floating-contact"),assistant=document.querySelector(".site-assistant");floating?.classList.toggle("show",!onHero);assistant?.classList.toggle("show",!onHero)}
+  function mobileSync(){const max=Math.max(1,track.offsetHeight-window.innerHeight),p=Math.max(0,Math.min(1,-track.getBoundingClientRect().top/max)),navs=[document.getElementById("siteNav"),document.getElementById("mobileNav")].filter(Boolean),onHero=p<.96;navs.forEach(el=>el.classList.toggle("is-on-dark",onHero));setPostHeroVisibility(onHero)}
+  if(window.innerWidth<881){mobileSync();window.addEventListener("scroll",mobileSync,{passive:true});window.addEventListener("resize",mobileSync,{passive:true});return}
   if(!canvas)return;
   const FRAME_W=1440,FRAME_H=810,FRAME_COUNT=197,FRAME_DIR="assets/hero-sequence-desktop/",ROTATION_END=.96;
   const frames=new Array(FRAME_COUNT),ctx=canvas.getContext("2d",{alpha:false});let current=0,raf=0;
