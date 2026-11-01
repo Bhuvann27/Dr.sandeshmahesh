@@ -1,6 +1,5 @@
 name: Sync reusable reference assets
 
-# Keep the Amogh cinematic hero assets locally so Sandesh uses the same working interaction system.
 on:
   push:
     paths:
@@ -16,7 +15,7 @@ jobs:
     steps:
       - name: Checkout Sandesh site
         uses: actions/checkout@v4
-      - name: Copy the reusable desktop hero sequence
+      - name: Copy the exact Amogh desktop hero sequence
         shell: bash
         run: |
           set -euo pipefail
@@ -25,6 +24,16 @@ jobs:
           for i in $(seq 1 197); do
             file=$(printf 'frame_%04d.webp' "$i")
             curl --fail --location --retry 3 --silent --show-error "$base/$file" -o "assets/hero-sequence-desktop/$file"
+          done
+      - name: Copy the exact Amogh mobile/high-resolution hero sequence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/hero-sequence-hires
+          base='https://raw.githubusercontent.com/Bhuvann27/Dr.amogh/main/assets/hero-sequence-hires'
+          for i in $(seq 1 197); do
+            file=$(printf 'frame_%04d.webp' "$i")
+            curl --fail --location --retry 3 --silent --show-error "$base/$file" -o "assets/hero-sequence-hires/$file"
           done
       - name: Copy generic ANISE assistant artwork
         shell: bash
@@ -39,7 +48,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/hero-sequence-desktop assets/chatbot
+          git add assets/hero-sequence-desktop assets/hero-sequence-hires assets/chatbot
           if git diff --cached --quiet; then echo 'No asset changes to commit.'; exit 0; fi
-          git commit -m 'Copy reusable reference assets locally'
+          git commit -m 'Copy full Amogh hero sequence locally'
           git push
