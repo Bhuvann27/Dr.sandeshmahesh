@@ -11,7 +11,13 @@
 #insights .section-head p{color:var(--text-dim)!important}
 #insights .youtube-grid{min-height:0!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 #insights .video-empty{min-height:0!important;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--stone);grid-column:1/-1}
-#insights .video-channel-link{display:flex;justify-content:flex-start;margin-top:26px}
+#insights .youtube-channel-card{grid-column:1/-1;display:grid;grid-template-columns:96px minmax(0,1fr);gap:28px;align-items:center;padding:clamp(28px,5vw,46px);border:1px solid var(--line);border-radius:24px;background:var(--stone)}
+#insights .youtube-channel-mark{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#17130F;color:#fff;font-size:1.3rem;box-shadow:0 14px 30px rgba(0,0,0,.12)}
+#insights .youtube-channel-card span{display:block;color:var(--orange);font-size:.7rem;font-weight:800;letter-spacing:.13em;margin-bottom:8px}
+#insights .youtube-channel-card strong{display:block;font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.05}
+#insights .youtube-channel-card p{max-width:60ch;color:var(--text-dim);margin:10px 0 18px}
+#insights .youtube-channel-button{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:var(--orange);color:#fff;font-weight:800}
+#insights .video-channel-link{display:none}
 #insights .text-link{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink)!important;font-weight:700}
 #consult.section-stone{background:var(--ink)!important;color:var(--paper)!important}
 #consult .section-head h2{color:var(--paper)!important}
@@ -26,6 +32,7 @@
 #consult .booking-stage p{color:var(--text-dim);margin:0 0 20px}
 #consult .booking-stage label{display:block;font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
 #consult #bookingDate{width:100%;padding:15px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;font:inherit;color:var(--ink)}
+#consult .booking-grid label.booking-detail-field{transition:opacity .2s}
 #consult .booking-slots-wrap{margin-top:24px}
 #consult .booking-label{font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--text-dim);margin-bottom:12px}
 #consult .booking-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -36,9 +43,9 @@
 #consult .booking-next,#consult .booking-back{display:inline-flex;align-items:center;justify-content:center;margin-top:22px;padding:13px 20px;border-radius:999px;border:1px solid var(--line);font:inherit;font-weight:800;cursor:pointer}
 #consult .booking-next{background:var(--orange);border-color:var(--orange);color:#fff}
 #consult .booking-back{background:transparent;color:var(--ink);margin-right:8px}
-#consult .booking-summary{padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--stone);margin-bottom:20px}
-#consult .booking-summary strong{display:block;margin-bottom:5px}
 #consult .booking-message{margin-top:16px}
 #consult .booking-form>#bookingSubmit{display:none}
+#visit .visit-card a.text-link{display:flex;align-items:center;justify-content:space-between;width:100%;padding:13px 16px;margin-top:10px;border:1px solid var(--line);border-radius:13px;background:var(--paper);font-weight:700;transition:.2s}
+#visit .visit-card a.text-link:hover{border-color:var(--orange);transform:translateY(-1px)}
 @media(max-width:880px){#insights .youtube-grid{grid-template-columns:1fr 1fr}#consult .booking-form{padding:22px 18px 28px}.section-stories-focus .story-card .story-cta{align-self:flex-start!important}}
-@media(max-width:640px){#insights .youtube-grid{grid-template-columns:1fr}.booking-grid{grid-template-columns:1fr!important}.booking-slots{grid-template-columns:1fr 1fr!important}.section-stories-focus .story-card{min-height:0}.section-stories-focus .story-card .story-cta{padding-top:20px}}
+@media(max-width:640px){#insights .youtube-grid{grid-template-columns:1fr}#insights .youtube-channel-card{grid-template-columns:1fr;gap:18px}.booking-grid{grid-template-columns:1fr!important}.booking-slots{grid-template-columns:1fr 1fr!important}.section-stories-focus .story-card{min-height:0}.section-stories-focus .story-card .story-cta{padding-top:20px}}
