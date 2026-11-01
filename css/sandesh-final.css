@@ -1,4 +1,4 @@
-/* Final intentional Sandesh layer: only doctor-specific corrections, not a second design system. */
+/* Final intentional Sandesh layer: doctor-specific corrections only. */
 #insights{background:var(--paper)!important;color:var(--ink)!important}
 #insights .section-head h2{color:var(--ink)!important}
 #insights .section-head p{color:var(--text-dim)!important}
@@ -7,14 +7,32 @@
 #consult .section-head p{color:rgba(251,249,244,.72)!important}
 #consult .section-head .eyebrow{color:#FF7A3D!important}
 
-/* Homepage Patient Stories: both cards use the same dark Amogh treatment. */
+/* Patient Stories: equal-height cards and stable READ STORY placement. */
 .section-stories-focus .story-cards-focus{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:24px!important;align-items:stretch!important}
 .section-stories-focus .story-card,.section-stories-focus .story-card-primary,.section-stories-focus .story-card-secondary{position:relative;min-height:410px!important;width:100%;padding:34px 32px!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:flex-start!important;box-sizing:border-box;overflow:hidden;background:var(--ink)!important;color:var(--paper)!important;border:1px solid rgba(251,249,244,.12)!important;border-radius:20px!important}
 .section-stories-focus .story-card .story-kicker{display:block;margin:0 0 24px;color:rgba(251,249,244,.65)!important;line-height:1.25}
 .section-stories-focus .story-card .quote{display:block;width:100%;max-width:16ch;margin:0;color:var(--paper)!important;font-size:clamp(1.75rem,3vw,2.7rem)!important;line-height:1.04}
 .section-stories-focus .story-card .desc{display:block;width:100%;max-width:44ch;margin:20px 0 0;color:rgba(251,249,244,.68)!important;font-size:.94rem;line-height:1.55}
-.section-stories-focus .story-card .story-cta{display:inline-flex!important;align-items:center;gap:8px;margin-top:auto!important;padding-top:28px;align-self:flex-end;color:var(--orange)!important;font-size:.72rem;font-weight:800;letter-spacing:.1em;line-height:1}
+.section-stories-focus .story-card .story-cta{display:inline-flex!important;align-items:center;gap:8px;margin-top:auto!important;padding-top:28px;align-self:flex-end;color:var(--orange)!important;font-size:.72rem;font-weight:800;letter-spacing:.1em;line-height:1;white-space:nowrap}
+.section-stories-focus .story-card .story-cta .arrow{display:inline-grid;place-items:center;width:26px;height:26px;border:1px solid rgba(242,84,12,.35);border-radius:50%}
 .section-stories-focus .story-card:hover{transform:translateY(-4px);border-color:var(--orange)!important;background:#211C18!important}
+
+/* Educational videos: intentionally light, with a useful channel card when no featured videos exist. */
+#youtubeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;min-height:0!important}
+.youtube-channel-card,.youtube-card{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(0,1.2fr);min-height:230px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);color:var(--ink);text-decoration:none;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .25s ease,box-shadow .35s ease}
+.youtube-channel-card:hover,.youtube-card:hover{transform:translateY(-4px);border-color:var(--orange);box-shadow:0 18px 45px rgba(23,19,15,.10)}
+.youtube-channel-art,.youtube-thumb{position:relative;min-height:100%;background:radial-gradient(90% 90% at 35% 30%,#2d2924,#17130F 72%);display:grid;place-items:center;overflow:hidden}
+.youtube-channel-art::after{content:"";position:absolute;inset:14px;border:1px solid rgba(251,249,244,.16);border-radius:14px}
+.youtube-play-circle,.youtube-play{position:relative;z-index:2;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:#fff;font-size:22px;padding-left:3px;box-shadow:0 12px 35px rgba(242,84,12,.28)}
+.youtube-thumb img{width:100%;height:100%;min-height:230px;object-fit:cover;display:block}.youtube-thumb .youtube-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px}
+.youtube-channel-copy,.youtube-card-copy{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:30px 32px;gap:12px}
+.youtube-channel-copy small,.youtube-card-copy small{font-size:.66rem;font-weight:800;letter-spacing:.12em;color:var(--text-dim)}
+.youtube-channel-copy strong,.youtube-card-copy strong{font-family:var(--font-display,var(--font));font-size:clamp(1.4rem,2.3vw,2.1rem);line-height:1.08;letter-spacing:-.02em}
+.youtube-channel-copy p{margin:0;color:var(--text-dim);line-height:1.55;max-width:38ch;font-size:.9rem}
+.youtube-channel-copy span,.youtube-card-copy span{margin-top:4px;color:var(--orange);font-size:.7rem;font-weight:800;letter-spacing:.1em}
+.video-channel-link{margin-top:22px}.video-channel-link .text-link{color:var(--ink)}
+.video-empty{min-height:180px;border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:28px;background:var(--paper)}
+.video-empty span{font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--orange)}.video-empty strong{margin-top:8px;font-size:1.2rem}
 
 /* Booking: same four-step hierarchy as Amogh, with Supabase kept underneath. */
 #consult .booking-panel{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:28px;align-items:start;padding:0;border:0;background:transparent}
@@ -27,36 +45,13 @@
 #consult .booking-grid input{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:.9rem;outline:none}
 #consult .booking-grid input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(242,84,12,.08)}
 #consult .booking-detail-field{display:none}
-#consult .booking-slots-wrap{margin:24px 0 0}
-#consult .booking-label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--text-dim);margin-bottom:12px}
-#consult .booking-slots{display:flex;flex-wrap:wrap;gap:9px;min-height:24px}
-#consult .slot{position:relative}
-#consult .slot input{position:absolute;opacity:0;pointer-events:none}
-#consult .slot span{display:block;border:1px solid var(--line);padding:10px 14px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;background:#fff;color:var(--ink)}
-#consult .slot input:checked+span{background:var(--orange);border-color:var(--orange);color:#fff}
+#consult .booking-slots-wrap{margin:24px 0 0}.booking-slots-wrap .booking-label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--text-dim);margin-bottom:12px}
+#consult .booking-slots{display:flex;flex-wrap:wrap;gap:9px;min-height:24px}.booking-slot{position:relative}
+#consult .slot{position:relative}.booking-slots .slot input{position:absolute;opacity:0;pointer-events:none}.booking-slots .slot span{display:block;border:1px solid var(--line);padding:10px 14px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;background:#fff;color:var(--ink)}.booking-slots .slot input:checked+span{background:var(--orange);border-color:var(--orange);color:#fff}
 #consult .booking-loading{color:var(--text-dim);font-size:.84rem}
-#consult .booking-review{margin-top:22px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:18px}
-#consult .booking-review-section{padding:0 0 16px;margin:0 0 16px;border-bottom:1px solid var(--line)}
-#consult .booking-review-section:last-child{padding:0;margin:0;border-bottom:0}
-#consult .booking-review-label{display:block;color:var(--orange-deep);font-size:.62rem;font-weight:800;letter-spacing:.12em;margin-bottom:10px}
-#consult .booking-review-line{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:.84rem}.booking-review-line span{color:var(--text-dim)}.booking-review-line strong{text-align:right}
-#consult .booking-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;flex-wrap:wrap}
-#consult .booking-actions button[hidden]{display:none!important}
-#consult .booking-message{min-height:22px;margin:12px 0 0;color:#9b3c20;font-size:.82rem}.booking-message.ok{color:#28704b}
-#consult .booking-side{background:var(--paper)!important;color:var(--ink)!important;border:1px solid var(--line);border-radius:18px;padding:28px;position:sticky;top:90px;box-shadow:0 14px 40px rgba(0,0,0,.12)}
-#consult .booking-side>span{display:block;color:var(--orange);font-size:.68rem;font-weight:800;letter-spacing:.12em;margin-bottom:10px}
-#consult .booking-side strong{font-size:1.1rem;line-height:1.45}.booking-side p{color:var(--text-dim);font-size:.84rem;line-height:1.55;margin:18px 0 24px}
+#consult .booking-review{margin-top:22px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:18px}.booking-review-section{padding:0 0 16px;margin:0 0 16px;border-bottom:1px solid var(--line)}.booking-review-section:last-child{padding:0;margin:0;border-bottom:0}.booking-review-label{display:block;color:var(--orange-deep);font-size:.62rem;font-weight:800;letter-spacing:.12em;margin-bottom:10px}.booking-review-line{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:.84rem}.booking-review-line span{color:var(--text-dim)}.booking-review-line strong{text-align:right}
+#consult .booking-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;flex-wrap:wrap}#consult .booking-actions button[hidden]{display:none!important}#consult .booking-message{min-height:22px;margin:12px 0 0;color:#9b3c20;font-size:.82rem}.booking-message.ok{color:#28704b}
+#consult .booking-side{background:var(--paper)!important;color:var(--ink)!important;border:1px solid var(--line);border-radius:18px;padding:28px;position:sticky;top:90px;box-shadow:0 14px 40px rgba(0,0,0,.12)}#consult .booking-side>span{display:block;color:var(--orange);font-size:.68rem;font-weight:800;letter-spacing:.12em;margin-bottom:10px}#consult .booking-side strong{font-size:1.1rem;line-height:1.45}.booking-side p{color:var(--text-dim);font-size:.84rem;line-height:1.55;margin:18px 0 24px}
 #consult .booking-success{padding:24px 0 4px}.booking-success strong{font-size:1.2rem}.booking-success p{color:var(--text-dim)}
-
-@media(max-width:880px){
- .section-stories-focus .story-cards-focus{grid-template-columns:1fr!important}
- #consult .booking-panel{grid-template-columns:1fr!important}
- #consult .booking-side{position:static}
-}
-@media(max-width:640px){
- .section-stories-focus .story-card{min-height:330px!important;padding:26px 22px!important}
- .section-stories-focus .story-card .quote{font-size:clamp(1.6rem,8vw,2.15rem)!important}
- #consult .booking-form{padding:22px 18px 24px}
- #consult .booking-grid{grid-template-columns:1fr}
- #consult .booking-actions{justify-content:stretch}.booking-actions .btn{flex:1;justify-content:center}
-}
+@media(max-width:880px){.section-stories-focus .story-cards-focus{grid-template-columns:1fr!important}#youtubeGrid{grid-template-columns:1fr}#consult .booking-panel{grid-template-columns:1fr!important}#consult .booking-side{position:static}}
+@media(max-width:640px){.section-stories-focus .story-card{min-height:330px!important;padding:26px 22px!important}.section-stories-focus .story-card .quote{font-size:clamp(1.6rem,8vw,2.15rem)!important}#consult .booking-form{padding:22px 18px 24px}#consult .booking-grid{grid-template-columns:1fr}#consult .booking-actions{justify-content:stretch}.booking-actions .btn{flex:1;justify-content:center}.youtube-channel-card,.youtube-card{grid-template-columns:1fr}.youtube-channel-art{min-height:180px}.youtube-channel-copy,.youtube-card-copy{padding:24px}.youtube-thumb img{min-height:200px}}
