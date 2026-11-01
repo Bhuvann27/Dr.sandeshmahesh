@@ -1,4 +1,4 @@
-/* Sandesh hero renderer: Amogh's proven sticky-scroll architecture, with Sandesh identity content. */
+/* Sandesh hero renderer: Amogh's proven sticky-scroll architecture, with exact sticky geometry for release timing. */
 (function(){
   'use strict';
   const track=document.getElementById('coatTrack');
@@ -31,9 +31,10 @@
   }
 
   function draw(index){
-    const img=frames[index];
+    const safe=Math.max(0,Math.min(FRAME_COUNT-1,index));
+    const img=frames[safe];
     if(!img||!img.complete||!img.naturalWidth)return;
-    current=Math.max(0,Math.min(FRAME_COUNT-1,index));
+    current=safe;
     const cw=canvas.width,ch=canvas.height;
     const scale=Math.max(cw/FRAME_W,ch/FRAME_H);
     const dw=FRAME_W*scale,dh=FRAME_H*scale;
@@ -60,7 +61,11 @@
   }
 
   function update(){
-    const max=Math.max(1,track.offsetHeight-window.innerHeight);
+    /* Use the real sticky stage height, not window.innerHeight. This keeps the
+       animation and the moment the sticky hero releases on exactly the same
+       geometry, including mobile browser viewport changes. */
+    const stageHeight=Math.max(1,stage.getBoundingClientRect().height);
+    const max=Math.max(1,track.offsetHeight-stageHeight);
     const raw=Math.max(0,Math.min(1,-track.getBoundingClientRect().top/max));
     const p=raw;
     const t=Math.min(1,p/ROTATION_END);
@@ -88,7 +93,9 @@
     if(progressFill)progressFill.style.transform=`translateY(${p*114}px)`;
     if(scrollCue)scrollCue.style.opacity=p>.045?'0':'1';
 
-    const finished=p>=.985;
+    /* Contact controls appear only when the sticky hero has actually reached
+       its release point, never while the final frame is still being shown. */
+    const finished=p>=.999;
     heroNavs.forEach(el=>el.classList.toggle('hero-cinematic',!finished));
     if(nav)nav.classList.toggle('is-on-dark',!finished);
     if(mobileNav)mobileNav.classList.toggle('is-on-dark',!finished);
