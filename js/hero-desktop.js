@@ -21,8 +21,22 @@
     #consult .booking-form{background:var(--paper);border:1px solid rgba(251,249,244,.18);border-top:4px solid var(--orange);border-radius:20px;padding:clamp(24px,4vw,36px);box-shadow:0 22px 55px rgba(0,0,0,.28)}
     #consult .booking-side{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:28px;position:sticky;top:90px;box-shadow:0 14px 40px rgba(0,0,0,.12)}
     #consult .booking-side>span{color:var(--orange)}
-    @media(max-width:780px){#consult .booking-panel{display:flex;flex-direction:column;gap:16px}#consult .booking-form{border-top-width:3px;border-radius:18px;padding:22px 18px 24px}#consult .booking-side{position:static;width:100%;background:rgba(251,249,244,.07);color:var(--paper);border-color:rgba(251,249,244,.14);box-shadow:none}#consult .booking-side p{color:rgba(251,249,244,.72)}#consult .booking-side .btn-secondary{color:var(--paper);border-color:rgba(251,249,244,.25)}}
-    @media(max-width:640px){.site-assistant{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 114px)!important}.floating-contact a{width:50px;height:50px}.floating-contact{gap:10px}}
+    #insights.section-dark{background:var(--paper);color:var(--ink)}
+    #insights .section-head h2{color:var(--ink)}
+    #insights .section-head>p{color:var(--text-dim)}
+    #insights .section-head .eyebrow{color:var(--orange)}
+    #insights .youtube-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    #insights .youtube-card{background:var(--paper);border:1px solid var(--line);border-radius:16px}
+    .section-stories-focus .story-cards-focus{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:20px}
+    .section-stories-focus .story-card{min-height:390px;border-radius:24px}
+    .section-stories-focus .story-card-primary{background:var(--ink)!important;color:var(--paper)!important;border-color:var(--ink)!important;padding:clamp(30px,5vw,52px)}
+    .section-stories-focus .story-card-secondary{background:var(--paper)!important;color:var(--ink)!important;border:1px solid rgba(23,19,15,.14)!important;padding:clamp(28px,4vw,40px)}
+    .section-stories-focus .story-card-secondary .quote,.section-stories-focus .story-card-secondary .desc,.section-stories-focus .story-card-secondary .story-cta{color:var(--ink)!important}
+    .section-stories-focus .story-card-primary .quote{font-size:clamp(1.8rem,4vw,3rem);max-width:12ch}
+    .section-stories-focus .story-card-secondary .quote{font-size:clamp(1.35rem,3vw,1.8rem)}
+    @media(max-width:880px){#insights .youtube-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:780px){#consult .booking-panel{display:flex;flex-direction:column;gap:16px}#consult .booking-form{border-top-width:3px;border-radius:18px;padding:22px 18px 24px}#consult .booking-side{position:static;width:100%;background:rgba(251,249,244,.07);color:var(--paper);border-color:rgba(251,249,244,.14);box-shadow:none}#consult .booking-side p{color:rgba(251,249,244,.72)}#consult .booking-side .btn-secondary{color:var(--paper);border-color:rgba(251,249,244,.25)}.section-stories-focus .story-cards-focus{grid-template-columns:1fr}.section-stories-focus .story-card{min-height:290px}}
+    @media(max-width:640px){.site-assistant{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 114px)!important}.floating-contact a{width:50px;height:50px}.floating-contact{gap:10px}#insights .youtube-grid{grid-template-columns:1fr}.section-stories-focus .story-card-primary,.section-stories-focus .story-card-secondary{min-height:0;padding:26px 22px}}
   `;document.head.appendChild(controlsStyle);
   function setPostHeroVisibility(onHero){const floating=document.getElementById("floatingContact")||document.querySelector(".floating-contact"),assistant=document.querySelector(".site-assistant");floating?.classList.toggle("show",!onHero);assistant?.classList.toggle("show",!onHero)}
   function mobileSync(){const max=Math.max(1,track.offsetHeight-window.innerHeight),p=Math.max(0,Math.min(1,-track.getBoundingClientRect().top/max)),navs=[document.getElementById("siteNav"),document.getElementById("mobileNav")].filter(Boolean),onHero=p<.96;navs.forEach(el=>el.classList.toggle("is-on-dark",onHero));setPostHeroVisibility(onHero)}
