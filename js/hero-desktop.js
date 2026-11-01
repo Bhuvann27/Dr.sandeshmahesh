@@ -13,6 +13,17 @@
     .floating-contact .phone{background:#F2540C;color:#fff}
     .floating-contact .whatsapp::before,.floating-contact .phone::before{filter:brightness(0) invert(1)}
     .floating-contact a:first-child{background:#FBF9F4;color:#17130F}
+    .site-assistant{bottom:calc(max(28px,env(safe-area-inset-bottom,0px)) + 188px)!important}
+    #consult.section-stone{background:var(--ink);color:var(--paper)}
+    #consult .section-head h2{color:var(--paper)}
+    #consult .section-head>p{color:rgba(251,249,244,.72)}
+    #consult .section-head .eyebrow{color:#FF7A3D}
+    #consult .booking-panel{grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:28px;padding:0;border:0;background:transparent;align-items:start}
+    #consult .booking-form{background:var(--paper);border:1px solid rgba(251,249,244,.18);border-top:4px solid var(--orange);border-radius:20px;padding:clamp(24px,4vw,36px);box-shadow:0 22px 55px rgba(0,0,0,.28)}
+    #consult .booking-side{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:28px;position:sticky;top:90px;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+    #consult .booking-side>span{color:var(--orange)}
+    @media(max-width:780px){#consult .booking-panel{display:flex;flex-direction:column;gap:16px}#consult .booking-form{border-top-width:3px;border-radius:18px;padding:22px 18px 24px}#consult .booking-side{position:static;width:100%;background:rgba(251,249,244,.07);color:var(--paper);border-color:rgba(251,249,244,.14);box-shadow:none}#consult .booking-side p{color:rgba(251,249,244,.72)}#consult .booking-side .btn-secondary{color:var(--paper);border-color:rgba(251,249,244,.25)}}
+    @media(max-width:640px){.site-assistant{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 178px)!important}.floating-contact a{width:48px;height:48px}.floating-contact{gap:10px}}
   `;document.head.appendChild(controlsStyle);
   function setPostHeroVisibility(onHero){
     const floating=document.getElementById("floatingContact")||document.querySelector(".floating-contact");
