@@ -23,9 +23,7 @@
         if(!clean)throw new Error('empty photo source');
         applyPhoto(`data:image/webp;base64,${clean}`);
       })
-      .catch(()=>{
-        applyPhoto('assets/doctor-sandesh.webp');
-      });
+      .catch(()=>applyPhoto('assets/doctor-sandesh.webp'));
   }
 
   const year=$('#year');
@@ -100,4 +98,11 @@
     });
   }
   if(window.SUPABASE_CONFIG?.url)initAssistant();
+
+  // Load the hero renderer after the page is ready. Keeping this separate prevents
+  // the content/booking logic from being coupled to the cinematic scroll engine.
+  const heroScript=document.createElement('script');
+  heroScript.src='js/hero-desktop.js';
+  heroScript.defer=true;
+  document.head.appendChild(heroScript);
 })();
