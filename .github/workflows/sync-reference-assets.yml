@@ -1,5 +1,7 @@
 name: Sync reusable reference assets
 
+# Reference asset sync is intentionally triggered by changes to this workflow.
+# It copies the exact Amogh cinematic hero sequence and ANISE assistant artwork.
 on:
   push:
     paths:
