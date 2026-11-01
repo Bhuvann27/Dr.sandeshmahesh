@@ -1,17 +1,384 @@
-(()=>{
-  const $=(s,r=document)=>r.querySelector(s);
-  const $$=(s,r=document)=>[...r.querySelectorAll(s)];
-  const parityCss=document.createElement('link');parityCss.rel='stylesheet';parityCss.href='css/true-parity.css';document.head.appendChild(parityCss);
-  const applyPhoto=(src)=>{if(!src)return;$$('[data-doctor-photo]').forEach(img=>{img.onload=()=>{img.classList.add('photo-ready');img.closest('.identity-photo')?.classList.add('photo-ready')};img.onerror=()=>img.classList.remove('photo-ready');img.src=src})};
-  const loadB64Photo=(path)=>fetch(path,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('photo source unavailable');return r.text()}).then(b64=>{const clean=b64.trim().replace(/\s+/g,'');if(!clean)throw new Error('empty photo source');applyPhoto(`data:image/webp;base64,${clean}`)});
-  const source=$('#doctorPhotoSource');if(source){loadB64Photo('assets/doctor-sandesh-supplied.webp.b64').catch(()=>loadB64Photo('assets/doctor-sandesh.b64')).catch(()=>{})}
-  const year=$('#year');if(year)year.textContent=new Date().getFullYear();
-  const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});$$('.reveal').forEach(el=>revealObserver.observe(el));
-  $$('.care-list button,.care-accordion button').forEach(btn=>btn.addEventListener('click',()=>{const item=btn.closest('.care-item,article');if(!item)return;const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}));
-  const links=$$('.nav-links a,.mobile-nav-row a');const sections=$$('main section[id]:not(#home)');const navObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)links.forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${entry.target.id}`))}),{rootMargin:'-45% 0px -45% 0px'});sections.forEach(section=>navObserver.observe(section));
-  const floating=$('.floating-contact');if(floating){floating.innerHTML=`<a class="fc-whatsapp" href="https://wa.me/917406886226?text=Hello%20Dr.%20Sandesh%2C%20I%20have%20a%20question." target="_blank" rel="noopener" aria-label="Message on WhatsApp"><svg viewBox="0 0 32 32" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.23.6 4.32 1.66 6.12L3 29l8.06-2.61a12.9 12.9 0 0 0 4.96.98h.01c6.63 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 22.02h-.01a10 10 0 0 1-5.1-1.4l-.37-.22-3.79 1.23 1.24-3.7-.24-.38a9.94 9.94 0 0 1-1.53-5.33c0-5.5 4.48-9.98 10-9.98 2.67 0 5.18 1.04 7.07 2.93a9.93 9.93 0 0 1 2.93 7.06c0 5.51-4.49 9.99-10.2 9.99zm5.48-7.46c-.3-.15-1.77-.87-2.04-.97-.27-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.18.2-.35.22-.65.08-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.65-.94-2.26-.25-.6-.5-.5-.68-.51h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg></a><a class="fc-call" href="tel:+917406886226" aria-label="Call Dr. Sandesh"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/></svg></a>`}
-  function initAssistant(){if(document.querySelector('.site-assistant'))return;const style=document.createElement('style');style.textContent=`.site-assistant{font-family:Inter,system-ui,sans-serif}.assistant-toggle{width:56px;height:56px;border:1px solid rgba(255,255,255,.22);border-radius:50%;padding:0;background:#202020;box-shadow:0 12px 35px rgba(0,0,0,.25);cursor:pointer;display:grid;place-items:center}.assistant-toggle img{width:30px;height:30px;border-radius:8px}.assistant-panel{position:absolute;right:0;bottom:66px;width:min(360px,calc(100vw - 32px));height:min(520px,70vh);background:#fbf9f4;border:1px solid rgba(23,19,15,.12);border-radius:20px;box-shadow:0 25px 70px rgba(0,0,0,.22);overflow:hidden;display:none;flex-direction:column}.site-assistant.open .assistant-panel{display:flex}.assistant-head{padding:16px 17px;background:#202020;color:#fbf9f4;display:flex;align-items:center;justify-content:space-between}.assistant-head strong{font-size:.92rem}.assistant-head span{display:block;margin-top:3px;font-size:.68rem;color:#c8c1b7}.assistant-close{border:0;background:transparent;color:#fff;font-size:20px;cursor:pointer}.assistant-messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px}.assistant-msg{max-width:86%;padding:11px 13px;border-radius:14px;font-size:.83rem;line-height:1.5;white-space:pre-wrap}.assistant-msg.bot{align-self:flex-start;background:#eee9df;color:#201b17;border-bottom-left-radius:5px}.assistant-msg.user{align-self:flex-end;background:#f2540c;color:#fff;border-bottom-right-radius:5px}.assistant-form{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(23,19,15,.1);background:#fff}.assistant-form input{min-width:0;flex:1;border:1px solid rgba(23,19,15,.14);border-radius:999px;padding:11px 13px;font:inherit;font-size:.82rem;outline:none}.assistant-form button{border:0;border-radius:999px;background:#f2540c;color:#fff;padding:0 15px;font-weight:800;cursor:pointer}@media(max-width:880px){.assistant-panel{width:calc(100vw - 28px);height:min(520px,68vh)}}`;document.head.appendChild(style);const root=document.createElement('div');root.className='site-assistant';root.innerHTML=`<div class="assistant-panel" role="dialog" aria-label="Website assistant"><div class="assistant-head"><div><strong>Website Assistant</strong><span>Questions about Dr. Sandesh &amp; women's health</span></div><button class="assistant-close" aria-label="Close assistant">×</button></div><div class="assistant-messages" aria-live="polite"></div><form class="assistant-form"><input maxlength="600" placeholder="Ask a question…" autocomplete="off"><button type="submit">Send</button></form></div><button class="assistant-toggle" aria-label="Open website assistant"><img src="assets/chatbot/anise-assistant.svg" alt=""></button>`;document.body.appendChild(root);const messages=$('.assistant-messages',root),form=$('.assistant-form',root),input=$('input',form),send=$('button',form),toggle=$('.assistant-toggle',root),close=$('.assistant-close',root),history=[];const add=(text,role)=>{const el=document.createElement('div');el.className=`assistant-msg ${role}`;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight;return el};add("Hi. I can help with Dr. Sandesh's website information and general women's health questions. I can't diagnose or prescribe through chat.",'bot');toggle.addEventListener('click',()=>{root.classList.toggle('open');if(root.classList.contains('open'))setTimeout(()=>input.focus(),50)});close.addEventListener('click',()=>root.classList.remove('open'));form.addEventListener('submit',async e=>{e.preventDefault();const message=input.value.trim();if(!message||send.disabled)return;input.value='';add(message,'user');send.disabled=true;const typing=add('Thinking…','bot');try{const response=await fetch(`${window.SUPABASE_CONFIG.url}/functions/v1/site-assistant`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({doctor_slug:window.SUPABASE_CONFIG.doctorSlug||'sandesh-mahesh',message,history})});const data=await response.json();typing.remove();if(!response.ok)throw new Error(data?.error||'Assistant unavailable');add(data.answer||'I could not generate an answer right now.','bot');history.push({role:'user',text:message},{role:'model',text:data.answer||''});if(history.length>6)history.splice(0,history.length-6)}catch(err){typing.textContent='The assistant is unavailable right now. Please use the phone or WhatsApp options below.';console.error(err)}finally{send.disabled=false;input.focus()}})}
-  if(window.SUPABASE_CONFIG?.url)initAssistant();
-  function loadScript(src){return new Promise((resolve,reject)=>{if(document.querySelector(`script[src="${src}"]`)){resolve();return}const script=document.createElement('script');script.src=src;script.async=false;script.onload=resolve;script.onerror=reject;document.head.appendChild(script)})}
-  Promise.resolve().then(()=>loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js')).then(()=>loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js')).catch(()=>{}).finally(()=>{const heroScript=document.createElement('script');heroScript.src='js/hero-desktop.js';heroScript.defer=true;document.head.appendChild(heroScript)});
+(function(){
+  "use strict";
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const track = document.getElementById("coatTrack");
+  const progressFill = document.getElementById("progressFill");
+  const scrollCue = document.getElementById("scrollCue");
+  const nav = document.getElementById("siteNav");
+  const mobileNav = document.getElementById("mobileNav");
+  const heroNavs = [nav, mobileNav].filter(Boolean);
+  const mobileMQ = window.matchMedia("(max-width: 640px)");
+
+  const hook1 = document.getElementById("hook1");
+  const hook2 = document.getElementById("hook2");
+  const hook3 = document.getElementById("hook3");
+  const idName = document.getElementById("idName");
+  const idQual = document.getElementById("idQual");
+  const idExp = document.getElementById("idExp");
+  const idHosp = document.getElementById("idHosp");
+  const idPhoto = document.getElementById("identityPhoto");
+  const identityBlock = document.getElementById("identityBlock");
+  const coatImgWrap = document.getElementById("coatImgWrap");
+
+  // -----------------------------------------------------------
+  // Hero: full-resolution frame-by-frame scroll sequence.
+  // The dark opening is trimmed from the source sequence, so scrolling
+  // starts on the first bright frame after the opening hook.
+  // -----------------------------------------------------------
+  const heroCanvas = document.getElementById("heroCanvas");
+  const ROTATION_END = 0.96;
+  const FRAME_W = 720;
+  const FRAME_H = 1280;
+  const FRAME_COUNT = 197;
+  const FRAME_DIR = "assets/hero-sequence-hires/";
+  const heroFrames = new Array(FRAME_COUNT);
+  let heroFrame = 0;
+  let canvasCtx = null;
+
+  function sizeHeroCanvas(){
+    if(!heroCanvas) return;
+    const stage = document.getElementById("coatStage") || heroCanvas.parentElement;
+    const rect = stage.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.max(1, Math.round(rect.width * dpr));
+    const h = Math.max(1, Math.round(rect.height * dpr));
+    if(heroCanvas.width !== w || heroCanvas.height !== h){
+      heroCanvas.width = w;
+      heroCanvas.height = h;
+    }
+    if(!canvasCtx) canvasCtx = heroCanvas.getContext("2d", {alpha:false});
+    drawHeroFrame(heroFrame);
+  }
+
+  function drawHeroFrame(index){
+    if(!heroCanvas || !canvasCtx) return;
+    heroFrame = Math.max(0, Math.min(FRAME_COUNT - 1, index));
+
+    let img = heroFrames[heroFrame];
+    if(!img || !img.complete){
+      // Fast scrolling can outrun decoding. Use the nearest decoded frame,
+      // never a blank canvas.
+      for(let d=1; d<FRAME_COUNT; d++){
+        const a = heroFrame-d, b = heroFrame+d;
+        if(a >= 0 && heroFrames[a]?.complete){ img=heroFrames[a]; break; }
+        if(b < FRAME_COUNT && heroFrames[b]?.complete){ img=heroFrames[b]; break; }
+      }
+    }
+    if(!img || !img.complete) return;
+
+    const cw = heroCanvas.width;
+    const ch = heroCanvas.height;
+    const desktop = window.innerWidth >= 881;
+    const scale = desktop
+      ? Math.min(cw / FRAME_W, ch / FRAME_H)
+      : Math.max(cw / FRAME_W, ch / FRAME_H);
+    const dw = FRAME_W * scale;
+    const dh = FRAME_H * scale;
+    const dx = (cw - dw) * 0.5;
+    const dy = (ch - dh) * 0.5;
+
+    canvasCtx.imageSmoothingEnabled = true;
+    canvasCtx.imageSmoothingQuality = "high";
+
+    // Desktop: create a live extension from the same frame instead of leaving
+    // empty portrait-side bars. The enlarged background is softened and darkened
+    // so the real portrait frame stays the visual focus. Mobile is unchanged.
+    if(desktop){
+      const bgScale = Math.max(cw / FRAME_W, ch / FRAME_H) * 1.08;
+      const bgW = FRAME_W * bgScale;
+      const bgH = FRAME_H * bgScale;
+      const bgX = (cw - bgW) * 0.5;
+      const bgY = (ch - bgH) * 0.5;
+
+      canvasCtx.save();
+      canvasCtx.filter = "blur(22px) brightness(0.52) saturate(0.78)";
+      canvasCtx.drawImage(img,0,0,FRAME_W,FRAME_H,bgX,bgY,bgW,bgH);
+      canvasCtx.restore();
+
+      const shade = canvasCtx.createLinearGradient(0,0,cw,0);
+      shade.addColorStop(0,"rgba(8,8,8,.34)");
+      shade.addColorStop(.24,"rgba(8,8,8,.12)");
+      shade.addColorStop(.5,"rgba(8,8,8,.05)");
+      shade.addColorStop(.76,"rgba(8,8,8,.12)");
+      shade.addColorStop(1,"rgba(8,8,8,.34)");
+      canvasCtx.fillStyle = shade;
+      canvasCtx.fillRect(0,0,cw,ch);
+    }else{
+      canvasCtx.fillStyle = "#0E0E0E";
+      canvasCtx.fillRect(0,0,cw,ch);
+    }
+
+    canvasCtx.drawImage(img,0,0,FRAME_W,FRAME_H,dx,dy,dw,dh);
+  }
+
+  function renderRotation(p){
+    if(reduced || !heroCanvas) return;
+    const t = Math.max(0, Math.min(1, p / ROTATION_END));
+    drawHeroFrame(Math.round(t * (FRAME_COUNT - 1)));
+  }
+
+  function loadHeroFrames(){
+    if(!heroCanvas) return;
+
+    const loadOne = (i) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = FRAME_DIR + `frame_${String(i+1).padStart(4,"0")}.webp`;
+      img.onload = () => {
+        heroFrames[i] = img;
+        if(i === 0 || i === heroFrame){
+          if(i === 0) sizeHeroCanvas();
+          drawHeroFrame(heroFrame);
+        }
+      };
+      img.onerror = () => console.warn("Hero frame failed to load:", i+1);
+    };
+
+    // Request the complete real sequence immediately so fast scrolling
+    // cannot outrun the frame loader.
+    for(let i=0;i<FRAME_COUNT;i++) loadOne(i);
+  }
+
+  heroNavs.forEach(el => el.classList.add("hero-cinematic"));
+  loadHeroFrames();
+  // Mobile browser chrome can fire resize events while the user is simply
+  // scrolling. Do not resize/redraw the hero for those toolbar changes.
+  // A real width change (rotation/device resize) still gets handled.
+  let lastHeroWidth = window.innerWidth;
+  const handleHeroResize = () => {
+    const width = window.innerWidth;
+    if(!mobileMQ.matches || Math.abs(width - lastHeroWidth) > 1){
+      lastHeroWidth = width;
+      sizeHeroCanvas();
+    }
+  };
+  window.addEventListener("resize", handleHeroResize, {passive:true});
+  if(mobileMQ.addEventListener){
+    mobileMQ.addEventListener("change", () => {
+      lastHeroWidth = window.innerWidth;
+      sizeHeroCanvas();
+    });
+  }
+  // -----------------------------------------------------------
+  // Timeline zones (fixed positions, no randomization)
+  // -----------------------------------------------------------
+  const HOOK1_WINDOW = [0.04, 0.16];
+  const HOOK2_WINDOW = [0.18, 0.32];
+  const HOOK3_WINDOW = [0.36, 0.54];
+  const ID_ZONES = {
+    name: [0.64, 0.69],
+    qual: [0.67, 0.72],
+    exp:  [0.70, 0.75],
+    hosp: [0.73, 0.78],
+    photo:[0.76, 0.81],
+  };
+
+  function fadeWindow(p, start, end, fadeFrac){
+    const span = end - start;
+    const fadeIn = start + span * fadeFrac;
+    const fadeOut = end - span * fadeFrac;
+    if(p < start || p > end) return 0;
+    if(p < fadeIn) return (p - start) / (fadeIn - start);
+    if(p > fadeOut) return 1 - (p - fadeOut) / (end - fadeOut);
+    return 1;
+  }
+
+  // The doctor's identity fades in line-by-line, then stays fully visible
+  // while the final coat lift-off frames play and until the hero itself exits.
+  function identityFade(p, start, end){
+    if(p < start) return 0;
+    if(p >= end) return 1;
+    return (p - start) / (end - start);
+  }
+
+  if(window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+
+    // On touch phones, the browser address bar changing height during the
+    // first scroll can fire a large vertical resize. Recalculating a
+    // scrubbed trigger at that moment causes the exact jump we want to avoid.
+    // Keep the trigger's measured geometry stable during those toolbar moves.
+    if(mobileMQ.matches){
+      ScrollTrigger.config({ignoreMobileResize:true});
+    }
+
+    ScrollTrigger.create({
+      trigger: track,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+
+        renderRotation(Math.min(p, ROTATION_END));
+
+        if(hook1) hook1.style.opacity = fadeWindow(p, HOOK1_WINDOW[0], HOOK1_WINDOW[1], 0.28);
+        hook2.style.opacity = fadeWindow(p, HOOK2_WINDOW[0], HOOK2_WINDOW[1], 0.3);
+        if(hook3) hook3.style.opacity = fadeWindow(p, HOOK3_WINDOW[0], HOOK3_WINDOW[1], 0.3);
+
+        const nameOp = identityFade(p, ID_ZONES.name[0], ID_ZONES.name[1]);
+        const qualOp = identityFade(p, ID_ZONES.qual[0], ID_ZONES.qual[1]);
+        const expOp  = identityFade(p, ID_ZONES.exp[0], ID_ZONES.exp[1]);
+        const hospOp = identityFade(p, ID_ZONES.hosp[0], ID_ZONES.hosp[1]);
+        const photoOp = identityFade(p, ID_ZONES.photo[0], ID_ZONES.photo[1]);
+
+        idName.style.opacity = nameOp; idName.style.transform = `translateY(${(1-nameOp)*10}px)`;
+        idQual.style.opacity = qualOp; idQual.style.transform = `translateY(${(1-qualOp)*10}px)`;
+        idExp.style.opacity  = expOp;  idExp.style.transform  = `translateY(${(1-expOp)*10}px)`;
+        idHosp.style.opacity = hospOp; idHosp.style.transform = `translateY(${(1-hospOp)*10}px)`;
+        idPhoto.style.opacity = photoOp; idPhoto.style.transform = `scale(${0.7 + photoOp*0.3})`;
+
+        // Keep the frame at the same physical size while the final source
+        // frames play. The doctor's identity enters over the closing frames,
+        // so the handoff feels continuous instead of shrinking the coat away.
+        if(heroCanvas){
+          heroCanvas.style.transform = mobileMQ.matches
+            ? "translateY(-1.5vh) scale(1)"
+            : "";
+        }
+
+        // Keep the source ending intact. The identity now remains visible
+        // through the entire hero exit instead of fading out early.
+        coatImgWrap.style.opacity = 1;
+        coatImgWrap.style.transform = "none";
+        const identityVisible = Math.max(nameOp, qualOp, expOp, hospOp, photoOp);
+        identityBlock.style.opacity = identityVisible;
+
+        const heroFinished = p >= 0.96;
+        heroNavs.forEach(el => el.classList.toggle("hero-cinematic", !heroFinished));
+        if(identityBlock){
+          const identityProgress = Math.max(0, Math.min(1, (p - 0.67) / 0.13));
+          identityBlock.style.transform = `translateX(-50%) translateY(${(1 - identityProgress) * 34}px)`;
+        }
+
+        progressFill.style.transform = `translateY(${p * (140 - 26)}px)`;
+        if(scrollCue) scrollCue.style.opacity = p > 0.045 ? 0 : 1;
+      },
+    });
+  } else {
+    // GSAP didn't load: skip the scroll-scrubbed reveal and just show
+    // the doctor's identity immediately, so the essential information
+    // is never hidden behind a script dependency.
+    track.classList.add("no-js");
+    // Keep the static hero visible when GSAP is unavailable.
+    [idName, idQual, idExp, idHosp].forEach((el) => {
+      el.style.opacity = 1; el.style.transform = "none";
+    });
+    idPhoto.style.opacity = 1; idPhoto.style.transform = "scale(1)";
+    if(scrollCue) scrollCue.style.display = "none";
+    heroNavs.forEach(el => el.classList.remove("hero-cinematic"));
+  }
+
+  // nav swaps to its light-on-dark variant while the (dark) hero is on screen;
+  // the floating WhatsApp/Call control only appears once the hero has fully
+  // scrolled past, so it never competes with the coat animation or hooks.
+  const floatingContact = document.getElementById("floatingContact");
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const onHero = entry.isIntersecting;
+      nav.classList.toggle("is-on-dark", onHero);
+      if(mobileNav) mobileNav.classList.toggle("is-on-dark", onHero);
+      if(floatingContact) floatingContact.classList.toggle("show", !onHero);
+      const siteAssistant = document.getElementById("siteAssistant");
+      if(siteAssistant) siteAssistant.classList.toggle("show", !onHero);
+    });
+  }, { threshold: 0.05 });
+  navObserver.observe(track);
+
+  // Active section navigation. Separate from the hero timeline.
+  const navSections = [
+    {id:"stories",href:"#stories"},{id:"about",href:"#about"},{id:"care",href:"#care"},
+    {id:"consult",href:"#consult"},{id:"insights",href:"#insights"},{id:"visit",href:"#visit"}
+  ];
+  const navItems=[...document.querySelectorAll(".site-nav .nav-links a, .mobile-nav-row a")];
+
+  function setActiveNav(href){
+    navItems.forEach((link)=>{
+      const active=link.getAttribute("href")===href;
+      link.classList.toggle("active",active);
+      if(active) link.setAttribute("aria-current","page");
+      else link.removeAttribute("aria-current");
+    });
+  }
+
+  function updateActiveNav(){
+    const homePoint=window.innerHeight*0.18;
+    const homeRect=track?track.getBoundingClientRect():null;
+    if(homeRect&&homeRect.top<=homePoint&&homeRect.bottom>homePoint){
+      setActiveNav("index.html");
+      return;
+    }
+    const point=window.innerHeight*0.30;
+    let active=null,best=Infinity;
+    navSections.forEach(({id,href})=>{
+      const section=document.getElementById(id);
+      if(!section)return;
+      const rect=section.getBoundingClientRect();
+      if(rect.top<=point&&rect.bottom>=point){
+        const distance=Math.abs(rect.top-point);
+        if(distance<best){best=distance;active=href;}
+      }
+    });
+    if(!active){
+      navSections.forEach(({id,href})=>{
+        const section=document.getElementById(id);
+        if(!section)return;
+        const rect=section.getBoundingClientRect();
+        const distance=rect.bottom<point?point-rect.bottom:rect.top-point;
+        if(distance<best){best=distance;active=href;}
+      });
+    }
+    setActiveNav(active||"index.html");
+  }
+
+  let navUpdateQueued=false;
+  function queueNavUpdate(){
+    if(navUpdateQueued)return;
+    navUpdateQueued=true;
+    requestAnimationFrame(()=>{navUpdateQueued=false;updateActiveNav();});
+  }
+  window.addEventListener("scroll",queueNavUpdate,{passive:true});
+  window.addEventListener("resize",queueNavUpdate,{passive:true});
+  updateActiveNav();
+
+  // Areas of Care accordion — collapsed by default, one or many open at once
+  document.addEventListener("click", (event) => {
+    const focusBtn = event.target.closest("#focusBookingDate");
+    if(focusBtn){
+      const dateInput = document.getElementById("bookDateInput");
+      if(dateInput){
+        dateInput.scrollIntoView({behavior:"smooth",block:"center"});
+        setTimeout(() => dateInput.focus(), 320);
+      }
+    }
+  });
+
+  document.querySelectorAll(".care-item-head").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".care-item");
+      const isOpen = item.classList.toggle("open");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  });
+
+  const revealEls = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting){ entry.target.classList.add("is-visible"); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  // Patient Insights floating CTA controller.
+  // Loaded from a separate file so the Patient Stories interaction remains isolated.
+  const patientInsightsFloatScript = document.createElement("script");
+  patientInsightsFloatScript.src = "extra-mod/patient-insights-float.js?v=20261020-1";
+  document.head.appendChild(patientInsightsFloatScript);
 })();

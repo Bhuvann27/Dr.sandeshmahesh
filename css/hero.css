@@ -1,25 +1,364 @@
-/* Hero geometry follows the working Amogh master implementation, with stable mobile viewport sizing. */
-.coat-track{position:relative;height:260vh;background:#0E0E0E}
-.coat-stage{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:radial-gradient(120% 90% at 50% 32%,#2E2C27 0%,#1A1916 55%,#0E0E0E 100%);--hero-text:#FCF8F0;--hero-text-dim:#CDC5B5;--hero-accent:#E0A24E;--hero-shadow:rgba(16,11,6,.75)}
-.coat-imgwrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden}
-.hero-frame-canvas{display:block;width:100%;height:100%;object-fit:cover;object-position:center;image-rendering:auto;position:relative;z-index:3}
-.hero-fallback-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1;display:block;opacity:1;transition:opacity .2s ease}.hero-fallback-frame.is-hidden{opacity:0;pointer-events:none}
-.hook-line{position:absolute;top:16%;width:min(80vw,480px);opacity:0;z-index:15;pointer-events:none;will-change:opacity}.hook-line::before{content:"";position:absolute;inset:-22px -26px;background:var(--hero-shadow);filter:blur(30px);border-radius:24px;z-index:-1}.hook-line .eyebrow-sm{display:block;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--hero-accent);margin-bottom:10px}.hook-line p{font-family:var(--font-display,var(--font));font-weight:700;letter-spacing:-.02em;font-size:clamp(1.25rem,3.6vw,1.9rem);line-height:1.12;color:var(--hero-text);text-shadow:0 4px 18px var(--hero-shadow);margin:0}.hook-line p .hl{color:var(--hero-accent);font-size:1.14em}#hook1{left:7%;text-align:left}#hook2{right:7%;text-align:right}#hook3{left:50%;text-align:center}
-.identity-block{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);text-align:center;z-index:16;width:min(92vw,620px);text-shadow:0 4px 18px var(--hero-shadow);opacity:0;will-change:transform,opacity}.identity-line{opacity:0;transform:translateY(10px);margin-bottom:6px}.identity-name{font-family:var(--font-display,var(--font));font-weight:800;letter-spacing:-.02em;font-size:clamp(2rem,3.2vw,3rem);color:var(--hero-text)}.identity-qual{font-size:1rem;font-weight:600;color:var(--hero-text-dim);letter-spacing:.02em}.identity-exp{display:inline-block;background:var(--orange);color:#fff;font-weight:700;font-size:.86rem;letter-spacing:.03em;padding:7px 16px;border-radius:999px;margin:4px 0}.identity-hosp{font-size:.96rem;font-weight:600;color:var(--hero-text-dim)}.identity-photo{width:64px;height:64px;border-radius:50%;overflow:hidden;margin:12px auto 4px;border:2px solid var(--hero-text);box-shadow:0 6px 18px rgba(0,0,0,.4);opacity:0;transform:scale(.7)}.identity-photo img{width:100%;height:100%;object-fit:cover}
-.scroll-progress{position:absolute;right:34px;top:50%;transform:translateY(-50%);width:2px;height:160px;background:rgba(255,255,255,.18);z-index:20;border-radius:2px}.scroll-progress i{display:block;width:100%;height:26px;background:var(--orange);border-radius:2px;transition:transform .1s linear}.scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);color:var(--hero-text-dim);font-size:.72rem;font-weight:600;letter-spacing:.08em;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:20;transition:opacity .3s}.scroll-cue .stick{width:1px;height:30px;background:linear-gradient(rgba(255,255,255,.5),transparent);animation:cue-drop 1.8s var(--ease-in-out,cubic-bezier(.65,0,.35,1)) infinite}@keyframes cue-drop{0%{transform:scaleY(0);transform-origin:top;opacity:0}35%{transform:scaleY(1);transform-origin:top;opacity:1}70%{transform:scaleY(1);transform-origin:bottom;opacity:1}100%{transform:scaleY(0);transform-origin:bottom;opacity:0}}
-@media(min-width:881px){.coat-stage{background:radial-gradient(70% 90% at 50% 42%,#302D27 0%,#1A1916 58%,#0E0E0E 100%)}.hero-frame-canvas{object-fit:contain}.hero-fallback-frame{object-fit:contain}.coat-imgwrap::before,.coat-imgwrap::after{content:"";position:absolute;top:0;bottom:0;width:calc((100% - min(100%,56.25vh))/2);background:#0E0E0E;z-index:2;pointer-events:none}.coat-imgwrap::before{left:0}.coat-imgwrap::after{right:0}}
-@media(max-width:880px){
-  .coat-track{height:260vh;background:#17130F}
-  .coat-stage{height:100dvh;min-height:100dvh;background:#17130F}
-  .coat-imgwrap{display:flex;background:#17130F}
-  .hero-frame-canvas{width:100%;height:100%;object-fit:cover;object-position:center}
-  .hero-fallback-frame{object-fit:cover;object-position:center}
-  .hook-line{top:17%;width:82vw}
-  .identity-block{bottom:8%;width:92vw}
-  .identity-photo{width:58px;height:58px}
-  .identity-name{font-size:clamp(1.65rem,7vw,2.35rem)}
-  .identity-qual,.identity-hosp{font-size:.82rem}
-  .identity-exp{font-size:.72rem}
-  .scroll-progress{right:14px;height:110px}
-  .scroll-cue{bottom:4%}
+/* =========================================================
+   Hero: full-resolution source-frame scroll sequence
+   ========================================================= */
+
+.coat-track{position:relative;height:260vh;background:#0E0E0E;}
+.coat-stage{
+  position:sticky;top:0;height:100vh;width:100%;
+  overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 32%,#2E2C27 0%,#1A1916 55%,#0E0E0E 100%);
+  --hero-text:#FCF8F0;--hero-text-dim:#CDC5B5;--hero-accent:#E0A24E;--hero-shadow:rgba(16,11,6,0.75);
+}
+.coat-imgwrap{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:0;
+}
+.hero-frame-canvas{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:fill;
+  object-position:center;
+  transform-origin:50% 50%;
+  image-rendering:auto;
+}
+
+/* fixed-position hook lines - one settles left, one settles right,
+   so the two moments in the rotation don't feel identical */
+.hook-line{
+  position:absolute;
+  top: 16%;
+  width: min(80vw, 480px);
+  opacity: 0;
+  z-index: 15;
+  pointer-events:none;
+  will-change: opacity;
+}
+.hook-line::before{
+  content:"";
+  position:absolute;
+  inset: -22px -26px;
+  background: var(--hero-shadow);
+  filter: blur(30px);
+  border-radius: 24px;
+  z-index:-1;
+}
+.hook-line .eyebrow-sm{
+  display:block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hero-accent);
+  margin-bottom: 10px;
+}
+.hook-line p{
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.25rem, 3.6vw, 1.9rem);
+  color: var(--hero-text);
+  text-shadow: 0 4px 18px var(--hero-shadow);
+  margin:0;
+}
+#hook1{ left: 6%; text-align:left; }
+#hook2{ right: 6%; text-align:right; }
+#hook2 .eyebrow-sm{ text-align:right; }
+#hook3{ left: 50%; transform: translateX(-50%); text-align:center; }
+#hook3 .eyebrow-sm{ text-align:center; }
+
+/* emphasis word/phrase within a hook line — a size + color shift instead
+   of a flat single-weight sentence, so the line reads with a beat to it */
+.hook-line p .hl{
+  color: var(--hero-accent);
+  font-size: 1.14em;
+  font-style: normal;
+}
+
+/* doctor identity block - fixed centered position, builds line by line */
+.identity-block{
+  position:absolute;
+  left: 50%; bottom: 9%;
+  transform: translateX(-50%);
+  text-align:center;
+  z-index: 16;
+  width: min(92vw, 560px);
+}
+.identity-line{ opacity: 0; transform: translateY(10px); transition: none; margin-bottom: 6px; }
+.identity-name{ font-family: var(--font-display); font-weight: 800; letter-spacing:-0.02em; font-size: clamp(1.7rem, 5vw, 2.6rem); color: var(--hero-text); text-shadow: 0 4px 18px var(--hero-shadow); }
+.identity-qual{ font-size: 0.98rem; font-weight: 600; color: var(--hero-text-dim); letter-spacing: 0.02em; }
+.identity-exp{ display:inline-block; background: var(--orange); color:#fff; font-weight:700; font-size:0.86rem; letter-spacing:0.03em; padding: 7px 16px; border-radius: 999px; margin: 4px 0; }
+.identity-hosp{ font-size: 0.94rem; font-weight: 600; color: var(--hero-text-dim); }
+.identity-photo{
+  width: 64px; height: 64px; border-radius: 50%;
+  overflow:hidden; margin: 12px auto 4px;
+  border: 2px solid var(--hero-text);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  opacity: 0; transform: scale(0.7);
+}
+.identity-photo img{ width:100%; height:100%; object-fit:cover; }
+
+.scroll-progress{ position:absolute; right: clamp(16px, 3vw, 36px); top: 50%; transform: translateY(-50%); width: 2px; height: 140px; background: rgba(255,255,255,0.18); z-index: 20; border-radius: 2px; }
+.scroll-progress i{ display:block; width:100%; height: 26px; background: var(--orange); border-radius: 2px; transition: transform .1s linear; }
+.scroll-cue{ position:absolute; left: 50%; bottom: 18px; transform: translateX(-50%); color: var(--hero-text-dim); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; display:flex; flex-direction:column; align-items:center; gap:8px; z-index: 20; transition: opacity .3s; }
+.scroll-cue .stick{ width:1px; height:30px; background: linear-gradient(rgba(255,255,255,0.5), transparent); animation: cue-drop 1.8s var(--ease-in-out) infinite; }
+@keyframes cue-drop{
+  0%{ transform: scaleY(0); transform-origin: top; opacity: 0; }
+  35%{ transform: scaleY(1); transform-origin: top; opacity: 1; }
+  70%{ transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+  100%{ transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce){ .scroll-cue .stick{ animation: none; } }
+
+@media (max-width:640px){
+   .coat-track{height:300vh;}
+  .coat-imgwrap{padding:0;align-items:center;justify-content:center;}
+  .hero-frame-canvas{
+    width:100%;
+    height:auto;
+    max-width:none;
+    max-height:none;
+  }
+  .identity-block{bottom:8%;width:92vw;}
+  .hook-line{top:17%;width:min(82vw,390px);}
+  #hook1{left:7%;}
+  #hook2{right:7%;}
+  #hook3{left:50%;}
+  .scroll-cue{bottom:4%;}
+}
+
+/* graceful fallback if the GSAP CDN doesn't load: a plain static hero
+   instead of a giant blank scroll track with hidden identity text */
+.coat-track.no-js{ height: auto; }
+.coat-track.no-js .coat-stage{ position: relative; height: auto; min-height: 100vh; padding: 90px 20px; }
+.coat-track.no-js .hook-line{ display:none; }
+.coat-track.no-js .scroll-progress{ display:none; }
+.coat-track.no-js .coat-imgwrap{ position: static; padding: 0; margin-bottom: 24px; }
+.coat-track.no-js .identity-block{ position: static; transform:none; margin: 0 auto; }
+
+/* =========================================================
+   Post-hero
+   ========================================================= */
+.transition-copy{ padding: clamp(60px, 10vw, 110px) 0; text-align: center; }
+.transition-copy p{ font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1.3rem, 3vw, 1.9rem); max-width: 26ch; margin: 0 auto; line-height: 1.3; }
+.transition-copy span{ color: var(--orange); }
+
+.contact-panel{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: start; }
+.contact-detail{ margin: 20px 0; }
+.contact-detail .label{ font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dim-2); margin-bottom: 4px; }
+.contact-detail .value{ font-size: 1.1rem; font-weight: 700; font-family: var(--font-display); }
+.contact-map-note{ border: 1px solid var(--line); border-radius: 16px; padding: 24px; background: var(--paper); }
+@media (max-width: 820px){ .contact-panel{ grid-template-columns: 1fr; gap: 28px; } }
+
+
+/* The cinematic sequence now begins after the dark opening frame. */
+#hook1{display:none;}
+
+
+/* Final hero correction: restore the opening hook and keep the final coat frame
+   visible until the section naturally ends. No artificial fade-to-black. */
+#hook1{display:block !important;}
+.coat-imgwrap{opacity:1 !important;}
+.identity-block{opacity:1;}
+
+
+/* Final hero timing: bring back the coat's lift-off moment, then hand off
+   directly to the real doctor section. */
+@media(max-width:640px){
+  .coat-track{height:260vh;}
+}
+#hook1{display:block!important;}
+
+
+/* Desktop hero: preserve the complete portrait frame without stretching or
+   awkward cropping. The cinematic background fills the remaining viewport. */
+@media (min-width:881px){
+  .coat-stage{
+    background:
+      radial-gradient(70% 90% at 50% 42%,#302D27 0%,#1A1916 58%,#0E0E0E 100%);
+  }
+  .coat-imgwrap{
+    padding:0;
+    overflow:hidden;
+  }
+  .hero-frame-canvas{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+  }
+  .hook-line{
+    top:15%;
+    width:min(34vw,520px);
+  }
+  #hook1{left:7%;}
+  #hook2{right:7%;}
+  .identity-block{
+    bottom:7%;
+    width:min(620px,48vw);
+  }
+  .identity-name{font-size:clamp(2rem,3.2vw,3rem);}
+  .identity-qual{font-size:1rem;}
+  .identity-hosp{font-size:.96rem;}
+  .scroll-progress{right:34px;height:160px;}
+  .scroll-cue{bottom:22px;}
+}
+
+/* =========================================================
+   DESKTOP UI REFINEMENT — requested layout corrections only
+   These rules are intentionally scoped to desktop and do not alter
+   mobile/tablet behavior.
+   ========================================================= */
+@media (min-width:881px){
+  .section-stories-focus .story-cards-focus{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:24px;
+    align-items:stretch;
+  }
+  .section-stories-focus .story-card-primary,
+  .section-stories-focus .story-card-secondary{
+    min-width:0;
+    min-height:410px;
+    width:100%;
+    padding:34px 32px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:0;
+    overflow:hidden;
+    box-sizing:border-box;
+  }
+  .section-stories-focus .story-card .story-kicker{
+    display:block;
+    margin:0 0 22px;
+    line-height:1.25;
+  }
+  .section-stories-focus .story-card .quote{
+    display:block;
+    width:100%;
+    max-width:16ch;
+    margin:0;
+    font-size:clamp(2rem,3vw,3rem);
+    line-height:1.02;
+  }
+  .section-stories-focus .story-card .desc{
+    width:100%;
+    max-width:44ch;
+    margin:20px 0 0;
+    font-size:.96rem;
+    line-height:1.55;
+  }
+  .section-stories-focus .story-card .story-cta{
+    align-self:flex-end;
+    margin-top:28px;
+    flex:none;
+  }
+
+  #about .about-grid{
+    grid-template-columns:minmax(0,1.02fr) minmax(360px,.98fr);
+    gap:clamp(64px,7vw,96px);
+    align-items:start;
+  }
+  #about .about-grid > div:first-child{
+    max-width:620px;
+    padding-top:0;
+  }
+  #about .about-credentials{
+    display:grid;
+    grid-template-rows:repeat(4,minmax(96px,auto));
+    gap:0;
+    align-self:stretch;
+  }
+  #about .about-credentials > div{
+    min-height:96px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:16px 0;
+    margin:0;
+    border-top:1px solid var(--line);
+  }
+  #about .about-credentials > div:first-child{
+    padding-top:0;
+    justify-content:flex-start;
+  }
+  #about .about-credentials span{
+    margin-bottom:7px;
+  }
+  #about .about-credentials strong{
+    line-height:1.25;
+  }
+  #about .about-credentials small{
+    line-height:1.45;
+  }
+
+  #care .care-item.open .care-item-head{
+    padding-bottom:22px;
+    border-bottom:1px solid rgba(242,84,12,.16);
+  }
+  #care .care-item.open .care-item-body{
+    background:var(--paper);
+  }
+  #care .care-item.open .care-item-body-inner{
+    padding:20px 24px 30px 74px;
+    border-top:0;
+  }
+  #care .care-item.open .care-item-body ul{
+    gap:12px;
+    margin:0;
+  }
+  #care .care-item.open .care-item-body li{
+    padding:8px 15px;
+    line-height:1.2;
+  }
+
+  .floating-contact{
+    right:max(28px,env(safe-area-inset-right,0px));
+    bottom:max(28px,env(safe-area-inset-bottom,0px));
+    gap:10px;
+  }
+  .floating-contact a{
+    width:56px;
+    height:56px;
+  }
+  .site-assistant{
+    right:max(28px,env(safe-area-inset-right,0px));
+    bottom:162px;
+    z-index:90;
+  }
+  .site-assistant .assistant-toggle{
+    width:56px!important;
+    height:56px!important;
+  }
+  .site-assistant .assistant-panel{
+    right:0;
+  }
+}
+
+/* =========================================================
+   DESKTOP HERO BACKGROUND — plain dark side extension only.
+   The portrait frame sequence itself is unchanged. Mobile is intentionally
+   excluded so its existing hero rendering remains untouched.
+   ========================================================= */
+@media (min-width:881px){
+  .coat-imgwrap::before,
+  .coat-imgwrap::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:calc((100% - min(100%, 56.25vh)) / 2);
+    background:#0E0E0E;
+    z-index:2;
+    pointer-events:none;
+  }
+  .coat-imgwrap::before{left:0;}
+  .coat-imgwrap::after{right:0;}
+  .hero-frame-canvas{position:relative;z-index:1;}
 }

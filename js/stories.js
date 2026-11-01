@@ -1,19 +1,70 @@
-(function(){'use strict';
-const cfg=window.SUPABASE_CONFIG||{};
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const arr=v=>Array.isArray(v)?v.map(x=>typeof x==='object'?(x.text||x.value||x.point||x.label||''):x).map(String).filter(Boolean):[];
-const dialogue=v=>Array.isArray(v)?v.map(x=>typeof x==='string'?{q:'',a:x}:{q:String(x?.q??x?.question??''),a:String(x?.a??x?.answer??x?.text??'')}).filter(x=>x.q||x.a):[];
-const fixHospital=()=>{const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);const nodes=[];while(w.nextNode())nodes.push(w.currentNode);nodes.forEach(n=>{n.nodeValue=n.nodeValue.replaceAll('Siddhartha Hospital','Siddaganga Hospital').replaceAll('SIDDHARTHA HOSPITAL','SIDDAGANGA HOSPITAL')});};
-async function fetchStories(){if(!window.isSupabaseConfigured||!window.isSupabaseConfigured())return [];const sb=window.supabase.createClient(cfg.url,cfg.anonKey);const {data,error}=await sb.from('patient_insights').select('*').eq('doctor_id',cfg.doctorId).eq('status','published').order('published_at',{ascending:true});if(error)throw error;const stories=(data||[]).map(s=>({...s,relatePoints:arr(s.relate_points??s.relatePoints),actionPoints:arr(s.action_points??s.actionPoints),dialogue:dialogue(s.dialogue)}));const preferred=['demo-1-pcos-and-irregular-periods','demo-2-first-pregnancy-antenatal-care','demo-3-menopause-symptoms'];return stories.sort((a,b)=>{const ai=preferred.indexOf(a.slug),bi=preferred.indexOf(b.slug);if(ai!==-1||bi!==-1)return(ai===-1?99:ai)-(bi===-1?99:bi);return String(a.published_at||a.created_at).localeCompare(String(b.published_at||b.created_at));});}
-function category(s){return String(s.topic||"WOMEN'S HEALTH").trim()||"WOMEN'S HEALTH";}
-function baseNav(){const y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();fixHospital();}
-async function boot(){baseNav();let stories=[];try{stories=await fetchStories()}catch(e){console.error(e)}if(!stories.length){const empty=document.querySelector('.stories-empty');if(empty)empty.hidden=false;return;}const params=new URLSearchParams(location.search);const requested=params.get('story')||params.get('slug');const selected=stories.find(s=>s.slug===requested)||stories[0];if(document.body.classList.contains('patient-stories-page'))initCollection(stories,selected);}
-function chooser(stories,selected){const wrap=document.getElementById('storyPills');if(!wrap)return;wrap.innerHTML=stories.map((s,i)=>`<a class="story-choice ${s.slug===selected.slug?'is-selected':''}" href="stories.html?story=${encodeURIComponent(s.slug)}" ${s.slug===selected.slug?'aria-current="true"':''}><span class="story-choice-number">${String(i+1).padStart(2,'0')}</span><span class="story-choice-copy"><span class="story-choice-label">${esc(category(s))}</span><strong>${esc(s.title)}</strong></span><span class="story-choice-arrow">↗</span></a>`).join('');}
-function populate(stories,s){const title=document.getElementById('storyTitle'),intro=document.getElementById('storyIntro'),label=document.getElementById('selectedStoryLabel');if(title)title.textContent=s.title||'Patient story';if(intro)intro.textContent=s.intro||s.subtitle||'';if(label)label.textContent='PATIENT STORY '+String(stories.indexOf(s)+1).padStart(2,'0');const warn=document.getElementById('demoWarning');if(warn)warn.hidden=!s.is_demo;const list=document.getElementById('relateList');if(list)list.innerHTML=s.relatePoints.map(x=>`<li><span class="dot"></span><span>${esc(x)}</span></li>`).join('');const actions=document.getElementById('actionList');if(actions)actions.innerHTML=s.actionPoints.map(x=>`<li>${esc(x)}</li>`).join('');const ri=document.getElementById('relateIntro');if(ri)ri.textContent=s.relate_intro||s.relateIntro||'';const rc=document.getElementById('relateClose');if(rc)rc.textContent=s.relate_close||s.relateClose||'';const urgent=document.getElementById('urgentText');if(urgent)urgent.textContent=s.urgent||'';fixHospital();}
-function buildConversation(s){const deck=document.getElementById('convPairs');if(!deck)return;const pairs=s.dialogue.length?s.dialogue:[{q:'',a:'This story is being prepared.'}];deck.innerHTML=pairs.map((p,i)=>`<article class="conv-pair ${i?'':'is-active'}"><div class="conv-card-glow"></div><div class="conv-card-inner"><span class="conv-speaker"><span>PATIENT</span><b>↔</b><span>DR. SANDESH</span></span><span class="conv-card-index">${String(i+1).padStart(2,'0')}</span><p class="q">${esc(p.q)}</p><p class="a">${esc(p.a)}</p></div></article>`).join('');}
-function others(stories,s){const wrap=document.getElementById('otherStories');if(!wrap)return;wrap.innerHTML=stories.filter(x=>x.slug!==s.slug).slice(0,6).map(x=>`<a class="other-story-card" href="stories.html?story=${encodeURIComponent(x.slug)}"><span class="other-story-number">PATIENT STORY ${String(stories.indexOf(x)+1).padStart(2,'0')}</span><p class="quote">${esc(x.title)}</p><p class="meta">${esc(x.subtitle||category(x))}</p><span>READ THIS STORY ↗</span></a>`).join('');if(!wrap.children.length){const sec=wrap.closest('.other-stories');if(sec)sec.hidden=true;}}
-function initCollection(stories,s){document.title='Patient Stories — Dr. Sandesh Mahesh';chooser(stories,s);populate(stories,s);buildConversation(s);others(stories,s);startReveal();}
-function startReveal(){document.querySelectorAll('.reveal').forEach(x=>x.classList.add('is-visible'));}
-window.PatientStories={fetchStories};
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+(function(){
+  "use strict";
+
+  function textValue(value){
+    if(value==null)return "";
+    if(typeof value==="string"||typeof value==="number")return String(value);
+    if(Array.isArray(value))return value.map(textValue).filter(Boolean).join(" ");
+    if(typeof value==="object"){
+      for(const key of ["text","value","point","label","content","answer","question","description","name","title","q","a"]){
+        if(value[key]!=null){const v=textValue(value[key]);if(v)return v;}
+      }
+      return "";
+    }
+    return String(value);
+  }
+  function textArray(value){return Array.isArray(value)?value.map(textValue).map(v=>v.trim()).filter(Boolean):[];}
+  function dialogueArray(value){
+    if(!Array.isArray(value))return [];
+    return value.map(item=>{
+      if(typeof item==="string")return {q:"",a:item};
+      if(!item||typeof item!=="object")return null;
+      return {q:textValue(item.q??item.question??""),a:textValue(item.a??item.answer??item.text??"")};
+    }).filter(item=>item&&(item.q||item.a));
+  }
+  function normaliseStory(story){
+    if(!story)return story;
+    return Object.assign({},story,{title:textValue(story.title),subtitle:textValue(story.subtitle),intro:textValue(story.intro),relateIntro:textValue(story.relateIntro),relatePoints:textArray(story.relatePoints),relateClose:textValue(story.relateClose),actionPoints:textArray(story.actionPoints),urgent:textValue(story.urgent),dialogue:dialogueArray(story.dialogue)});
+  }
+
+  async function loadStories(){
+    const local=[]; // Dr. Sandesh's stories come only from the database (published rows).
+    if(!window.PatientInsightsDB)return local.map(normaliseStory);
+    try{
+      const remote=await Promise.race([window.PatientInsightsDB.fetchPublished(),new Promise(resolve=>setTimeout(()=>resolve([]),2500))]);
+      if(!remote.length)return local.map(normaliseStory);
+      const bySlug=new Map(local.map(s=>[s.slug,normaliseStory(s)]));
+      remote.forEach(s=>bySlug.set(s.slug,normaliseStory(s)));
+      return Array.from(bySlug.values());
+    }catch(e){return local.map(normaliseStory);}
+  }
+  function esc(value){return String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+  function inferCategory(story){const raw=String(story.category||story.topic||story.subtitle||story.title||"").toLowerCase();if(/pregnan|antenatal|postnatal|postpartum|labour|delivery/.test(raw))return "Pregnancy";if(/period|menstru|pcos|pcod|fertil|hormon|gynae|gynec|pelvic/.test(raw))return "Gynaecological health";if(/menopaus/.test(raw))return "Menopause";return "Women's health";}
+  function categoryFor(story){return String(story.category||inferCategory(story)).trim()||"Women's health";}
+  loadStories().then(init);
+
+  function init(stories){
+    if(!stories.length)return;
+    const params=new URLSearchParams(window.location.search),requested=params.get("story"),story=stories.find(s=>s.slug===requested)||stories[0],storyIndex=Math.max(0,stories.indexOf(story));
+    const year=document.getElementById("year");if(year)year.textContent=new Date().getFullYear();
+    document.title=String(story.title||"Patient Story").replace(/[“”]/g,"")+" — Dr. Sandesh Mahesh";
+    const eyebrow=document.getElementById("selectedStoryLabel"),title=document.getElementById("storyTitle"),intro=document.getElementById("storyIntro");
+    if(eyebrow)eyebrow.textContent="PATIENT STORY "+String(storyIndex+1).padStart(2,"0");
+    if(title)title.textContent=story.title||"Patient story";
+    if(intro)intro.textContent=story.intro||"A patient conversation from this practice.";
+    const demo=document.getElementById("demoWarning");if(demo)demo.hidden=!story.isDemo;buildLibrary(stories,story);buildConversation(story);
+    const relateIntro=document.getElementById("relateIntro"),relateClose=document.getElementById("relateClose");
+    if(relateIntro)relateIntro.textContent=story.relateIntro||"Sometimes small changes are easy to ignore. You may have noticed that:";
+    if(relateClose)relateClose.textContent=story.relateClose||"When something keeps happening or starts affecting everyday life, it is worth paying attention to.";
+    const relateList=document.getElementById("relateList");
+    if(relateList){relateList.innerHTML="";story.relatePoints.forEach(point=>{const li=document.createElement("li");li.innerHTML='<span class="dot"></span><span>'+esc(point)+'</span>';relateList.appendChild(li);});}
+    const actionList=document.getElementById("actionList");
+    if(actionList){actionList.innerHTML="";story.actionPoints.forEach(point=>{const li=document.createElement("li");li.textContent=textValue(point);actionList.appendChild(li);});}
+    const urgent=document.getElementById("urgentText");if(urgent)urgent.textContent=story.urgent||"If symptoms are sudden, severe, or getting worse, seek medical attention promptly.";
+    buildOtherStories(stories,story);setupReveals();
+  }
+  function buildLibrary(stories,selected){const wrap=document.getElementById("storyPills");if(!wrap)return;wrap.innerHTML="";stories.forEach((s,i)=>{const a=document.createElement("a");a.href="stories.html?story="+encodeURIComponent(s.slug);a.className="story-choice"+(s.slug===selected.slug?" is-selected":"");if(s.slug===selected.slug)a.setAttribute("aria-current","true");a.innerHTML='<span class="story-choice-number">'+String(i+1).padStart(2,"0")+'</span><span class="story-choice-copy"><span class="story-choice-label">'+esc(categoryFor(s))+'</span><strong>'+esc(String(s.title||"").replace(/[“”]/g,""))+'</strong></span><span class="story-choice-arrow" aria-hidden="true">↗</span>';wrap.appendChild(a);});}
+  function buildConversation(story){const wrap=document.getElementById("convPairs");if(!wrap)return;const pairs=story.dialogue;wrap.innerHTML="";(pairs.length?pairs:[{q:"",a:"This story is being prepared."}]).forEach((pair,i)=>{const el=document.createElement("article");el.className="conv-pair"+(i===0?" is-active":"");el.innerHTML='<div class="conv-card-glow" aria-hidden="true"></div><div class="conv-card-inner"><span class="conv-speaker"><span>PATIENT</span><b>↔</b><span>DR. SANDESH</span></span><span class="conv-card-index">'+String(i+1).padStart(2,"0")+'</span><p class="q">'+esc(pair.q||"")+'</p><p class="a">'+esc(pair.a||"")+'</p></div>';wrap.appendChild(el);});const total=wrap.children.length,progress=document.getElementById("convProgressNum");if(progress)progress.textContent="01 / "+String(total).padStart(2,"0");}
+  function buildOtherStories(stories,selected){const wrap=document.getElementById("otherStories");if(!wrap)return;wrap.innerHTML="";const others=stories.filter(s=>s.slug!==selected.slug).slice(0,6);if(!others.length){const section=wrap.closest(".other-stories");if(section)section.style.display="none";return;}others.forEach(s=>{const i=stories.indexOf(s),a=document.createElement("a");a.href="stories.html?story="+encodeURIComponent(s.slug);a.className="other-story-card";a.innerHTML='<span class="other-story-number">PATIENT STORY '+String(i+1).padStart(2,"0")+'</span><p class="quote">'+esc(s.title||"")+'</p><p class="meta">'+esc(s.subtitle||categoryFor(s))+'</p><span class="other-story-read">READ THIS STORY ↗</span>';wrap.appendChild(a);});}
+  function setupReveals(){const revealEls=document.querySelectorAll(".reveal");if("IntersectionObserver" in window){const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");io.unobserve(entry.target);}}),{threshold:.15});revealEls.forEach(el=>io.observe(el));}else revealEls.forEach(el=>el.classList.add("is-visible"));}
 })();
