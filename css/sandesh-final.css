@@ -1,0 +1,62 @@
+/* Final intentional Sandesh layer: only doctor-specific corrections, not a second design system. */
+#insights{background:var(--paper)!important;color:var(--ink)!important}
+#insights .section-head h2{color:var(--ink)!important}
+#insights .section-head p{color:var(--text-dim)!important}
+#consult{background:var(--ink)!important;color:var(--paper)!important}
+#consult .section-head h2{color:var(--paper)!important}
+#consult .section-head p{color:rgba(251,249,244,.72)!important}
+#consult .section-head .eyebrow{color:#FF7A3D!important}
+
+/* Homepage Patient Stories: both cards use the same dark Amogh treatment. */
+.section-stories-focus .story-cards-focus{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:24px!important;align-items:stretch!important}
+.section-stories-focus .story-card,.section-stories-focus .story-card-primary,.section-stories-focus .story-card-secondary{position:relative;min-height:410px!important;width:100%;padding:34px 32px!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:flex-start!important;box-sizing:border-box;overflow:hidden;background:var(--ink)!important;color:var(--paper)!important;border:1px solid rgba(251,249,244,.12)!important;border-radius:20px!important}
+.section-stories-focus .story-card .story-kicker{display:block;margin:0 0 24px;color:rgba(251,249,244,.65)!important;line-height:1.25}
+.section-stories-focus .story-card .quote{display:block;width:100%;max-width:16ch;margin:0;color:var(--paper)!important;font-size:clamp(1.75rem,3vw,2.7rem)!important;line-height:1.04}
+.section-stories-focus .story-card .desc{display:block;width:100%;max-width:44ch;margin:20px 0 0;color:rgba(251,249,244,.68)!important;font-size:.94rem;line-height:1.55}
+.section-stories-focus .story-card .story-cta{display:inline-flex!important;align-items:center;gap:8px;margin-top:auto!important;padding-top:28px;align-self:flex-end;color:var(--orange)!important;font-size:.72rem;font-weight:800;letter-spacing:.1em;line-height:1}
+.section-stories-focus .story-card:hover{transform:translateY(-4px);border-color:var(--orange)!important;background:#211C18!important}
+
+/* Booking: same four-step hierarchy as Amogh, with Supabase kept underneath. */
+#consult .booking-panel{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:28px;align-items:start;padding:0;border:0;background:transparent}
+#consult .booking-form{position:relative;background:var(--paper);color:var(--ink);border:1px solid rgba(251,249,244,.18);border-top:4px solid var(--orange);border-radius:20px;padding:clamp(24px,4vw,36px);box-shadow:0 22px 55px rgba(0,0,0,.28)}
+#consult .booking-meta{display:flex;align-items:center;gap:12px;padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--line);font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--text-dim)}
+#consult .booking-meta i{width:4px;height:4px;border-radius:50%;background:var(--orange);display:block}
+#consult .booking-step-label{font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--orange-deep);margin-bottom:14px}
+#consult .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#consult .booking-grid label{display:flex;flex-direction:column;gap:7px;font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+#consult .booking-grid input{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:.9rem;outline:none}
+#consult .booking-grid input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(242,84,12,.08)}
+#consult .booking-detail-field{display:none}
+#consult .booking-slots-wrap{margin:24px 0 0}
+#consult .booking-label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--text-dim);margin-bottom:12px}
+#consult .booking-slots{display:flex;flex-wrap:wrap;gap:9px;min-height:24px}
+#consult .slot{position:relative}
+#consult .slot input{position:absolute;opacity:0;pointer-events:none}
+#consult .slot span{display:block;border:1px solid var(--line);padding:10px 14px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;background:#fff;color:var(--ink)}
+#consult .slot input:checked+span{background:var(--orange);border-color:var(--orange);color:#fff}
+#consult .booking-loading{color:var(--text-dim);font-size:.84rem}
+#consult .booking-review{margin-top:22px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:18px}
+#consult .booking-review-section{padding:0 0 16px;margin:0 0 16px;border-bottom:1px solid var(--line)}
+#consult .booking-review-section:last-child{padding:0;margin:0;border-bottom:0}
+#consult .booking-review-label{display:block;color:var(--orange-deep);font-size:.62rem;font-weight:800;letter-spacing:.12em;margin-bottom:10px}
+#consult .booking-review-line{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:.84rem}.booking-review-line span{color:var(--text-dim)}.booking-review-line strong{text-align:right}
+#consult .booking-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;flex-wrap:wrap}
+#consult .booking-actions button[hidden]{display:none!important}
+#consult .booking-message{min-height:22px;margin:12px 0 0;color:#9b3c20;font-size:.82rem}.booking-message.ok{color:#28704b}
+#consult .booking-side{background:var(--paper)!important;color:var(--ink)!important;border:1px solid var(--line);border-radius:18px;padding:28px;position:sticky;top:90px;box-shadow:0 14px 40px rgba(0,0,0,.12)}
+#consult .booking-side>span{display:block;color:var(--orange);font-size:.68rem;font-weight:800;letter-spacing:.12em;margin-bottom:10px}
+#consult .booking-side strong{font-size:1.1rem;line-height:1.45}.booking-side p{color:var(--text-dim);font-size:.84rem;line-height:1.55;margin:18px 0 24px}
+#consult .booking-success{padding:24px 0 4px}.booking-success strong{font-size:1.2rem}.booking-success p{color:var(--text-dim)}
+
+@media(max-width:880px){
+ .section-stories-focus .story-cards-focus{grid-template-columns:1fr!important}
+ #consult .booking-panel{grid-template-columns:1fr!important}
+ #consult .booking-side{position:static}
+}
+@media(max-width:640px){
+ .section-stories-focus .story-card{min-height:330px!important;padding:26px 22px!important}
+ .section-stories-focus .story-card .quote{font-size:clamp(1.6rem,8vw,2.15rem)!important}
+ #consult .booking-form{padding:22px 18px 24px}
+ #consult .booking-grid{grid-template-columns:1fr}
+ #consult .booking-actions{justify-content:stretch}.booking-actions .btn{flex:1;justify-content:center}
+}
