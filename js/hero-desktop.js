@@ -1,22 +1,40 @@
-/* Sandesh hero: exact Dr. Amogh sticky/scroll architecture, with Sandesh identity data. */
+/* Sandesh hero: desktop matches Amogh's sticky 197-frame choreography; mobile uses the supplied portrait. */
 (function(){
   'use strict';
-  if(window.innerWidth < 881) return;
   const track=document.getElementById('coatTrack'),stage=document.getElementById('coatStage'),canvas=document.getElementById('heroCanvas');
   if(!track||!stage||!canvas)return;
+  const photoSrc=()=>new Promise((resolve,reject)=>{fetch('assets/doctor-sandesh-supplied.webp.b64',{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject()).then(v=>resolve(`data:image/webp;base64,${v.trim().replace(/\\s+/g,'')}`)).catch(()=>fetch('assets/doctor-sandesh.b64',{cache:'no-store'})).then(r=>r&&r.ok?r.text():Promise.reject()).then(v=>resolve(`data:image/webp;base64,${v.trim().replace(/\\s+/g,'')}`)).catch(reject)});
+
+  if(window.innerWidth<881){
+    track.style.height='100vh';
+    stage.style.height='100vh';
+    const wrap=document.getElementById('coatImgWrap');
+    if(!wrap)return;
+    const box=document.createElement('div');box.className='mobile-hero-photo';
+    const img=document.createElement('img');img.alt='Dr. Sandesh Mahesh';box.appendChild(img);wrap.appendChild(box);
+    photoSrc().then(src=>{img.src=src}).catch(()=>{});
+    const h1=document.getElementById('hook1'),h2=document.getElementById('hook2'),h3=document.getElementById('hook3');
+    [h1,h2,h3].forEach((el,i)=>{if(el)el.style.opacity=i===0?'1':'0'});
+    const name=document.getElementById('idName'),qual=document.getElementById('idQual'),exp=document.getElementById('idExp'),hosp=document.getElementById('idHosp'),photo=document.getElementById('identityPhoto');
+    [name,qual,exp,hosp,photo].forEach(el=>{if(el){el.style.opacity='1';el.style.transform=el===photo?'scale(1)':'translateY(0)'}});
+    return;
+  }
+
   const FRAME_W=1440,FRAME_H=810,FRAME_COUNT=197,FRAME_DIR='assets/hero-sequence-desktop/',ROTATION_END=.96;
   const frames=new Array(FRAME_COUNT),ctx=canvas.getContext('2d',{alpha:false});
-  let current=0,raf=0;
+  let current=0,raf=0,loaded=0;
   track.style.position='relative';track.style.height='260vh';stage.style.position='sticky';stage.style.top='0';stage.style.height='100vh';stage.style.width='100%';
-  const style=document.createElement('style');style.textContent='@media(min-width:881px){.coat-imgwrap::before,.coat-imgwrap::after{display:none!important}.hero-frame-canvas{position:relative!important;z-index:1!important}}';document.head.appendChild(style);
+  const style=document.createElement('style');style.textContent='@media(min-width:881px){.coat-imgwrap::before,.coat-imgwrap::after{display:none!important}.hero-frame-canvas{position:relative!important;z-index:2!important}}';document.head.appendChild(style);
   function size(){const r=canvas.parentElement.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.height*dpr));draw(current)}
-  function draw(index){const img=frames[index];if(!img||!img.complete)return;current=Math.max(0,Math.min(FRAME_COUNT-1,index));const cw=canvas.width,ch=canvas.height,scale=Math.max(cw/FRAME_W,ch/FRAME_H),dw=FRAME_W*scale,dh=FRAME_H*scale,dx=(cw-dw)*.5,dy=(ch-dh)*.5;ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.fillStyle='#0E0E0E';ctx.fillRect(0,0,cw,ch);ctx.drawImage(img,0,0,FRAME_W,FRAME_H,dx,dy,dw,dh)}
+  function draw(index){const img=frames[index]||frames[current];if(!img||!img.complete)return;current=Math.max(0,Math.min(FRAME_COUNT-1,index));const cw=canvas.width,ch=canvas.height,scale=Math.max(cw/FRAME_W,ch/FRAME_H),dw=FRAME_W*scale,dh=FRAME_H*scale,dx=(cw-dw)*.5,dy=(ch-dh)*.5;ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.fillStyle='#0E0E0E';ctx.fillRect(0,0,cw,ch);ctx.drawImage(img,0,0,FRAME_W,FRAME_H,dx,dy,dw,dh)}
+  function mountFallback(){if(document.querySelector('.hero-fallback-photo'))return;const wrap=document.getElementById('coatImgWrap');if(!wrap)return;const img=document.createElement('img');img.className='hero-fallback-photo';img.alt='Dr. Sandesh Mahesh';wrap.appendChild(img);photoSrc().then(src=>{img.src=src;img.classList.add('is-visible');canvas.style.visibility='hidden'}).catch(()=>{})}
   function fade(p,a,b,f){if(p<a||p>b)return 0;const span=b-a,fi=a+span*f,fo=b-span*f;if(p<fi)return(p-a)/(fi-a);if(p>fo)return 1-(p-fo)/(b-fo);return 1}
   function identityFade(p,a,b){if(p<a)return 0;if(p>=b)return 1;return(p-a)/(b-a)}
   const h1=document.getElementById('hook1'),h2=document.getElementById('hook2'),h3=document.getElementById('hook3');
   const idName=document.getElementById('idName'),idQual=document.getElementById('idQual'),idExp=document.getElementById('idExp'),idHosp=document.getElementById('idHosp'),idPhoto=document.getElementById('identityPhoto'),identityBlock=document.getElementById('identityBlock');
   const progressFill=document.getElementById('progressFill'),scrollCue=document.getElementById('scrollCue'),navs=[document.getElementById('siteNav'),document.getElementById('mobileNav')].filter(Boolean);
-  for(let i=0;i<FRAME_COUNT;i++){const img=new Image();img.decoding='async';img.src=FRAME_DIR+`frame_${String(i+1).padStart(4,'0')}.webp`;img.onload=()=>{frames[i]=img;if(i===0||i===current)draw(current)}}
+  for(let i=0;i<FRAME_COUNT;i++){const img=new Image();img.decoding='async';img.src=FRAME_DIR+`frame_${String(i+1).padStart(4,'0')}.webp`;img.onload=()=>{frames[i]=img;loaded++;if(i===0||i===current)draw(current)};}
+  setTimeout(()=>{if(!loaded)mountFallback()},2200);
   const ambient=document.createElement('div');ambient.className='hero-ambient-desktop';ambient.innerHTML='<span class="ambient-mark ambient-cross">+</span><span class="ambient-mark ambient-ring"></span><span class="ambient-mark ambient-ecg">⌁</span><span class="ambient-mark ambient-dot"></span>';stage.appendChild(ambient);
   const ambientStyle=document.createElement('style');ambientStyle.textContent='@media(min-width:881px){.hero-ambient-desktop{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden;opacity:.72}.ambient-mark{position:absolute;display:block;color:rgba(224,162,78,.42);text-shadow:0 0 22px rgba(224,162,78,.16);will-change:transform;transition:transform .18s ease-out}.ambient-cross{left:15%;top:29%;font:500 18px/1 Inter,sans-serif}.ambient-ring{right:14%;top:23%;width:28px;height:28px;border:1px solid rgba(252,248,240,.18);border-radius:50%}.ambient-ecg{right:20%;bottom:26%;font:400 38px/1 Inter,sans-serif;opacity:.24}.ambient-dot{left:22%;bottom:25%;width:5px;height:5px;border-radius:50%;background:rgba(252,248,240,.3);box-shadow:0 0 18px rgba(252,248,240,.18)}}';document.head.appendChild(ambientStyle);
   stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;ambient.querySelectorAll('.ambient-mark').forEach((el,i)=>{const d=(i+1)*4;el.style.marginLeft=`${x*d}px`;el.style.marginTop=`${y*d}px`})},{passive:true});
