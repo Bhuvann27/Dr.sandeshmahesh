@@ -1,27 +1,22 @@
-# Dr. Sandesh Mahesh — ANISE website
+# Dr. Sandesh Mahesh — Obstetrics & Gynaecology (ANISE)
 
-This repository is the OBGYN adaptation of the Dr. Amogh website system.
+Public doctor website for Dr. Sandesh Mahesh, MBBS, MS, FRM, FMAS, Siddaganga Hospital, Tumakuru.
+Static site (HTML/CSS/JS), Supabase for bookings, patient insights and videos.
 
-## Current build
-- Dr. Sandesh Mahesh — MBBS, MS, FRM, FMAS
-- Obstetrics & Gynaecology
-- 4+ years of experience
-- Siddhartha Hospital, Tumakuru
-- Consultation Monday–Saturday, 3 PM–8 PM
-- Phone/WhatsApp: 7406886226
-- Email: support.anise@gmail.com
-- YouTube: @Namma_DrSandesh
-- No Supabase connection
-- Patient Stories intentionally empty
+## Design system
+`css/main.css`, `css/hero.css`, `css/stories*.css`, `extra-mod/`, `js/main.js`, `js/hero-desktop.js`,
+`js/stories-v7.js`, `js/booking-widget.js` and `js/site-assistant.js` are the **Dr. Amogh design system**,
+kept as close to the reference as possible so future design updates can be diffed against it.
 
-## Architecture
-Plain HTML/CSS/JS, following the visual and interaction language of `Bhuvann27/Dr.amogh`.
+Sandesh-specific files:
+- `index.html`, `stories.html`, `story.html` — content
+- `css/sandesh.css` — video cards, portrait fallback, fictional-preview notice, and a clearly marked "LUXE" layer (delete that block for the pure Amogh look)
+- `js/sandesh.js`, `js/videos.js`, `js/booking-db.js`, `js/patient-insights-db.js`, `js/stories.js` — data/behaviour for this doctor
+- `js/supabase-config.js`, `supabase/schema.sql`, `admin/` — unchanged from before this branch
 
-The desktop hero uses the existing generic cinematic hero-frame system from the reference repository. The Sandesh profile photograph is stored locally at `assets/doctor-sandesh.webp`.
-
-No Dr. Amogh repository files are modified by this project.
-
-## Important content rule
-Medical credentials, services and claims must only be expanded after verification. The current Care section is a high-level OBGYN representation based on the information supplied for this build, not a definitive procedure list.
-
-Patient Stories must not be populated with fictional or copied stories.
+## Open items before going live
+1. **Supabase**: `js/supabase-config.js` points at the same Supabase project URL as the Dr. Amogh site (separated only by doctor ID). ANISE rule is one project per doctor — move this site to its own project.
+2. **Assistant**: `js/site-assistant.js` answers locally only (`endpoint = ""`). Do not point it at another doctor's function.
+3. **Patient stories**: current stories are fictional previews (`is_demo`). Replace with real, consented stories.
+4. **Contact details**: phone/WhatsApp 7406886226 is identical to the Dr. Amogh site — confirm it is Dr. Sandesh's.
+5. **Admin** (`admin/`) has not been restyled.
