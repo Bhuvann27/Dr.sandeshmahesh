@@ -2,6 +2,11 @@
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 
+  const parityCss=document.createElement('link');
+  parityCss.rel='stylesheet';
+  parityCss.href='css/parity-final.css';
+  document.head.appendChild(parityCss);
+
   const applyPhoto=(src)=>{
     if(!src)return;
     $$('[data-doctor-photo]').forEach(img=>{
@@ -99,10 +104,25 @@
   }
   if(window.SUPABASE_CONFIG?.url)initAssistant();
 
-  // Load the hero renderer after the page is ready. Keeping this separate prevents
-  // the content/booking logic from being coupled to the cinematic scroll engine.
-  const heroScript=document.createElement('script');
-  heroScript.src='js/hero-desktop.js';
-  heroScript.defer=true;
-  document.head.appendChild(heroScript);
+  // Load the cinematic dependencies before the renderer so the hero can use
+  // the same GSAP/ScrollTrigger behavior as the proven Amogh implementation.
+  function loadScript(src){
+    return new Promise((resolve,reject)=>{
+      if(document.querySelector(`script[src="${src}"]`)){resolve();return;}
+      const script=document.createElement('script');
+      script.src=src;script.async=false;
+      script.onload=resolve;script.onerror=reject;
+      document.head.appendChild(script);
+    });
+  }
+  Promise.resolve()
+    .then(()=>loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js'))
+    .then(()=>loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js'))
+    .catch(()=>{})
+    .finally(()=>{
+      const heroScript=document.createElement('script');
+      heroScript.src='js/hero-desktop.js';
+      heroScript.defer=true;
+      document.head.appendChild(heroScript);
+    });
 })();
