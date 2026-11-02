@@ -41,9 +41,20 @@ window.PatientInsightsDB = (function(){
     "demo-3-menopause-symptoms",
   ];
 
+  const demoBySlug = () => {
+    const m = {};
+    (window.SANDESH_DEMO_STORIES || []).forEach((d) => { m[d.slug] = d; });
+    return m;
+  };
+  const sortStories = (list) => list.sort((a,b) => {
+    const ai = PREFERRED_ORDER.indexOf(a.slug), bi = PREFERRED_ORDER.indexOf(b.slug);
+    if(ai !== -1 || bi !== -1) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    return String(a.publishedAt || "").localeCompare(String(b.publishedAt || ""));
+  });
+
   async function fetchPublished(){
     const c = getClient();
-    if(!c) return [];
+    if(!c) return sortStories((window.SANDESH_DEMO_STORIES || []).slice());
     try{
       const cfg = window.SUPABASE_CONFIG;
       const { data, error } = await c
@@ -52,13 +63,19 @@ window.PatientInsightsDB = (function(){
         .eq("doctor_id", cfg.doctorId)
         .eq("status", "published")
         .order("published_at", { ascending: true });
-      if(error || !data) return [];
-      return data.map(toStoryShape).sort((a,b) => {
-        const ai = PREFERRED_ORDER.indexOf(a.slug), bi = PREFERRED_ORDER.indexOf(b.slug);
-        if(ai !== -1 || bi !== -1) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-        return String(a.publishedAt || "").localeCompare(String(b.publishedAt || ""));
-      });
-    }catch(e){ return []; }
+      if(error || !data) return sortStories((window.SANDESH_DEMO_STORIES || []).slice());
+      const demos = demoBySlug();
+      /* Demo rows get the short fictional content above; real stories pass through untouched. */
+      const demoList = window.SANDESH_DEMO_STORIES || [];
+      let nextDemo = 0;
+      return sortStories(data.map(toStoryShape).map((row) => {
+        if(!row.isDemo) return row;
+        /* match by slug; if a demo row has a different slug, fall back to position, keeping the row's own slug */
+        const src = demos[row.slug] || demoList[nextDemo];
+        nextDemo += 1;
+        return src ? Object.assign({}, row, src, { id: row.id, slug: row.slug }) : row;
+      }));
+    }catch(e){ return sortStories((window.SANDESH_DEMO_STORIES || []).slice()); }
   }
 
   return { fetchPublished };

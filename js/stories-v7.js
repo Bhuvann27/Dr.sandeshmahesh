@@ -28,9 +28,26 @@
     let lastScrollY=window.scrollY;
     let releaseGuardUntil=0;
     let releaseDirection=0;
+    let gestureGateUntil=0;   /* ignore leftover momentum right after the deck locks */
 
     const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
-    const viewportHeight=()=>window.visualViewport?.height||window.innerHeight;
+    /* Stable viewport height. On phones the browser address bar slides in and
+       out while scrolling, which changes the visual viewport by 50-80px. The
+       track height is (cards x viewport height), so reacting to that would
+       move every boundary by well over a thousand pixels mid-scroll and make
+       the page jump or "jam". Only a real change (rotation / resize) updates it. */
+    let stableVh=window.innerHeight;
+    let stableVw=window.innerWidth;
+    const viewportHeight=()=>stableVh;
+    function refreshViewport(){
+      const h=window.visualViewport?.height||window.innerHeight;
+      const w=window.innerWidth;
+      if(Math.abs(w-stableVw)>40||Math.abs(h-stableVh)>180){
+        stableVh=h;stableVw=w;
+        return true;
+      }
+      return false;
+    }
 
     function navOffset(){
       const nav=document.querySelector(".site-nav");
@@ -119,7 +136,7 @@
       /* Give the page enough distance to leave the boundary before another
          gesture is allowed to re-enter the card sequence. */
       releaseDirection=direction;
-      releaseGuardUntil=performance.now()+850;
+      releaseGuardUntil=performance.now()+900;
 
       let destination;
       if(direction<0){
@@ -128,7 +145,7 @@
       }else{
         const end=conversationEndY();
         const maxScroll=Math.max(0,document.documentElement.scrollHeight-viewportHeight());
-        destination=Math.min(maxScroll,end+Math.max(90,viewportHeight()*0.16));
+        destination=Math.min(maxScroll,end+Math.max(220,viewportHeight()*0.30));
       }
 
       lastScrollY=window.scrollY;
@@ -137,6 +154,7 @@
 
     function go(direction){
       if(changing||!locked)return;
+      if(performance.now()<gestureGateUntil)return;
       const next=active+direction;
 
       /* First card: upward movement gives the page back to the browser.
@@ -159,6 +177,7 @@
       lockedY=y;
       releaseDirection=0;
       releaseGuardUntil=0;
+      gestureGateUntil=performance.now()+650;
       stage.classList.add("is-engaged","at-lock-point");
       stage.style.touchAction="none";
       viewport.style.touchAction="none";
@@ -214,7 +233,7 @@
        scroll position crosses the lock boundary during that same finger drag.
        A gesture that starts after lock is the only one captured for cards. */
     function touchStart(e){
-      touchSessionLocked=locked;
+      touchSessionLocked=locked&&performance.now()>=gestureGateUntil;
       touchStartY=null;
       touchStartX=null;
       if(!touchSessionLocked)return;
@@ -263,6 +282,9 @@
       if(!locked)return;
       e.preventDefault();
       const now=performance.now();
+      /* Momentum from the scroll that brought the reader here keeps arriving
+         for a moment. Swallow it, and keep swallowing while it continues. */
+      if(now<gestureGateUntil){gestureGateUntil=Math.max(gestureGateUntil,now+160);return;}
       if(now<wheelLockUntil)return;
       if(Math.abs(e.deltaY)<5)return;
       wheelLockUntil=now+470;
@@ -311,8 +333,9 @@
     stage.setAttribute("aria-label","Patient and doctor conversation. Swipe vertically through the conversation.");
 
     window.addEventListener("scroll",onScroll,{passive:true});
-    window.addEventListener("resize",layout,{passive:true});
-    window.visualViewport?.addEventListener("resize",layout,{passive:true});
+    const onResize=()=>{if(refreshViewport())layout();};
+    window.addEventListener("resize",onResize,{passive:true});
+    window.visualViewport?.addEventListener("resize",onResize,{passive:true});
 
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
       layout();

@@ -41,7 +41,7 @@
         if(!stories || !stories.length) return;
         const pick = stories.slice(0, 2);
         cards.innerHTML = pick.map((s, i) => `<a class="story-card ${i ? "story-card-secondary" : "story-card-primary"}" href="stories.html?story=${encodeURIComponent(s.slug)}" aria-label="Read patient story: ${esc(clean(s.title))}">
-          <span class="story-kicker">PATIENT STORY ${String(i + 1).padStart(2, "0")}</span>
+          <span class="story-kicker">PATIENT STORY ${String(i + 1).padStart(2, "0")}</span>${s.isDemo ? '<span class="story-tag">FICTIONAL PREVIEW</span>' : ""}
           <p class="quote">&ldquo;${esc(clean(s.title))}&rdquo;</p>
           <p class="desc">${esc(s.subtitle || s.intro || "")}</p>
           <span class="story-cta">READ STORY <span class="arrow">↗</span></span></a>`).join("");
@@ -52,5 +52,14 @@
             : "Stories are shared anonymously with consent and open separately so you can read at your own pace.";
         }
       }).catch(() => {});
+  }
+
+  /* 3. Instagram card — shown only when a handle is set in js/site-config.js */
+  const ig = document.getElementById("instagramCard");
+  const handle = String((window.SITE_CONFIG && window.SITE_CONFIG.instagram) || "").replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/\/.*$/, "").trim();
+  if(ig && /^[A-Za-z0-9._]{1,30}$/.test(handle)){
+    ig.href = "https://www.instagram.com/" + handle + "/";
+    const t = document.getElementById("instagramHandleText"); if(t) t.textContent = "@" + handle;
+    ig.hidden = false;
   }
 })();
