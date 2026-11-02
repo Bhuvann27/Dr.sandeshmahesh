@@ -214,7 +214,7 @@
         </div>
         <div class="review-card">
           <div class="review-card-section">
-            <span class="review-card-label">CONSULTATION</span>
+            <span class="review-card-label">VIDEO CONSULTATION</span>
             <div class="review-line"><span>Date</span><strong>${esc(formatDateHuman(state.dateISO))}</strong></div>
             <div class="review-line"><span>Time</span><strong>${esc(formatTimeHuman(state.slot))}</strong></div>
             <div class="review-line"><span>Duration</span><strong>15 minutes</strong></div>
@@ -234,7 +234,7 @@
         ${state.error ? `<p class="booking-error-text">${esc(state.error)}</p>` : ""}
         <div class="booking-step-actions">
           <button type="button" class="btn-ghost-sm" id="bookBackToDetails">&larr; Back</button>
-          <button type="button" class="btn btn-primary" id="bookSubmit">Request a consultation</button>
+          <button type="button" class="btn btn-primary" id="bookSubmit">Request a video consultation</button>
         </div>
       </div>`,
 
@@ -370,7 +370,7 @@
       });
       state.step = "success";
       render();
-      const message = `Hello Dr. Sandesh Mahesh, I would like to request a consultation.\n\n` +
+      const message = `Hello Dr. Sandesh Mahesh, I would like to request an online (video call) consultation.\n\n` +
         `Date: ${formatDateHuman(state.dateISO)}\n` +
         `Time: ${formatTimeHuman(state.slot)}\n` +
         `Duration: 15 minutes\n` +
@@ -388,7 +388,7 @@
         loadSlots();
       } else {
         state.error = "Something went wrong sending your request. Please try again, or contact the clinic directly.";
-        btn.disabled = false; btn.textContent = "Request a consultation";
+        btn.disabled = false; btn.textContent = "Request a video consultation";
         render();
       }
     }
