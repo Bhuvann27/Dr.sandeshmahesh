@@ -42,13 +42,13 @@ create trigger trg_patient_insights_timestamps before update on patient_insights
 create table if not exists availability_weekly (
   day_of_week int primary key check (day_of_week between 0 and 6),
   is_open boolean not null default false,
-  start_time time not null default '15:00',
+  start_time time not null default '17:00',
   end_time time not null default '20:00',
   updated_at timestamptz not null default now()
 );
 
 insert into availability_weekly(day_of_week,is_open,start_time,end_time) values
-(0,false,'15:00','20:00'),(1,true,'15:00','20:00'),(2,true,'15:00','20:00'),(3,true,'15:00','20:00'),(4,true,'15:00','20:00'),(5,true,'15:00','20:00'),(6,true,'15:00','20:00')
+(0,false,'17:00','20:00'),(1,true,'17:00','20:00'),(2,true,'17:00','20:00'),(3,true,'17:00','20:00'),(4,true,'17:00','20:00'),(5,true,'17:00','20:00'),(6,true,'17:00','20:00')
 on conflict(day_of_week) do nothing;
 
 create table if not exists availability_blocks (

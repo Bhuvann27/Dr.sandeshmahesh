@@ -218,10 +218,10 @@
   const localAnswer = (q) => {
     const x = q.toLowerCase();
     if(/book|appointment|consult|online|video|call/.test(x)){
-      return "You can talk to Dr. Sandesh over a video call. Open the Online Consultation section, choose a date and an available time, and review your request before sending it. It is listed as a 15-minute consultation for ₹500, Monday to Saturday, 3 PM to 8 PM, and the clinic confirms the appointment with you. If your concern needs an in-person examination, the doctor will advise you.";
+      return "You can talk to Dr. Sandesh over a video call. Open the Online Consultation section, choose a date and an available time, and review your request before sending it. It is listed as a 15-minute consultation for ₹500, Monday to Saturday, 5 PM to 8 PM, and the clinic confirms the appointment with you. If your concern needs an in-person examination, the doctor will advise you.";
     }
     if(/where|location|hospital|address|tumakuru|tumkur|timing|time|open|hours/.test(x)){
-      return "Dr. Sandesh Mahesh is listed at Siddaganga Hospital, Tumakuru. Consultation hours are Monday to Saturday, 3 PM to 8 PM. The Visit section has the phone number and a directions link.";
+      return "Dr. Sandesh Mahesh is listed at Siddaganga Hospital, Tumakuru. Consultation hours are Monday to Saturday, 5 PM to 8 PM. The Visit section has the phone number and a directions link.";
     }
     if(/bleed|leak|fluid|baby.*(move|kick)|movement|fits|seizure|severe (pain|headache)|faint|breath/.test(x)){
       return "Heavy vaginal bleeding, severe abdominal pain, fluid leaking, reduced baby movements in pregnancy, a severe headache with vision changes, fits, fainting or difficulty breathing need urgent in-person medical care. Please go to the nearest hospital or call the clinic straight away rather than waiting for a reply here.";
