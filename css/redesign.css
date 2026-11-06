@@ -112,3 +112,86 @@ body.glass .care-category-note{background:rgba(255,255,255,.55);-webkit-backdrop
   .hero-cta{margin-top:24px}
   .hero-cta .hbtn{flex:1 1 100%}
 }
+
+/* =========================================================
+   Round 2: clearer portrait, orbiting light, more glass, colour-coded journey, tidy visit section
+   ========================================================= */
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+
+/* ---- hero portrait: clear face, glowing light that travels around the frame ---- */
+.hero-arch-wrap{position:relative;padding:4px;border-radius:234px 234px 34px 34px;
+  background:conic-gradient(from var(--a),rgba(255,255,255,.08) 0 58%,#FFE2C8 74%,#FF8A4C 86%,#F2540C 92%,rgba(255,255,255,.08) 100%);
+  animation:spinA 7s linear infinite;box-shadow:0 0 80px -14px rgba(242,84,12,.5),0 50px 100px -50px rgba(0,0,0,.9)}
+@keyframes spinA{to{--a:360deg}}
+.hero-arch-wrap::before{content:"";position:absolute;inset:-16px;border-radius:250px 250px 46px 46px;border:1px solid rgba(255,255,255,.14);pointer-events:none}
+.hero-arch{border:0!important;box-shadow:none!important;border-radius:230px 230px 30px 30px}
+.hero-arch img{object-position:50% 16%;filter:saturate(1.06) contrast(1.03)}
+.spark{position:absolute;z-index:4;width:7px;height:7px;border-radius:50%;background:#FFE7D2;box-shadow:0 0 14px 4px rgba(255,170,120,.85);animation:twinkle 3.6s ease-in-out infinite}
+.sp1{left:-6%;top:26%}.sp2{right:-8%;top:44%;animation-delay:-1.2s;width:5px;height:5px}.sp3{left:8%;top:-3%;animation-delay:-2.1s}.sp4{right:6%;bottom:-3%;animation-delay:-.6s;width:6px;height:6px}.sp5{left:-4%;bottom:12%;animation-delay:-2.8s;width:4px;height:4px}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.6) translateY(0)}50%{opacity:1;transform:scale(1.15) translateY(-8px)}}
+/* glass cards sit on the edges, never over the face */
+.gc-b{top:-5%;right:-30px}
+.gc-a{left:-44px;bottom:11%}
+.gc-c{right:-14px;bottom:2%}
+@media(max-width:900px){
+  .hero-visual{width:min(84%,330px)}
+  .gc-b{top:-6%;right:-18px;max-width:150px}
+  .gc-a{left:-20px;bottom:9%}
+  .gc-c{right:-10px;bottom:0}
+}
+@media(prefers-reduced-motion:reduce){.hero-arch-wrap{animation:none}.spark{animation:none;opacity:.7}}
+
+/* ---- more glass ---- */
+:root{--glass-bg:rgba(255,255,255,.4)}
+body.glass::before{background:
+  radial-gradient(52% 44% at 6% 6%,rgba(255,196,170,.85),rgba(255,196,170,0) 64%),
+  radial-gradient(46% 40% at 96% 16%,rgba(214,190,255,.5),rgba(214,190,255,0) 64%),
+  radial-gradient(48% 42% at 12% 62%,rgba(255,214,150,.45),rgba(255,214,150,0) 64%),
+  radial-gradient(60% 50% at 76% 96%,rgba(242,84,12,.16),rgba(242,84,12,0) 64%)}
+body.glass::after{content:"";position:fixed;z-index:-1;pointer-events:none;width:60vmax;height:60vmax;right:-20vmax;top:30vh;border-radius:50%;background:radial-gradient(circle,rgba(255,150,110,.28),rgba(255,150,110,0) 65%);animation:orbC 24s ease-in-out infinite}
+@keyframes orbC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-8vmax,-6vmax,0)}}
+body.glass :is(.care-item,.faq-item,.journey-card,.lifestage-card,.duedate-card,.ci-card,.location-card,.video-empty,.about-credentials>div,.contact-panel,.booking-widget-wrap){
+  background:linear-gradient(135deg,rgba(255,255,255,.74) 0%,rgba(255,255,255,.34) 46%,rgba(255,255,255,.16) 100%);
+  -webkit-backdrop-filter:blur(26px) saturate(1.8);backdrop-filter:blur(26px) saturate(1.8);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:0 30px 70px -38px rgba(150,60,30,.5),inset 0 1px 0 rgba(255,255,255,1),inset 0 -1px 0 rgba(255,255,255,.35)}
+body.glass :is(.lifestage-card,.journey-card,.faq-item,.care-item){transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out),background .45s}
+body.glass :is(.lifestage-card,.faq-item,.care-item):hover{transform:translateY(-3px)}
+body.glass .care-item.open{background:linear-gradient(135deg,rgba(255,232,218,.9),rgba(255,214,190,.55))}
+body.glass .consult-summary{background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.05));-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+body.glass .booking-widget-wrap{background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(255,255,255,.78))}
+body.glass .youtube-card,body.glass .short-card{border:1px solid rgba(255,255,255,.7)}
+body.glass .instagram-card{border:1px solid rgba(255,255,255,.25);box-shadow:0 0 0 1px rgba(242,84,12,.15),0 30px 70px -28px rgba(242,84,12,.6),inset 0 1px 0 rgba(255,255,255,.22)}
+body.glass .story-card{background:linear-gradient(150deg,rgba(55,42,36,.88),rgba(23,19,15,.94));-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);box-shadow:0 40px 80px -42px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.18)}
+body.glass .site-footer{background:linear-gradient(180deg,#1d140f,#120b08)}
+body.glass .eyebrow{display:inline-flex;align-items:center;gap:10px}
+
+/* ---- colour-coded pregnancy journey ---- */
+body.glass .jc-block{margin-top:10px;padding:14px 16px 14px 18px;border-top:0;border-radius:18px;position:relative;overflow:hidden;border:1px solid transparent}
+body.glass .jc-block::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+body.glass .jc-block b{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+body.glass .jc-block b::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 0 4px rgba(255,255,255,.7)}
+body.glass .jc-happens{background:linear-gradient(135deg,rgba(255,150,170,.28),rgba(255,150,170,.1));border-color:rgba(232,96,122,.28)}
+body.glass .jc-happens::before{background:#E8607A}.jc-happens b{color:#C23A57}.jc-happens li::marker{color:#E8607A}
+body.glass .jc-done{background:linear-gradient(135deg,rgba(90,205,185,.26),rgba(90,205,185,.09));border-color:rgba(47,158,143,.3)}
+body.glass .jc-done::before{background:#2F9E8F}.jc-done b{color:#1E7A6E}.jc-done li::marker{color:#2F9E8F}
+body.glass .jc-ask{background:linear-gradient(135deg,rgba(250,200,90,.34),rgba(250,200,90,.12));border-color:rgba(201,150,43,.34)}
+body.glass .jc-ask::before{background:#D49A1E}.jc-ask b{color:#A97508}.jc-ask li::marker{color:#D49A1E}
+body.glass .jc-block ul{font-weight:500}
+
+/* ---- visit section: clean, aligned, mobile-first ---- */
+body.glass .contact-panel{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(20px,4vw,44px);align-items:stretch;padding:clamp(22px,4vw,42px);border-radius:30px}
+body.glass .contact-detail{display:grid;gap:4px;padding:14px 0;margin:0;border-bottom:1px solid rgba(23,19,15,.09)}
+body.glass .contact-detail:first-child{padding-top:0}
+body.glass .contact-detail .label{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep)}
+body.glass .contact-detail .value{font-size:1.06rem;font-weight:600;line-height:1.4;overflow-wrap:anywhere}
+body.glass .contact-detail .value a{color:var(--ink);font-weight:700}
+.contact-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.contact-actions .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:0;text-align:center}
+.contact-actions .btn:first-child{grid-column:1/-1}
+body.glass .contact-map-note.location-card{margin:0;padding:clamp(22px,3.4vw,34px);border-radius:24px;align-self:stretch;background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(255,236,224,.5))}
+body.glass .location-card h3{margin:6px 0 4px}
+@media(max-width:820px){
+  body.glass .contact-panel{grid-template-columns:1fr;padding:22px 18px;border-radius:26px}
+  body.glass .contact-map-note.location-card{padding:22px 20px}
+}
