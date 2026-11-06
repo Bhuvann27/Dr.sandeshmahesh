@@ -11,11 +11,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="extra-mod/patient-insights.css">
 <link rel="stylesheet" href="css/sandesh.css">
+<link rel="stylesheet" href="css/checkin.css">
+<link rel="stylesheet" href="css/journey.css">
+<link rel="stylesheet" href="css/redesign.css">
 </head>
-<body>
+<body class="glass">
 
 <nav class="site-nav" id="siteNav">
   <a href="index.html" class="wordmark">Dr. Sandesh Mahesh<span class="dot">.</span></a>
@@ -24,8 +26,10 @@
     <li><a href="#stories">Patient Stories</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#care">Care</a></li>
+    <li><a href="#checkin">Check-in</a></li>
     <li><a href="#consult">Consult</a></li>
     <li><a href="#insights">Insights</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#visit">Visit</a></li>
   </ul>
 </nav>
@@ -34,51 +38,39 @@
   <a href="#stories">Patient Stories</a>
   <a href="#about">About</a>
   <a href="#care">Care</a>
+  <a href="#checkin">Check-in</a>
   <a href="#consult">Consult</a>
   <a href="#insights">Insights</a>
+  <a href="#faq">FAQ</a>
   <a href="#visit">Visit</a>
 </nav>
 
-<div class="coat-track" id="coatTrack">
-  <div class="coat-stage" id="coatStage">
-    <div class="coat-imgwrap" id="coatImgWrap">
-      <canvas id="heroCanvas" class="hero-frame-canvas" aria-label="Dr. Sandesh Mahesh's white coat"></canvas>
-    </div>
-
-    <div class="hook-line" id="hook1"><span class="eyebrow-sm">A different kind of care</span><p>Women's health deserves <span class="hl">time, clarity and trust.</span></p></div>
-    <div class="hook-line" id="hook2"><span class="eyebrow-sm">Sometimes, you just want someone to listen</span><p>Your questions deserve <span class="hl">a clear answer.</span></p></div>
-    <div class="hook-line" id="hook3"><span class="eyebrow-sm">Obstetrics &amp; Gynaecology</span><p>Care that begins with <span class="hl">understanding.</span></p></div>
-
-    <div class="identity-block" id="identityBlock">
-      <div class="identity-photo" id="identityPhoto"><img src="assets/doctor/dr-sandesh.webp" data-doctor-photo alt="Dr. Sandesh Mahesh"></div>
-      <div class="identity-line identity-name" id="idName">DR. SANDESH MAHESH</div>
-      <div class="identity-line identity-qual" id="idQual">MBBS &middot; MS &middot; FRM &middot; FMAS</div>
-      <div class="identity-line" id="idExp"><span class="identity-exp">4+ YEARS OF EXPERIENCE</span></div>
-      <div class="identity-line identity-hosp" id="idHosp">SIDDAGANGA HOSPITAL &middot; TUMAKURU</div>
-    </div>
-
-    <div class="scroll-progress" aria-hidden="true"><i id="progressFill"></i></div>
-    <div class="scroll-cue" id="scrollCue"><span>SCROLL</span><span class="stick"></span></div>
-  </div>
-</div>
-
-<section class="section-pad">
-  <div class="container">
-    <div class="photo-section reveal">
-      <div class="photo-frame">
-        <img src="assets/doctor/dr-sandesh.webp" data-doctor-photo alt="Dr. Sandesh Mahesh, MBBS, MS, FRM, FMAS">
+<header class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><span class="hero-grid"></span></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="hero-pill"><i class="live" aria-hidden="true"></i>Video consultations &middot; Mon&ndash;Sat, 5&ndash;8 PM</span>
+      <h1>Women's health deserves <em>time, clarity and trust.</em></h1>
+      <p class="hero-sub">Dr. Sandesh Mahesh, Obstetrics &amp; Gynaecology. Talk to him by video call, from home, at a time that suits you. No rush, and no pressure.</p>
+      <div class="hero-cta">
+        <a class="hbtn hbtn-solid" href="#consult">Talk to the doctor <span aria-hidden="true">&rarr;</span></a>
+        <a class="hbtn hbtn-glass" href="#checkin">Take a gentle check-in</a>
       </div>
-      <div>
-        <div class="photo-id-block">DR. SANDESH MAHESH</div>
-        <div class="photo-id-line">MBBS &middot; MS &middot; FRM &middot; FMAS</div>
-        <span class="exp-badge">4+ YEARS OF EXPERIENCE</span>
-        <div class="photo-id-line" style="margin-bottom:20px;">SIDDAGANGA HOSPITAL, TUMAKURU</div>
-        <p class="photo-intro">Dr. Sandesh Mahesh is an Obstetrics &amp; Gynaecology doctor at Siddaganga Hospital, Tumakuru, with more than 4 years of clinical experience.</p>
-        <p class="callout">His approach is centred on listening carefully, understanding the concern and explaining the next step clearly.</p>
-      </div>
+      <ul class="hero-chips" aria-label="Credentials">
+        <li>MBBS &middot; MS &middot; FRM &middot; FMAS</li>
+        <li>4+ years of experience</li>
+        <li>Siddaganga Hospital, Tumakuru</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-arch"><img src="assets/doctor/dr-sandesh.webp" data-doctor-photo alt="Dr. Sandesh Mahesh, MBBS, MS, FRM, FMAS"></div>
+      <div class="gcard gc-a"><svg viewBox="0 0 120 30" aria-hidden="true"><path pathLength="1" d="M0 16H40l6-3 5 2 7-12 8 24 7-17 5 6H120"/></svg><div><small>GENTLE CHECK-IN</small><strong>Tick what you feel</strong></div></div>
+      <div class="gcard gc-b"><small>NEXT STEP</small><strong>Pick a time, whenever you're free</strong></div>
+      <div class="gcard gc-c"><strong>4+</strong><small>YEARS OF<br>EXPERIENCE</small></div>
     </div>
   </div>
-</section>
+  <a class="hero-scroll" href="#stories" aria-label="Scroll to patient stories"><span></span></a>
+</header>
 
 <!-- ============================================================
      PATIENT STORIES — primary website focus
@@ -139,7 +131,7 @@
       <div class="about-credentials">
         <div><span>QUALIFICATIONS</span><strong>MBBS · MS · FRM · FMAS</strong><small>MBBS and MS — Mandya Institute of Medical Sciences</small></div>
         <div><span>SPECIALITY</span><strong>Obstetrics &amp; Gynaecology</strong><small>Care across pregnancy, gynaecological and reproductive health concerns.</small></div>
-        <div><span>CURRENT AFFILIATION</span><strong>Siddaganga Hospital, Tumakuru</strong><small>Consultation Monday–Saturday, 3 PM–8 PM.</small></div>
+        <div><span>CURRENT AFFILIATION</span><strong>Siddaganga Hospital, Tumakuru</strong><small>Consultation Monday–Saturday, 5 PM–8 PM.</small></div>
         <div><span>EXPERIENCE</span><strong>4+ years</strong><small>As currently stated in the supplied website content.</small></div>
       </div>
     </div>
@@ -169,9 +161,79 @@
   </div>
 </section>
 
+<div class="heartbeat" aria-hidden="true"><svg viewBox="0 0 600 40" preserveAspectRatio="none"><path pathLength="1" d="M0 22H210l10-4 8 3 12-16 14 32 12-24 8 9H600"/></svg></div>
+<section class="section-pad section-lifestage" id="stages">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">FOR EVERY STAGE</span><h2>Wherever you are, there's a place to begin.</h2><p>Women's health changes through life. Tap the stage that sounds like you, and start a gentle check-in from there. There's no commitment, and you can leave at any time.</p></div>
+    <div class="lifestage-grid reveal">
+      <button type="button" class="lifestage-card" data-stage="periods_other"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><path d="M20 5c6 8 10 13 10 19a10 10 0 0 1-20 0c0-6 4-11 10-19z"/></svg><strong>Periods &amp; cycles</strong><span>Irregular, painful or heavy, or just wondering what's normal.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="planning"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><path d="M20 34V18"/><path d="M20 22c-8 0-11-5-11-10 7 0 11 3 11 10z"/><path d="M20 18c0-6 4-10 11-10 0 7-4 10-11 10z"/></svg><strong>Planning a baby</strong><span>Getting ready, or trying for a while.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="pregnancy"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><path d="M20 33S7 25 7 15a7 7 0 0 1 13-3.5A7 7 0 0 1 33 15c0 10-13 18-13 18z"/></svg><strong>Pregnancy</strong><span>From the first weeks to the last.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="after_birth"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><circle cx="20" cy="21" r="13"/><circle cx="15.5" cy="19" r=".9" fill="currentColor"/><circle cx="24.5" cy="19" r=".9" fill="currentColor"/><path d="M15.5 25.5c3 3 6 3 9 0"/><path d="M18 8c1.5-3 5-3 6 0"/></svg><strong>After the baby</strong><span>Recovery, feeding, sleep and how you're feeling.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="periods_other"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><circle cx="20" cy="20" r="6"/><path d="M20 5v5M20 30v5M5 20h5M30 20h5M9.5 9.5l3.5 3.5M27 27l3.5 3.5M30.5 9.5L27 13M13 27l-3.5 3.5"/></svg><strong>Menopause &amp; beyond</strong><span>Hot flushes, sleep, mood and changes at this stage.</span><em>Start here →</em></button>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad section-journey" id="journey">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">THE PREGNANCY JOURNEY</span><h2>Nine months, one step at a time.</h2><p>A gentle overview of what often happens at each stage. Every pregnancy is different, so use this as a guide for the conversation, not as a checklist to measure yourself against.</p></div>
+    <div class="journey-wrap reveal">
+      <button type="button" class="journey-arrow journey-prev" aria-label="Previous stage">‹</button>
+      <div class="journey-track" id="journeyTrack" tabindex="0" aria-label="Pregnancy stages, swipe sideways">
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:25"/></svg><div><small>WEEKS 1 TO 12</small><h3>First trimester</h3></div></div>
+          <p class="jc-lead">The very beginning. Much is happening inside, even if little shows outside.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Nausea, tiredness and tender breasts</li><li>Mood changes</li><li>The baby's organs begin to form</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>Confirming the pregnancy and a first scan</li><li>First blood tests</li><li>Starting vitamins as advised</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>What to eat, and which medicines are safe</li><li>When to call if something worries you</li></ul></div></article>
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:55"/></svg><div><small>WEEKS 13 TO 27</small><h3>Second trimester</h3></div></div>
+          <p class="jc-lead">Many women feel better in this stretch, with more energy and a growing bump.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Nausea often eases</li><li>You may feel your baby's first movements</li><li>Back ache or leg cramps can begin</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>A detailed anomaly scan around the middle of this stage</li><li>Routine blood tests and a sugar test</li><li>Vaccines as advised</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>Safe exercise and diet</li><li>What baby movements to expect</li></ul></div></article>
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:90"/></svg><div><small>WEEKS 28 TO 40</small><h3>Third trimester</h3></div></div>
+          <p class="jc-lead">The home stretch. Check-ups become more frequent as the birth gets closer.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Swelling, back ache and trouble sleeping</li><li>Tightening in the tummy now and then</li><li>Your baby settles into position</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>Growth scans if advised</li><li>Talking about where and how you'll deliver</li><li>Packing your hospital bag</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>Signs that labour is starting</li><li>When to come in, and who to call</li></ul></div></article>
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:100"/></svg><div><small>THE FIRST WEEKS</small><h3>After the birth</h3></div></div>
+          <p class="jc-lead">A tender time of recovery, feeding and very little sleep. Looking after you matters too.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Tiredness and gradual healing</li><li>Feeding takes practice</li><li>Mood can swing, and that is common</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>A check-up for you in the first weeks</li><li>Baby's own check-ups and vaccines</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>Feeding, rest and recovery</li><li>How you're feeling, in yourself</li></ul></div></article>
+      </div>
+      <button type="button" class="journey-arrow journey-next" aria-label="Next stage">›</button>
+    </div>
+    <div class="journey-dots" id="journeyDots" aria-hidden="true"></div>
+    <p class="journey-foot reveal">General information only. Dr. Sandesh will guide you on what is right for your own pregnancy.</p>
+  </div>
+</section>
+
+<section class="section-pad section-duedate" id="duedate">
+  <div class="container">
+    <div class="duedate-card reveal">
+      <div class="duedate-copy"><span class="eyebrow">DUE DATE CALCULATOR</span><h2>When might your baby arrive?</h2><p>Enter the first day of your last period for a gentle estimate. It is only an estimate, and a scan will confirm your dates.</p></div>
+      <form class="duedate-form" id="duedateForm" novalidate>
+        <label>First day of your last period<input id="ddLmp" type="date"></label>
+        <label>Usual length of your cycle<select id="ddCycle"><option value="26">26 days</option><option value="27">27 days</option><option value="28" selected>28 days (most common)</option><option value="29">29 days</option><option value="30">30 days</option><option value="32">32 days</option><option value="35">35 days</option></select></label>
+        <button type="submit" class="dd-btn">Work out my date</button>
+        <div class="dd-result" id="ddResult" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad section-checkin" id="checkin">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">A GENTLE CHECK-IN <span class="ci-demo">DEMO</span></span><h2>Not sure what's normal? Let's go through it together.</h2><p>A few simple questions, at your own pace. Tick what applies, skip what doesn't. There is no pressure to book anything.</p></div>
+    <div class="ci-card reveal" id="checkinApp"></div>
+    <p class="ci-foot">Demo version: the questions will be finalised with Dr. Sandesh. This is a gentle guide, not a diagnosis.</p>
+  </div>
+</section>
+
 <section class="section-pad section-stone" id="consult">
   <div class="container">
-    <div class="section-head reveal"><span class="eyebrow">ONLINE CONSULTATION</span><h2>Talk to Dr. Sandesh, by video call</h2><p>Speak with him from home, at your own pace, and have your concerns heard with full attention. Monday to Saturday, 3 PM to 8 PM. Choose a date and an available time, then review your request before it is sent.</p></div>
+    <div class="section-head reveal"><span class="eyebrow">ONLINE CONSULTATION</span><h2>Talk to Dr. Sandesh, by video call</h2><p>Speak with him from home, at your own pace, and have your concerns heard with full attention. Monday to Saturday, 5 PM to 8 PM. Choose a date and an available time, then review your request before it is sent.</p></div>
     <div class="consult-panel reveal"><div class="booking-widget-wrap"><div class="booking-meta" aria-label="Consultation fee and duration"><span>Video call</span><i></i><span>15 min</span><i></i><span>&#8377;500</span></div><div class="booking-widget" id="bookingWidget"></div></div><div class="consult-summary"><div class="consult-summary-row">A one-to-one video consultation</div><p class="consult-note">Talk to Dr. Sandesh over a video call, where your concerns are listened to and addressed with care. No payment is taken on this form. This is a consultation request; the clinic confirms the appointment with you. If your concern needs an in-person examination, the doctor will advise you. It isn't for emergencies &mdash; if you are pregnant or have sudden, severe symptoms such as heavy bleeding or severe abdominal pain, seek urgent in-person medical care.</p></div></div>
   </div>
 </section>
@@ -195,8 +257,26 @@
   </div>
 </section>
 
+<div class="heartbeat" aria-hidden="true"><svg viewBox="0 0 600 40" preserveAspectRatio="none"><path pathLength="1" d="M0 22H210l10-4 8 3 12-16 14 32 12-24 8 9H600"/></svg></div>
+<section class="section-pad section-faq" id="faq">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">QUESTIONS PEOPLE ASK</span><h2>Things you may be wondering.</h2><p>No question is too small. If yours isn't here, you can always ask.</p></div>
+    <div class="faq-list reveal">
+      <details class="faq-item"><summary>What happens on a video consultation?</summary><div class="faq-body"><ol><li><b>Pick a time</b> that suits you, between 5 and 8 PM, Monday to Saturday.</li><li><b>Join the call</b> from your phone, from wherever you are comfortable.</li><li><b>Leave with a clear next step</b>, explained in plain words.</li></ol></div></details>
+      <details class="faq-item"><summary>What should I keep ready?</summary><div class="faq-body"><ul><li>The date your last period started</li><li>Any scan or test reports you have</li><li>A list of medicines or vitamins you take</li><li>Your questions, written down so you don't forget</li></ul></div></details>
+      <details class="faq-item"><summary>Will I need to visit in person?</summary><div class="faq-body"><p>Many concerns can be talked through on a video call. If something needs an in-person examination or tests, the doctor will advise you on the next step.</p></div></details>
+      <details class="faq-item"><summary>How do I choose a time, and what does it cost?</summary><div class="faq-body"><p>Choose a date and an available time in the consultation section. It is listed as a 15-minute consultation for ₹500. No payment is taken on the form, and the clinic confirms your appointment with you.</p></div></details>
+      <details class="faq-item"><summary>How often should I have check-ups in pregnancy?</summary><div class="faq-body"><p>A usual pattern is about once a month in the first six months, every two weeks from about 28 weeks, and weekly in the last month. Your doctor will set the exact pattern for you.</p></div></details>
+      <details class="faq-item"><summary>Is it okay to ask small or silly questions?</summary><div class="faq-body"><p>Yes, always. Small questions are often the ones that bring the most peace of mind.</p></div></details>
+      <details class="faq-item"><summary>Who sees the details I share?</summary><div class="faq-body"><p>What you share in the check-in or the booking form is used only so the clinic can get back to you. It is meant to be seen by Dr. Sandesh's team, and not by other visitors.</p></div></details>
+      <details class="faq-item"><summary>When should I not wait?</summary><div class="faq-body"><p>Heavy bleeding, severe pain, fluid leaking, a baby moving much less than usual, a severe headache with blurred vision, fits, fainting, chest pain or trouble breathing need urgent in-person care. Please go to the nearest hospital or call your doctor straight away.</p></div></details>
+    </div>
+    <p class="journey-foot reveal">Draft wording, to be reviewed with Dr. Sandesh.</p>
+  </div>
+</section>
+
 <section class="section-pad section-stone" id="visit">
-  <div class="container"><div class="section-head reveal"><span class="eyebrow">VISIT DR. SANDESH</span><h2>Siddaganga Hospital, Tumakuru</h2><p>Consultation Monday to Saturday, 3 PM to 8 PM.</p></div><div class="contact-panel reveal"><div><div class="contact-detail"><div class="label">Doctor</div><div class="value">Dr. Sandesh Mahesh, MBBS, MS, FRM, FMAS</div></div><div class="contact-detail"><div class="label">Experience</div><div class="value">4+ years</div></div><div class="contact-detail"><div class="label">Hospital</div><div class="value">Siddaganga Hospital, Tumakuru</div></div><div class="contact-detail"><div class="label">Phone</div><div class="value"><a href="tel:+917406886226">7406886226</a></div></div><div style="margin-top:26px; display:flex; gap:14px; flex-wrap:wrap;"><a class="btn btn-primary" href="#consult">TALK TO THE DOCTOR</a><a class="btn btn-outline" href="tel:+917406886226">CALL</a><a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=Siddaganga%20Hospital%20Tumakuru" target="_blank" rel="noopener"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.16 7-12A7 7 0 1 0 5 9c0 5.84 7 12 7 12Zm0-9.25A2.75 2.75 0 1 1 12 6.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>GET DIRECTIONS</a></div></div><div class="contact-map-note location-card"><span class="location-card-kicker">LOCATION</span><h3>Siddaganga Hospital</h3><p>Tumakuru, Karnataka</p><p class="callout" style="margin-top:18px;">Not ready to visit? You can start with a video consultation from home. If you are pregnant or have sudden, severe symptoms, seek immediate medical attention.</p></div></div></div>
+  <div class="container"><div class="section-head reveal"><span class="eyebrow">VISIT DR. SANDESH</span><h2>Siddaganga Hospital, Tumakuru</h2><p>Consultation Monday to Saturday, 5 PM to 8 PM.</p></div><div class="contact-panel reveal"><div><div class="contact-detail"><div class="label">Doctor</div><div class="value">Dr. Sandesh Mahesh, MBBS, MS, FRM, FMAS</div></div><div class="contact-detail"><div class="label">Experience</div><div class="value">4+ years</div></div><div class="contact-detail"><div class="label">Hospital</div><div class="value">Siddaganga Hospital, Tumakuru</div></div><div class="contact-detail"><div class="label">Phone</div><div class="value"><a href="tel:+917406886226">7406886226</a></div></div><div style="margin-top:26px; display:flex; gap:14px; flex-wrap:wrap;"><a class="btn btn-primary" href="#consult">TALK TO THE DOCTOR</a><a class="btn btn-outline" href="tel:+917406886226">CALL</a><a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=Siddaganga%20Hospital%20Tumakuru" target="_blank" rel="noopener"><svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.16 7-12A7 7 0 1 0 5 9c0 5.84 7 12 7 12Zm0-9.25A2.75 2.75 0 1 1 12 6.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>GET DIRECTIONS</a></div></div><div class="contact-map-note location-card"><span class="location-card-kicker">LOCATION</span><h3>Siddaganga Hospital</h3><p>Tumakuru, Karnataka</p><p class="callout" style="margin-top:18px;">Not ready to visit? You can start with a video consultation from home. If you are pregnant or have sudden, severe symptoms, seek immediate medical attention.</p></div></div></div>
 </section>
 
 <section class="section-pad" style="text-align:center;"><div class="container"><p class="reveal" style="font-family:var(--font-display); font-weight:800; letter-spacing:-0.02em; font-size:clamp(1.5rem,3.6vw,2.3rem); max-width:20ch; margin:0 auto 26px;">Women's health deserves time, clarity and trust.</p><div class="reveal"><div style="font-family:var(--font-display); font-weight:800; font-size:1.3rem;">DR. SANDESH MAHESH</div><div style="color:var(--text-dim); font-weight:600; margin-top:6px;">MBBS &middot; MS &middot; FRM &middot; FMAS</div><span class="exp-badge" style="margin-top:10px;">4+ YEARS OF EXPERIENCE</span><div style="color:var(--text-dim); font-weight:600;">SIDDAGANGA HOSPITAL, TUMAKURU</div><div style="margin-top:22px;"><a class="btn btn-primary" href="#consult">TALK TO THE DOCTOR</a></div></div></div></section>
@@ -220,14 +300,16 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/site-config.js"></script>
+<script src="js/checkin-data.js"></script>
 <script src="js/site-assistant.js"></script>
 <script src="js/booking-db.js"></script>
-<script src="js/main.js"></script>
-<script src="js/hero-desktop.js"></script>
+<script src="js/checkin.js"></script>
+<script src="js/site.js"></script>
 <script src="js/booking-widget.js"></script>
 <script src="extra-mod/patient-insights-float.js"></script>
 <script src="js/stories-data.js"></script><script src="js/patient-insights-db.js"></script>
 <script src="js/videos.js"></script>
+<script src="js/journey.js"></script>
 <script src="js/sandesh.js"></script>
 </body>
 </html>
