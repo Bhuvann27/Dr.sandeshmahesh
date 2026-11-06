@@ -46,3 +46,16 @@
 .ci-restart{display:block;margin:6px auto 0}
 .ci-foot{text-align:center;margin:18px auto 0;max-width:60ch;font-size:.82rem;color:var(--text-dim)}
 @media(max-width:640px){.ci-grid{grid-template-columns:1fr}.ci-nav{flex-wrap:wrap}.ci-next{flex:1}}
+
+.ci-other{display:grid;gap:8px;margin-top:22px;font-size:.82rem;font-weight:800;letter-spacing:.04em;color:var(--text-dim)}
+.ci-other em{font-style:normal;font-weight:600;letter-spacing:0}
+.ci-other textarea{font:inherit;font-size:1rem;font-weight:500;letter-spacing:0;color:var(--ink);padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#fff;resize:vertical;min-height:70px}
+.ci-other textarea:focus{outline:2px solid var(--orange);outline-offset:1px;border-color:transparent}
+.ci-pace{display:grid;gap:4px;margin:0 0 16px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.7);border:1px solid var(--champagne-soft)}
+.ci-pace b{font-size:.7rem;letter-spacing:.12em;color:var(--text-dim)}
+.ci-pace span{font-size:.98rem;line-height:1.5}
+.ci-note{font-size:.92rem;color:var(--ink-soft)}
+.ci-contact{font-size:.98rem}
+.ci-contact a{font-weight:800;color:var(--orange-deep);white-space:nowrap}
+.ci-soft{display:inline-block;margin:0 0 4px;font-weight:700;color:var(--orange-deep);text-decoration:underline;text-underline-offset:4px}
+.ci-q2 + .ci-chips{margin-bottom:4px}

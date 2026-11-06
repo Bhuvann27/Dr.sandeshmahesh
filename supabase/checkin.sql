@@ -33,3 +33,7 @@ create policy checkin_leads_admin_manage_assigned on public.checkin_leads for al
   with check ((select private.is_doctor_admin(checkin_leads.doctor_id)));
 -- Functions public.checkin_start(...) and public.checkin_complete(...) are SECURITY DEFINER with
 -- search_path='' and EXECUTE granted to anon/authenticated only; see the live project for their bodies.
+
+-- 3) 2026-11-02: free-text note. checkin_complete now takes an optional p_note (max 500 chars).
+alter table public.checkin_leads add column if not exists other_note text check (other_note is null or char_length(other_note) <= 500);
+-- (old checkin_complete(uuid,uuid,text[],text[],text) was dropped and replaced by the 6-argument version in the live project)

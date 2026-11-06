@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="extra-mod/patient-insights.css">
 <link rel="stylesheet" href="css/sandesh.css">
 <link rel="stylesheet" href="css/checkin.css">
+<link rel="stylesheet" href="css/journey.css">
 </head>
 <body>
 
@@ -28,6 +29,7 @@
     <li><a href="#checkin">Check-in</a></li>
     <li><a href="#consult">Consult</a></li>
     <li><a href="#insights">Insights</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#visit">Visit</a></li>
   </ul>
 </nav>
@@ -39,6 +41,7 @@
   <a href="#checkin">Check-in</a>
   <a href="#consult">Consult</a>
   <a href="#insights">Insights</a>
+  <a href="#faq">FAQ</a>
   <a href="#visit">Visit</a>
 </nav>
 
@@ -172,6 +175,68 @@
   </div>
 </section>
 
+<div class="heartbeat" aria-hidden="true"><svg viewBox="0 0 600 40" preserveAspectRatio="none"><path pathLength="1" d="M0 22H210l10-4 8 3 12-16 14 32 12-24 8 9H600"/></svg></div>
+<section class="section-pad section-lifestage" id="stages">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">FOR EVERY STAGE</span><h2>Wherever you are, there's a place to begin.</h2><p>Women's health changes through life. Tap the stage that sounds like you, and start a gentle check-in from there. There's no commitment, and you can leave at any time.</p></div>
+    <div class="lifestage-grid reveal">
+      <button type="button" class="lifestage-card" data-stage="periods_other"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><path d="M20 5c6 8 10 13 10 19a10 10 0 0 1-20 0c0-6 4-11 10-19z"/></svg><strong>Periods &amp; cycles</strong><span>Irregular, painful or heavy, or just wondering what's normal.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="planning"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><path d="M20 34V18"/><path d="M20 22c-8 0-11-5-11-10 7 0 11 3 11 10z"/><path d="M20 18c0-6 4-10 11-10 0 7-4 10-11 10z"/></svg><strong>Planning a baby</strong><span>Getting ready, or trying for a while.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="pregnancy"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><path d="M20 33S7 25 7 15a7 7 0 0 1 13-3.5A7 7 0 0 1 33 15c0 10-13 18-13 18z"/></svg><strong>Pregnancy</strong><span>From the first weeks to the last.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="after_birth"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><circle cx="20" cy="21" r="13"/><circle cx="15.5" cy="19" r=".9" fill="currentColor"/><circle cx="24.5" cy="19" r=".9" fill="currentColor"/><path d="M15.5 25.5c3 3 6 3 9 0"/><path d="M18 8c1.5-3 5-3 6 0"/></svg><strong>After the baby</strong><span>Recovery, feeding, sleep and how you're feeling.</span><em>Start here →</em></button>
+      <button type="button" class="lifestage-card" data-stage="periods_other"><svg viewBox="0 0 40 40" class="lc-ico" aria-hidden="true"><circle cx="20" cy="20" r="6"/><path d="M20 5v5M20 30v5M5 20h5M30 20h5M9.5 9.5l3.5 3.5M27 27l3.5 3.5M30.5 9.5L27 13M13 27l-3.5 3.5"/></svg><strong>Menopause &amp; beyond</strong><span>Hot flushes, sleep, mood and changes at this stage.</span><em>Start here →</em></button>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad section-journey" id="journey">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">THE PREGNANCY JOURNEY</span><h2>Nine months, one step at a time.</h2><p>A gentle overview of what often happens at each stage. Every pregnancy is different, so use this as a guide for the conversation, not as a checklist to measure yourself against.</p></div>
+    <div class="journey-wrap reveal">
+      <button type="button" class="journey-arrow journey-prev" aria-label="Previous stage">‹</button>
+      <div class="journey-track" id="journeyTrack" tabindex="0" aria-label="Pregnancy stages, swipe sideways">
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:25"/></svg><div><small>WEEKS 1 TO 12</small><h3>First trimester</h3></div></div>
+          <p class="jc-lead">The very beginning. Much is happening inside, even if little shows outside.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Nausea, tiredness and tender breasts</li><li>Mood changes</li><li>The baby's organs begin to form</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>Confirming the pregnancy and a first scan</li><li>First blood tests</li><li>Starting vitamins as advised</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>What to eat, and which medicines are safe</li><li>When to call if something worries you</li></ul></div></article>
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:55"/></svg><div><small>WEEKS 13 TO 27</small><h3>Second trimester</h3></div></div>
+          <p class="jc-lead">Many women feel better in this stretch, with more energy and a growing bump.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Nausea often eases</li><li>You may feel your baby's first movements</li><li>Back ache or leg cramps can begin</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>A detailed anomaly scan around the middle of this stage</li><li>Routine blood tests and a sugar test</li><li>Vaccines as advised</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>Safe exercise and diet</li><li>What baby movements to expect</li></ul></div></article>
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:90"/></svg><div><small>WEEKS 28 TO 40</small><h3>Third trimester</h3></div></div>
+          <p class="jc-lead">The home stretch. Check-ups become more frequent as the birth gets closer.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Swelling, back ache and trouble sleeping</li><li>Tightening in the tummy now and then</li><li>Your baby settles into position</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>Growth scans if advised</li><li>Talking about where and how you'll deliver</li><li>Packing your hospital bag</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>Signs that labour is starting</li><li>When to come in, and who to call</li></ul></div></article>
+        <article class="journey-card"><div class="jc-top"><svg viewBox="0 0 44 44" class="jc-ring" aria-hidden="true"><circle cx="22" cy="22" r="18" class="jc-ring-bg"/><circle cx="22" cy="22" r="18" class="jc-ring-fg" style="--p:100"/></svg><div><small>THE FIRST WEEKS</small><h3>After the birth</h3></div></div>
+          <p class="jc-lead">A tender time of recovery, feeding and very little sleep. Looking after you matters too.</p>
+          <div class="jc-block"><b>What often happens</b><ul><li>Tiredness and gradual healing</li><li>Feeding takes practice</li><li>Mood can swing, and that is common</li></ul></div>
+          <div class="jc-block"><b>Often done around now</b><ul><li>A check-up for you in the first weeks</li><li>Baby's own check-ups and vaccines</li></ul></div>
+          <div class="jc-block"><b>Good to ask</b><ul><li>Feeding, rest and recovery</li><li>How you're feeling, in yourself</li></ul></div></article>
+      </div>
+      <button type="button" class="journey-arrow journey-next" aria-label="Next stage">›</button>
+    </div>
+    <div class="journey-dots" id="journeyDots" aria-hidden="true"></div>
+    <p class="journey-foot reveal">General information only. Dr. Sandesh will guide you on what is right for your own pregnancy.</p>
+  </div>
+</section>
+
+<section class="section-pad section-duedate" id="duedate">
+  <div class="container">
+    <div class="duedate-card reveal">
+      <div class="duedate-copy"><span class="eyebrow">DUE DATE CALCULATOR</span><h2>When might your baby arrive?</h2><p>Enter the first day of your last period for a gentle estimate. It is only an estimate, and a scan will confirm your dates.</p></div>
+      <form class="duedate-form" id="duedateForm" novalidate>
+        <label>First day of your last period<input id="ddLmp" type="date"></label>
+        <label>Usual length of your cycle<select id="ddCycle"><option value="26">26 days</option><option value="27">27 days</option><option value="28" selected>28 days (most common)</option><option value="29">29 days</option><option value="30">30 days</option><option value="32">32 days</option><option value="35">35 days</option></select></label>
+        <button type="submit" class="dd-btn">Work out my date</button>
+        <div class="dd-result" id="ddResult" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <section class="section-pad section-checkin" id="checkin">
   <div class="container">
     <div class="section-head reveal"><span class="eyebrow">A GENTLE CHECK-IN <span class="ci-demo">DEMO</span></span><h2>Not sure what's normal? Let's go through it together.</h2><p>A few simple questions, at your own pace. Tick what applies, skip what doesn't. There is no pressure to book anything.</p></div>
@@ -203,6 +268,24 @@
       <div class="social-label">ON YOUTUBE</div>
       <div id="youtubeGrid" class="youtube-grid"><div class="video-empty"><span>EDUCATIONAL VIDEOS</span><strong>Loading videos…</strong></div></div>
     </div>
+  </div>
+</section>
+
+<div class="heartbeat" aria-hidden="true"><svg viewBox="0 0 600 40" preserveAspectRatio="none"><path pathLength="1" d="M0 22H210l10-4 8 3 12-16 14 32 12-24 8 9H600"/></svg></div>
+<section class="section-pad section-faq" id="faq">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">QUESTIONS PEOPLE ASK</span><h2>Things you may be wondering.</h2><p>No question is too small. If yours isn't here, you can always ask.</p></div>
+    <div class="faq-list reveal">
+      <details class="faq-item"><summary>What happens on a video consultation?</summary><div class="faq-body"><ol><li><b>Pick a time</b> that suits you, between 5 and 8 PM, Monday to Saturday.</li><li><b>Join the call</b> from your phone, from wherever you are comfortable.</li><li><b>Leave with a clear next step</b>, explained in plain words.</li></ol></div></details>
+      <details class="faq-item"><summary>What should I keep ready?</summary><div class="faq-body"><ul><li>The date your last period started</li><li>Any scan or test reports you have</li><li>A list of medicines or vitamins you take</li><li>Your questions, written down so you don't forget</li></ul></div></details>
+      <details class="faq-item"><summary>Will I need to visit in person?</summary><div class="faq-body"><p>Many concerns can be talked through on a video call. If something needs an in-person examination or tests, the doctor will advise you on the next step.</p></div></details>
+      <details class="faq-item"><summary>How do I choose a time, and what does it cost?</summary><div class="faq-body"><p>Choose a date and an available time in the consultation section. It is listed as a 15-minute consultation for ₹500. No payment is taken on the form, and the clinic confirms your appointment with you.</p></div></details>
+      <details class="faq-item"><summary>How often should I have check-ups in pregnancy?</summary><div class="faq-body"><p>A usual pattern is about once a month in the first six months, every two weeks from about 28 weeks, and weekly in the last month. Your doctor will set the exact pattern for you.</p></div></details>
+      <details class="faq-item"><summary>Is it okay to ask small or silly questions?</summary><div class="faq-body"><p>Yes, always. Small questions are often the ones that bring the most peace of mind.</p></div></details>
+      <details class="faq-item"><summary>Who sees the details I share?</summary><div class="faq-body"><p>What you share in the check-in or the booking form is used only so the clinic can get back to you. It is meant to be seen by Dr. Sandesh's team, and not by other visitors.</p></div></details>
+      <details class="faq-item"><summary>When should I not wait?</summary><div class="faq-body"><p>Heavy bleeding, severe pain, fluid leaking, a baby moving much less than usual, a severe headache with blurred vision, fits, fainting, chest pain or trouble breathing need urgent in-person care. Please go to the nearest hospital or call your doctor straight away.</p></div></details>
+    </div>
+    <p class="journey-foot reveal">Draft wording, to be reviewed with Dr. Sandesh.</p>
   </div>
 </section>
 
@@ -241,6 +324,7 @@
 <script src="extra-mod/patient-insights-float.js"></script>
 <script src="js/stories-data.js"></script><script src="js/patient-insights-db.js"></script>
 <script src="js/videos.js"></script>
+<script src="js/journey.js"></script>
 <script src="js/sandesh.js"></script>
 </body>
 </html>
