@@ -11,13 +11,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="extra-mod/patient-insights.css">
 <link rel="stylesheet" href="css/sandesh.css">
 <link rel="stylesheet" href="css/checkin.css">
 <link rel="stylesheet" href="css/journey.css">
+<link rel="stylesheet" href="css/redesign.css">
 </head>
-<body>
+<body class="glass">
 
 <nav class="site-nav" id="siteNav">
   <a href="index.html" class="wordmark">Dr. Sandesh Mahesh<span class="dot">.</span></a>
@@ -45,46 +45,32 @@
   <a href="#visit">Visit</a>
 </nav>
 
-<div class="coat-track" id="coatTrack">
-  <div class="coat-stage" id="coatStage">
-    <div class="coat-imgwrap" id="coatImgWrap">
-      <canvas id="heroCanvas" class="hero-frame-canvas" aria-label="Dr. Sandesh Mahesh's white coat"></canvas>
-    </div>
-
-    <div class="hook-line" id="hook1"><span class="eyebrow-sm">A different kind of care</span><p>Women's health deserves <span class="hl">time, clarity and trust.</span></p></div>
-    <div class="hook-line" id="hook2"><span class="eyebrow-sm">Sometimes, you just want someone to listen</span><p>Your questions deserve <span class="hl">a clear answer.</span></p></div>
-    <div class="hook-line" id="hook3"><span class="eyebrow-sm">Obstetrics &amp; Gynaecology</span><p>Care that begins with <span class="hl">understanding.</span></p></div>
-
-    <div class="identity-block" id="identityBlock">
-      <div class="identity-photo" id="identityPhoto"><img src="assets/doctor/dr-sandesh.webp" data-doctor-photo alt="Dr. Sandesh Mahesh"></div>
-      <div class="identity-line identity-name" id="idName">DR. SANDESH MAHESH</div>
-      <div class="identity-line identity-qual" id="idQual">MBBS &middot; MS &middot; FRM &middot; FMAS</div>
-      <div class="identity-line" id="idExp"><span class="identity-exp">4+ YEARS OF EXPERIENCE</span></div>
-      <div class="identity-line identity-hosp" id="idHosp">SIDDAGANGA HOSPITAL &middot; TUMAKURU</div>
-    </div>
-
-    <div class="scroll-progress" aria-hidden="true"><i id="progressFill"></i></div>
-    <div class="scroll-cue" id="scrollCue"><span>SCROLL</span><span class="stick"></span></div>
-  </div>
-</div>
-
-<section class="section-pad">
-  <div class="container">
-    <div class="photo-section reveal">
-      <div class="photo-frame">
-        <img src="assets/doctor/dr-sandesh.webp" data-doctor-photo alt="Dr. Sandesh Mahesh, MBBS, MS, FRM, FMAS">
+<header class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><span class="hero-grid"></span></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="hero-pill"><i class="live" aria-hidden="true"></i>Video consultations &middot; Mon&ndash;Sat, 5&ndash;8 PM</span>
+      <h1>Women's health deserves <em>time, clarity and trust.</em></h1>
+      <p class="hero-sub">Dr. Sandesh Mahesh, Obstetrics &amp; Gynaecology. Talk to him by video call, from home, at a time that suits you. No rush, and no pressure.</p>
+      <div class="hero-cta">
+        <a class="hbtn hbtn-solid" href="#consult">Talk to the doctor <span aria-hidden="true">&rarr;</span></a>
+        <a class="hbtn hbtn-glass" href="#checkin">Take a gentle check-in</a>
       </div>
-      <div>
-        <div class="photo-id-block">DR. SANDESH MAHESH</div>
-        <div class="photo-id-line">MBBS &middot; MS &middot; FRM &middot; FMAS</div>
-        <span class="exp-badge">4+ YEARS OF EXPERIENCE</span>
-        <div class="photo-id-line" style="margin-bottom:20px;">SIDDAGANGA HOSPITAL, TUMAKURU</div>
-        <p class="photo-intro">Dr. Sandesh Mahesh is an Obstetrics &amp; Gynaecology doctor at Siddaganga Hospital, Tumakuru, with more than 4 years of clinical experience.</p>
-        <p class="callout">His approach is centred on listening carefully, understanding the concern and explaining the next step clearly.</p>
-      </div>
+      <ul class="hero-chips" aria-label="Credentials">
+        <li>MBBS &middot; MS &middot; FRM &middot; FMAS</li>
+        <li>4+ years of experience</li>
+        <li>Siddaganga Hospital, Tumakuru</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-arch"><img src="assets/doctor/dr-sandesh.webp" data-doctor-photo alt="Dr. Sandesh Mahesh, MBBS, MS, FRM, FMAS"></div>
+      <div class="gcard gc-a"><svg viewBox="0 0 120 30" aria-hidden="true"><path pathLength="1" d="M0 16H40l6-3 5 2 7-12 8 24 7-17 5 6H120"/></svg><div><small>GENTLE CHECK-IN</small><strong>Tick what you feel</strong></div></div>
+      <div class="gcard gc-b"><small>NEXT STEP</small><strong>Pick a time, whenever you're free</strong></div>
+      <div class="gcard gc-c"><strong>4+</strong><small>YEARS OF<br>EXPERIENCE</small></div>
     </div>
   </div>
-</section>
+  <a class="hero-scroll" href="#stories" aria-label="Scroll to patient stories"><span></span></a>
+</header>
 
 <!-- ============================================================
      PATIENT STORIES — primary website focus
@@ -318,8 +304,7 @@
 <script src="js/site-assistant.js"></script>
 <script src="js/booking-db.js"></script>
 <script src="js/checkin.js"></script>
-<script src="js/main.js"></script>
-<script src="js/hero-desktop.js"></script>
+<script src="js/site.js"></script>
 <script src="js/booking-widget.js"></script>
 <script src="extra-mod/patient-insights-float.js"></script>
 <script src="js/stories-data.js"></script><script src="js/patient-insights-db.js"></script>
