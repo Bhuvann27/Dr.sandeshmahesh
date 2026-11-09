@@ -35,13 +35,22 @@
   const ciLabel=k=>CI[k]||k;
   const ciOrder={urgent:0,talk_soon:1,common:2};
   const ciWin={'5-6pm':'5-6 PM','6-7pm':'6-7 PM','7-8pm':'7-8 PM','any':'Any 5-8 PM'};
+  function ciAnswers(r){
+    const D=window.CHECKIN_DATA;
+    if(r.answers&&D&&D.describe){
+      const rows=D.describe(r.stage,r.answers);
+      const why=(r.answers._reasons||[]).length?`<small><strong>Why:</strong> ${esc(r.answers._reasons.join('; '))}</small>`:'';
+      if(rows.length) return why+rows.map(x=>`<small><em>${esc(x.q)}</em> ${esc(x.a)}</small>`).join('');
+    }
+    return `${(r.symptoms||[]).length?`<small>${esc(r.symptoms.map(ciLabel).join(', '))}</small>`:''}${(r.done_so_far||[]).length?`<small><em>Done:</em> ${esc(r.done_so_far.map(ciLabel).join(', '))}</small>`:''}`;
+  }
   async function loadCheckins(){
     const box=$('#checkinsTable'); if(!box) return;
     const {data,error}=await scope(sb.from('checkin_leads')).select('*').order('created_at',{ascending:false}).limit(200);
     if(error){box.innerHTML=`<div class="empty">${esc(error.message)}</div>`;return}
     const rows=(data||[]).slice().sort((a,b)=>(a.status==='new'?0:1)-(b.status==='new'?0:1)||(ciOrder[a.result_level]??1)-(ciOrder[b.result_level]??1)||(a.created_at<b.created_at?1:-1));
     if(!rows.length){box.innerHTML='<div class="empty">No check-ins yet.</div>';return}
-    box.innerHTML=`<table><thead><tr><th>Person</th><th>Stage</th><th>Level</th><th>What they shared</th><th>Call window</th><th>Status</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${esc(r.first_name)}</strong><small><a href="tel:${esc(r.phone)}">${esc(r.phone)}</a></small><small>${new Date(r.created_at).toLocaleString()}</small></td><td>${esc(ciLabel(r.stage))}</td><td><span class="status ${r.result_level==='urgent'?'cancelled':r.result_level==='talk_soon'?'requested':'completed'}">${r.result_level?esc(r.result_level.replace('_',' ')):(r.completed?'':'left early')}</span></td><td>${(r.danger_flags||[]).length?`<small><strong>Danger signs:</strong> ${esc(r.danger_flags.map(ciLabel).join(', '))}</small>`:''}${(r.symptoms||[]).length?`<small>${esc(r.symptoms.map(ciLabel).join(', '))}</small>`:''}${(r.done_so_far||[]).length?`<small><em>Done:</em> ${esc(r.done_so_far.map(ciLabel).join(', '))}</small>`:''}${r.other_note?`<small><strong>Note:</strong> ${esc(r.other_note)}</small>`:''}</td><td>${esc(ciWin[r.call_window]||r.call_window)}</td><td><select data-ci="${r.id}">${['new','called','booked','not_interested'].map(s=>`<option value="${s}" ${r.status===s?'selected':''}>${s.replace('_',' ')}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table>`;
+    box.innerHTML=`<table><thead><tr><th>Person</th><th>Stage</th><th>Level</th><th>What they shared</th><th>Call window</th><th>Status</th></tr></thead><tbody>${rows.map(r=>`<tr><td><strong>${esc(r.first_name)}</strong><small><a href="tel:${esc(r.phone)}">${esc(r.phone)}</a></small><small>${new Date(r.created_at).toLocaleString()}</small></td><td>${esc(ciLabel(r.stage))}</td><td><span class="status ${r.result_level==='urgent'?'cancelled':r.result_level==='talk_soon'?'requested':'completed'}">${r.result_level?esc(r.result_level.replace('_',' ')):(r.completed?'':'left early')}</span></td><td>${(r.danger_flags||[]).length?`<small><strong>Danger signs:</strong> ${esc(r.danger_flags.map(ciLabel).join(', '))}</small>`:''}${ciAnswers(r)}${r.other_note?`<small><strong>Note:</strong> ${esc(r.other_note)}</small>`:''}</td><td>${esc(ciWin[r.call_window]||r.call_window)}</td><td><select data-ci="${r.id}">${['new','called','booked','not_interested'].map(s=>`<option value="${s}" ${r.status===s?'selected':''}>${s.replace('_',' ')}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table>`;
     $$('[data-ci]').forEach(s=>s.addEventListener('change',async()=>{await scope(sb.from('checkin_leads')).update({status:s.value,updated_at:new Date().toISOString()}).eq('id',s.dataset.ci);loadCheckins()}));
   }
   $('#refreshCheckins')?.addEventListener('click',loadCheckins);
