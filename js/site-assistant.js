@@ -220,8 +220,8 @@
     if(/book|appointment|consult|online|video|call/.test(x)){
       return "You can talk to Dr. Sandesh over a video call. Open the Online Consultation section, choose a date and an available time, and review your request before sending it. It is listed as a 15-minute consultation for ₹500, Monday to Saturday, 5 PM to 8 PM, and the clinic confirms the appointment with you. If your concern needs an in-person examination, the doctor will advise you.";
     }
-    if(/where|location|hospital|address|tumakuru|tumkur|timing|time|open|hours/.test(x)){
-      return "Dr. Sandesh Mahesh is listed at Siddaganga Hospital, Tumakuru. Consultation hours are Monday to Saturday, 5 PM to 8 PM. The Visit section has the phone number and a directions link.";
+    if(/where|location|hospital|address|tumakuru|tumkur|timing|time|open|hours|opd|visit/.test(x)){
+      return "Video consultations are on Monday to Saturday, from 5 PM to 8 PM. Dr. Sandesh works at Siddaganga Hospital, Tumakuru, from 9 AM to 4 PM, and sees patients in the OPD there on Thursdays. For OPD details, please check with the hospital.";
     }
     if(/bleed|leak|fluid|baby.*(move|kick)|movement|fits|seizure|severe (pain|headache)|faint|breath/.test(x)){
       return "Heavy vaginal bleeding, severe abdominal pain, fluid leaking, reduced baby movements in pregnancy, a severe headache with vision changes, fits, fainting or difficulty breathing need urgent in-person medical care. Please go to the nearest hospital or call the clinic straight away rather than waiting for a reply here.";
@@ -256,7 +256,7 @@
   const actionForQuestion = (q) => {
     const x = q.toLowerCase();
     if(/book|appointment|consult/.test(x)) return ["Talk to the doctor online", "consult"];
-    if(/where|location|hospital|address|tumakuru|tumkur|timing|time|open|hours/.test(x)) return ["Open clinic information", "visit"];
+    if(/where|location|hospital|address|tumakuru|tumkur|timing|time|open|hours/.test(x)) return ["Choose a video consultation time", "consult"];
     if(/pregnan|antenatal|delivery|labour|labor|postnatal|period|menstru|pcos|pcod|fertil|menopaus|treat|care|condition|special|service|procedure/.test(x)) return ["See areas of care", "care"];
     if(/about|qualification|degree|experience|doctor|who/.test(x)) return ["Learn about Dr. Sandesh", "about"];
     if(/video|youtube|channel/.test(x)) return ["Open educational videos", "insights"];

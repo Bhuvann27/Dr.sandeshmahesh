@@ -12,8 +12,6 @@
   const nav = document.getElementById("siteNav"), mobileNav = document.getElementById("mobileNav");
   const floatingContact = document.getElementById("floatingContact"), assistant = document.getElementById("siteAssistant");
   function setHero(onHero){
-    if(nav) nav.classList.toggle("is-on-dark", onHero);
-    if(mobileNav) mobileNav.classList.toggle("is-on-dark", onHero);
     if(floatingContact) floatingContact.classList.toggle("show", !onHero);
     if(assistant) assistant.classList.toggle("show", !onHero);
   }
@@ -22,7 +20,7 @@
   } else setHero(false);
 
   /* active section in the nav */
-  const sections = ["stories","about","care","checkin","consult","insights","faq","visit"];
+  const sections = ["stories","about","care","checkin","consult","insights","faq","contact"];
   const links = $$(".site-nav .nav-links a, .mobile-nav-row a");
   function setActive(href){
     links.forEach((l) => { const on = l.getAttribute("href") === href; l.classList.toggle("active", on); if(on) l.setAttribute("aria-current", "page"); else l.removeAttribute("aria-current"); });
@@ -70,4 +68,16 @@
 
   /* Patient Insights floating CTA */
   const s = document.createElement("script"); s.src = "extra-mod/patient-insights-float.js?v=20261020-1"; document.head.appendChild(s);
+
+  /* hero background video: respect "reduce motion" and save battery when the tab is hidden */
+  const hv = document.getElementById("heroVideo");
+  if(hv){
+    const still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(still){ hv.removeAttribute("autoplay"); hv.pause(); }
+    else {
+      const play = () => { const p = hv.play(); if(p && p.catch) p.catch(() => {}); };
+      play();
+      document.addEventListener("visibilitychange", () => { if(document.hidden) hv.pause(); else play(); });
+    }
+  }
 })();
