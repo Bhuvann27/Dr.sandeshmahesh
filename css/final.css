@@ -89,7 +89,7 @@ body.studio .steps-strip{margin:0;padding:34px 0;background:#fff;border-bottom:1
 @media(max-width:820px){.note-grid{grid-template-columns:1fr}.note-photo{max-width:360px}}
 
 /* ---------- cards ---------- */
-body.studio :is(.care-item,.faq-item,.journey-card,.lifestage-card,.duedate-card,.ci-card,.location-card,.contact-panel,.about-credentials>div,.approach,.youtube-card,.short-card,.video-empty,.booking-widget-wrap,.stories-conversation-doorway){
+body.studio :is(.care-item,.faq-item,.journey-card,.lifestage-card,.duedate-card,.ci-card,.location-card,.about-credentials>div,.approach,.youtube-card,.short-card,.video-empty,.booking-widget-wrap){
   background:var(--c-card);background-image:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--c-line);box-shadow:none;border-radius:16px}
 body.studio .about-credentials>div{padding:16px 18px;border-radius:14px}
 body.studio .care-item.open{background:var(--c-tint);border-color:rgba(217,69,26,.35)}
@@ -120,10 +120,6 @@ body.studio :is(.btn-primary,.ci-next,.ci-btn-solid,.dd-btn,.yt-visit,.instagram
 body.studio :is(.btn-primary,.ci-next,.ci-btn-solid,.dd-btn,.yt-visit):hover{background:var(--c-accent-deep);transform:none;box-shadow:none}
 body.studio .btn,body.studio .ci-btn-ghost{border-radius:12px}
 body.studio .btn-outline{border:1.5px solid var(--c-ink);color:var(--c-ink);background:transparent}
-
-/* ---------- stories ---------- */
-body.studio .story-card{background:var(--c-dark);background-image:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-radius:18px;box-shadow:none}
-body.studio .story-card .quote{font-weight:800;letter-spacing:-.02em}
 
 /* ---------- journey ---------- */
 body.studio .journey-card{border-radius:18px}
@@ -182,21 +178,58 @@ body.studio .site-footer{background:var(--c-dark)}
 body.studio .site-footer::before{display:none}
 body.studio .exp-badge{background:var(--c-accent);box-shadow:none}
 
-/* ---------- floating bits: quiet ---------- */
-body.studio .patient-insights-float{background:var(--c-dark)!important;background-image:none!important;box-shadow:0 6px 18px rgba(0,0,0,.22)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:14px!important;animation:none!important}
-body.studio .patient-insights-float::before,body.studio .patient-insights-float::after{display:none!important}
-body.studio .patient-insights-float-arrow{background:var(--c-accent)!important;box-shadow:none!important;background-image:none!important}
-body.studio .patient-insights-float-kicker{color:#FFC7A6!important}
-@media(max-width:520px){.hero-meta{font-size:.86rem}.hero-meta li+li::before{margin:0 11px}}
-@media(max-width:820px){.note-photo{max-width:290px}}
-
-body.studio .care-item:hover{background-image:none}
-
 /* readable text on the dark cards and the footer */
 body.studio .instagram-copy p{color:rgba(255,255,255,.78)}
 body.studio .instagram-copy strong{color:#fff;font-size:clamp(1.15rem,5.4vw,1.7rem);overflow-wrap:anywhere}
 body.studio .site-footer p,body.studio .site-footer a{color:rgba(255,255,255,.75)}
 body.studio .site-footer :is(h4,.foot-word){color:#fff}
-body.studio .story-card :is(.desc,p){color:rgba(255,255,255,.72)}
-body.studio .story-card .quote{color:#fff}
-body.studio .story-cta{background:var(--c-accent);background-image:none;box-shadow:none}
+
+/* =========================================================
+   Round 2 fixes
+   ========================================================= */
+
+/* The top bar is always white, so its text is always dark (never white-on-white, whatever script state is loaded) */
+body.studio .site-nav .wordmark,body.studio .site-nav.is-on-dark .wordmark{color:var(--c-ink)!important;opacity:1!important;visibility:visible!important}
+body.studio .site-nav .wordmark .dot{color:var(--c-accent)!important}
+body.studio .site-nav .nav-links a,body.studio .site-nav.is-on-dark .nav-links a{color:var(--c-ink)!important}
+body.studio .site-nav .nav-links a.active{color:var(--c-accent-deep)!important}
+body.studio .mobile-nav-row a,body.studio .mobile-nav-row.is-on-dark a{background:#fff!important;border:1px solid var(--c-line)!important;color:var(--c-ink)!important}
+body.studio .mobile-nav-row a.active,body.studio .mobile-nav-row.is-on-dark a.active{background:var(--c-ink)!important;border-color:var(--c-ink)!important;color:#fff!important}
+body.studio .site-nav,body.studio .site-nav.is-on-dark,body.studio .mobile-nav-row,body.studio .mobile-nav-row.is-on-dark{background:#fff!important;opacity:1!important;transform:none!important}
+
+/* meet the doctor: balanced, centred */
+.note-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(30px,7vw,100px);align-items:center;justify-items:center}
+.note-photo{width:100%;max-width:440px;margin:0 auto}
+.note-text{max-width:560px}
+.note-img{box-shadow:12px 12px 0 var(--c-sand)}
+.note-photo figcaption{text-align:center;margin-top:22px}
+.note-sign{font-size:1.15rem;letter-spacing:.01em}
+@media(max-width:820px){
+  .note-grid{grid-template-columns:1fr;justify-items:stretch}
+  .note-photo{max-width:340px}
+  .note-text{max-width:none}
+  .note-img{box-shadow:10px 10px 0 var(--c-sand)}
+}
+
+/* contact section */
+.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.contact-card{display:flex;flex-direction:column;gap:6px;padding:26px 24px;border-radius:18px;background:#fff;border:1px solid var(--c-line);color:var(--c-ink);text-decoration:none;transition:border-color .2s,transform .2s,box-shadow .2s}
+.contact-card small{font-size:.7rem;font-weight:800;letter-spacing:.16em;color:var(--c-accent)}
+.contact-card strong{font-size:1.3rem;line-height:1.2;letter-spacing:-.02em;color:var(--c-ink)}
+.contact-card span{font-size:.95rem;color:var(--c-mute)}
+.contact-card em{margin-top:auto;padding-top:18px;font-style:normal;font-weight:800;font-size:.9rem;color:var(--c-accent-deep)}
+.contact-card:hover{border-color:rgba(217,69,26,.5);transform:translateY(-2px);box-shadow:0 10px 24px -16px rgba(21,18,15,.35)}
+.contact-primary{background:var(--c-ink);border-color:var(--c-ink)}
+.contact-primary small{color:#FFB690}.contact-primary strong{color:#fff}.contact-primary span{color:rgba(255,255,255,.72)}.contact-primary em{color:#FFB690}
+.contact-primary:hover{border-color:var(--c-ink)}
+.contact-foot{margin:22px 0 0;max-width:62ch;font-size:.92rem;color:var(--c-mute)}
+@media(max-width:820px){.contact-grid{grid-template-columns:1fr}.contact-card{padding:22px 20px}}
+
+/* buttons: a quiet, subtle response, nothing flashy */
+body.studio :is(.hbtn,.btn,.ci-next,.ci-btn,.ci-btn-ghost,.dd-btn,.yt-visit,.instagram-go,.ci-chip,.ci-opt,.lifestage-card,.contact-card,.short-card,.care-item-head,.faq-item summary,.story-cta,button.btn){
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+body.studio :is(.hbtn-solid,.btn-primary,.ci-next,.ci-btn-solid,.dd-btn,.yt-visit,.instagram-go):hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(185,56,15,.55)}
+body.studio :is(.hbtn,.btn,.ci-next,.ci-btn,.ci-btn-ghost,.dd-btn,.yt-visit,.instagram-go,.ci-chip,.ci-opt,.contact-card):active{transform:translateY(0) scale(.985);box-shadow:none}
+body.studio .hbtn-outline:hover{transform:translateY(-1px)}
+body.studio :is(a,button,input,select,textarea,summary):focus-visible{outline:2px solid var(--c-accent);outline-offset:3px;border-radius:10px}
+@media(max-width:520px){.hero-meta{gap:4px 18px}.hero-meta li+li::before{display:none}}
