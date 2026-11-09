@@ -1,0 +1,202 @@
+/* =========================================================
+   Dr. Sandesh Mahesh — final design (index.html, body.studio)
+   Clean, modern and flat: Manrope type, one orange accent, white cards with
+   thin lines, a quiet video hero. Self-contained: styles every section it needs.
+   Load it AFTER main.css, patient-insights.css, sandesh.css, checkin.css, journey.css.
+   ========================================================= */
+:root{
+  --c-paper:#FBFAF7; --c-sand:#F2EFE9; --c-card:#FFFFFF; --c-ink:#15120F; --c-soft:#4C453F; --c-mute:#756D65;
+  --c-line:rgba(21,18,15,.12); --c-accent:#D9451A; --c-accent-deep:#B8380F; --c-tint:#FCEFE8; --c-dark:#1B1612;
+  --f:"Manrope",Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+body.studio{background:var(--c-paper);color:var(--c-ink);font-family:var(--f);font-weight:500;-webkit-font-smoothing:antialiased}
+body.studio :is(button,input,select,textarea){font-family:var(--f)}
+body.studio :is(h1,h2,h3,h4,.foot-word,.wordmark){font-family:var(--f);font-weight:800;letter-spacing:-.03em;color:var(--c-ink)}
+body.studio h2{font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.08}
+body.studio h3{letter-spacing:-.02em}
+body.studio p{color:var(--c-soft)}
+body.studio .section-head p{font-size:1.06rem;line-height:1.65;max-width:58ch}
+body.studio .eyebrow{font-family:var(--f);font-size:.74rem;font-weight:800;letter-spacing:.16em;color:var(--c-accent)}
+body.studio .eyebrow::before,body.studio .eyebrow::after{background:var(--c-accent)}
+body.studio .section-pad{background:transparent}
+body.studio .section-stone:not(#consult),body.studio .section-journey,body.studio .section-faq,body.studio .section-lifestage{background:var(--c-sand)}
+body.studio .section-checkin,body.studio .section-stories-focus,body.studio .note-section,body.studio .section-duedate{background:var(--c-paper)}
+body.studio .reveal{will-change:auto}
+
+/* ---------- navigation ---------- */
+body.studio .site-nav,body.studio .mobile-nav-row{background:rgba(255,255,255,.97);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;border-bottom:1px solid var(--c-line)}
+body.studio .wordmark{font-weight:800;color:var(--c-ink)}
+body.studio .nav-links a{color:var(--c-ink);font-weight:600}
+body.studio .nav-links a.active{color:var(--c-accent-deep)}
+body.studio .mobile-nav-row a{background:#fff;border:1px solid var(--c-line);color:var(--c-ink);font-weight:600;box-shadow:none}
+body.studio .mobile-nav-row a.active{background:var(--c-ink);border-color:var(--c-ink);color:#fff}
+
+/* ---------- hero: quiet looping video, only what is needed ---------- */
+.hero{position:relative;display:flex;align-items:center;min-height:min(92vh,900px);min-height:min(92svh,900px);padding:130px 0 90px;background:#15100C;color:#fff;overflow:hidden}
+.hero-video{position:absolute;inset:0;background:#15100C}
+.hero-video video{width:100%;height:100%;object-fit:cover;display:block}
+.hero-video::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,11,8,.52) 0%,rgba(15,11,8,.6) 100%)}
+.hero .container{position:relative;z-index:2;width:100%}
+.hero-inner{max-width:820px}
+.hero-kicker{margin:0 0 22px;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.82)!important}
+body.studio .hero h1{margin:0;font-size:clamp(2.5rem,6.2vw,4.7rem);line-height:1.04;font-weight:800;letter-spacing:-.04em;color:#fff}
+body.studio .hero h1 span{color:#FFB690}
+.hero-sub{margin:24px 0 0;max-width:42ch;font-size:clamp(1.05rem,2vw,1.28rem);line-height:1.55;color:rgba(255,255,255,.88)!important}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hbtn{display:inline-flex;align-items:center;justify-content:center;padding:16px 28px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:background .2s,border-color .2s}
+.hbtn-solid{background:var(--c-accent);color:#fff}
+.hbtn-solid:hover{background:var(--c-accent-deep)}
+.hbtn-outline{border:1.5px solid rgba(255,255,255,.7);color:#fff;background:transparent}
+.hbtn-outline:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.hero-meta{list-style:none;display:flex;flex-wrap:wrap;gap:6px 0;margin:34px 0 0;padding:0;font-size:.95rem;font-weight:600;color:rgba(255,255,255,.8)}
+.hero-meta li+li::before{content:"";display:inline-block;width:1px;height:14px;margin:0 16px;background:rgba(255,255,255,.4);vertical-align:-2px}
+@media(max-width:900px){
+  .hero{padding:150px 0 64px;min-height:0;align-items:flex-start}
+  .hero-video::after{background:rgba(15,11,8,.62)}
+  .hero-cta .hbtn{flex:1 1 100%}
+}
+
+/* ---------- how it works ---------- */
+body.studio .steps-strip{margin:0;padding:34px 0;background:#fff;border-bottom:1px solid var(--c-line)}
+.steps-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.step{position:relative;display:flex;align-items:flex-start;gap:14px;padding:18px;border-radius:14px;background:var(--c-paper);border:1px solid var(--c-line)}
+.step-n{position:absolute;top:-11px;left:16px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--c-ink);color:#fff;font-size:.72rem;font-weight:800}
+.step-ico{width:34px;height:34px;flex:none;fill:none;stroke:var(--c-accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.step div strong{display:block;font-size:1rem;color:var(--c-ink)}
+.step div span{display:block;margin-top:4px;font-size:.9rem;line-height:1.5;color:var(--c-mute)}
+@media(max-width:820px){.steps-grid{grid-template-columns:1fr;gap:18px}}
+
+/* ---------- meet the doctor ---------- */
+.note-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,6vw,84px);align-items:center}
+.note-photo{margin:0}
+.note-img{aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#E6DFD4;border:1px solid var(--c-line)}
+.note-img img{width:100%;height:100%;object-fit:cover;object-position:50% 14%;display:block}
+.note-img .doctor-monogram{height:100%}
+.note-photo figcaption{margin-top:16px;display:grid;gap:3px}
+.note-photo figcaption strong{font-size:1.05rem;color:var(--c-ink)}
+.note-photo figcaption span{font-size:.88rem;line-height:1.5;color:var(--c-mute)}
+.note-text h2{margin:12px 0 18px}
+.note-text p{font-size:1.08rem;line-height:1.7;max-width:54ch}
+.note-sign{margin-top:22px!important;font-weight:800;color:var(--c-ink)!important}
+.note-video[hidden]{display:none}
+.note-video{margin-top:26px}
+.note-play{position:relative;display:block;width:100%;aspect-ratio:16/10;padding:0;border:0;border-radius:14px;overflow:hidden;cursor:pointer;background:var(--c-dark)}
+.note-play img{width:100%;height:100%;object-fit:cover;display:block}
+.note-play span{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;display:grid;place-items:center;padding-left:4px;background:var(--c-accent);color:#fff;font-size:1.15rem}
+.note-video small{display:block;margin-top:10px;color:var(--c-mute);font-size:.85rem}
+.note-frame{aspect-ratio:16/10;border-radius:14px;overflow:hidden}
+.note-frame iframe{width:100%;height:100%;border:0}
+@media(max-width:820px){.note-grid{grid-template-columns:1fr}.note-photo{max-width:360px}}
+
+/* ---------- cards ---------- */
+body.studio :is(.care-item,.faq-item,.journey-card,.lifestage-card,.duedate-card,.ci-card,.location-card,.contact-panel,.about-credentials>div,.approach,.youtube-card,.short-card,.video-empty,.booking-widget-wrap,.stories-conversation-doorway){
+  background:var(--c-card);background-image:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--c-line);box-shadow:none;border-radius:16px}
+body.studio .about-credentials>div{padding:16px 18px;border-radius:14px}
+body.studio .care-item.open{background:var(--c-tint);border-color:rgba(217,69,26,.35)}
+body.studio :is(.lifestage-card,.faq-item,.care-item):hover{transform:none;border-color:rgba(217,69,26,.5);box-shadow:none}
+body.studio .care-item-head .n,body.studio .step-n{background:var(--c-ink);color:#fff}
+body.studio .care-item.open .care-item-head .n{background:var(--c-accent)}
+body.studio .care-category-note{background:#fff;border:1px solid var(--c-line);border-left:3px solid var(--c-accent);border-radius:0 12px 12px 0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+body.studio .care-related{background:var(--c-paper);border:1px solid var(--c-line);border-left:3px solid var(--c-accent);border-radius:0 10px 10px 0}
+
+/* ---------- about approach ---------- */
+.approach-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(26px,5vw,44px)}
+.approach{display:grid;gap:6px;padding:20px 22px;align-content:start}
+.approach svg{width:30px;height:30px;fill:none;stroke:var(--c-accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-bottom:4px}
+.approach strong{font-size:1.02rem;color:var(--c-ink)}
+.approach span{font-size:.92rem;line-height:1.5;color:var(--c-mute)}
+@media(max-width:820px){.approach-row{grid-template-columns:1fr}}
+
+/* ---------- does this sound like you ---------- */
+body.studio .lifestage-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+body.studio .lifestage-card{display:flex;flex-direction:column;justify-content:space-between;gap:20px;padding:22px 20px;text-align:left;min-height:168px;cursor:pointer}
+body.studio .lifestage-card q{quotes:"\201C" "\201D";font-size:1.1rem;line-height:1.35;font-weight:700;letter-spacing:-.015em;color:var(--c-ink)}
+body.studio .lifestage-card em{font-style:normal;font-size:.8rem;font-weight:800;color:var(--c-accent-deep)}
+@media(max-width:1020px){body.studio .lifestage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){body.studio .lifestage-grid{grid-template-columns:1fr}body.studio .lifestage-card{min-height:0}}
+
+/* ---------- buttons ---------- */
+body.studio :is(.btn-primary,.ci-next,.ci-btn-solid,.dd-btn,.yt-visit,.instagram-go,.youtube-channel-copy span){background:var(--c-accent);background-image:none;box-shadow:none;border-radius:12px;color:#fff;font-weight:700}
+body.studio :is(.btn-primary,.ci-next,.ci-btn-solid,.dd-btn,.yt-visit):hover{background:var(--c-accent-deep);transform:none;box-shadow:none}
+body.studio .btn,body.studio .ci-btn-ghost{border-radius:12px}
+body.studio .btn-outline{border:1.5px solid var(--c-ink);color:var(--c-ink);background:transparent}
+
+/* ---------- stories ---------- */
+body.studio .story-card{background:var(--c-dark);background-image:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-radius:18px;box-shadow:none}
+body.studio .story-card .quote{font-weight:800;letter-spacing:-.02em}
+
+/* ---------- journey ---------- */
+body.studio .journey-card{border-radius:18px}
+body.studio .jc-block{position:relative;background:#fff;border:1px solid var(--c-line);border-radius:12px;padding:14px 16px 14px 20px;margin-top:10px;overflow:hidden}
+body.studio .jc-block::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
+body.studio .jc-happens::before{background:var(--c-accent)}
+body.studio .jc-done::before{background:#6F8F7D}
+body.studio .jc-ask::before{background:#B89A55}
+body.studio :is(.jc-happens,.jc-done,.jc-ask){background:#fff;border-color:var(--c-line)}
+body.studio .jc-block b{color:var(--c-ink)!important;letter-spacing:.1em}
+body.studio .jc-block b::before{display:none}
+body.studio .jc-block li::marker{color:var(--c-mute)}
+body.studio .jc-ring-fg{stroke:var(--c-accent)}
+body.studio .journey-arrow{border-color:var(--c-line);box-shadow:none}
+body.studio .dd-out{background:var(--c-tint);border-color:rgba(217,69,26,.25)}
+
+/* ---------- check-in ---------- */
+body.studio .ci-card{border-radius:20px}
+body.studio .ci-opt,body.studio .ci-chip{background:#fff;border-color:var(--c-line)}
+body.studio .ci-opt.is-on{background:var(--c-tint);border-color:var(--c-accent);box-shadow:none}
+body.studio .ci-opt.is-on .ci-tick{background:var(--c-accent);border-color:var(--c-accent)}
+body.studio .ci-chip.is-on{background:var(--c-ink);border-color:var(--c-ink);color:#fff}
+body.studio .ci-progress b{background:var(--c-accent)}
+body.studio .ci-result{background:var(--c-tint);border:1px solid rgba(217,69,26,.22)}
+body.studio .ci-urgent{background:#FDEEEA;border-color:#E5A99A}
+body.studio .ci-pace{background:#fff;border-color:var(--c-line)}
+body.studio :is(.ci-form input,.ci-other textarea,.duedate-form input,.duedate-form select){background:#fff}
+body.studio .ci-demo{border-color:var(--c-line);color:var(--c-mute)}
+
+/* ---------- consult (dark band) ---------- */
+body.studio #consult{background:var(--c-dark)!important;background-image:none!important}
+body.studio #consult::before,body.studio #consult::after{display:none!important}
+body.studio .booking-widget-wrap{border-radius:18px}
+body.studio .consult-summary{background:rgba(255,255,255,.06);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(255,255,255,.16);box-shadow:none;border-radius:18px}
+body.studio #consult .section-head h2{color:#fff}
+.wa-ask{display:inline-block;margin:6px 0 14px;color:#FFC7A6;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.wa-ask:hover{color:#fff}
+
+/* ---------- Instagram + YouTube ---------- */
+body.studio .instagram-card{background:var(--c-dark);background-image:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-radius:18px;box-shadow:none}
+body.studio .instagram-card:hover{transform:none;box-shadow:none}
+body.studio .instagram-badge{background:var(--c-accent);box-shadow:none;border-radius:14px}
+body.studio .instagram-copy small{color:#FFC7A6}
+body.studio .youtube-channel-card{animation:none;box-shadow:none;border-radius:18px;background:#fff;border:1px solid var(--c-line)}
+body.studio .youtube-channel-art{background:var(--c-dark)}
+body.studio :is(.youtube-play,.short-play){background:var(--c-accent);box-shadow:none}
+body.studio .short-card{border-radius:14px}
+body.studio .short-card:hover{transform:none;box-shadow:none;border-color:var(--c-accent)}
+body.studio .short-foot em{color:#FFC7A6}
+
+/* ---------- visit + footer ---------- */
+body.studio .contact-detail .label{color:var(--c-accent-deep)}
+body.studio .contact-map-note.location-card{background:var(--c-tint)}
+body.studio .callout{border-left-color:var(--c-accent)}
+body.studio .site-footer{background:var(--c-dark)}
+body.studio .site-footer::before{display:none}
+body.studio .exp-badge{background:var(--c-accent);box-shadow:none}
+
+/* ---------- floating bits: quiet ---------- */
+body.studio .patient-insights-float{background:var(--c-dark)!important;background-image:none!important;box-shadow:0 6px 18px rgba(0,0,0,.22)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:14px!important;animation:none!important}
+body.studio .patient-insights-float::before,body.studio .patient-insights-float::after{display:none!important}
+body.studio .patient-insights-float-arrow{background:var(--c-accent)!important;box-shadow:none!important;background-image:none!important}
+body.studio .patient-insights-float-kicker{color:#FFC7A6!important}
+@media(max-width:520px){.hero-meta{font-size:.86rem}.hero-meta li+li::before{margin:0 11px}}
+@media(max-width:820px){.note-photo{max-width:290px}}
+
+body.studio .care-item:hover{background-image:none}
+
+/* readable text on the dark cards and the footer */
+body.studio .instagram-copy p{color:rgba(255,255,255,.78)}
+body.studio .instagram-copy strong{color:#fff;font-size:clamp(1.15rem,5.4vw,1.7rem);overflow-wrap:anywhere}
+body.studio .site-footer p,body.studio .site-footer a{color:rgba(255,255,255,.75)}
+body.studio .site-footer :is(h4,.foot-word){color:#fff}
+body.studio .story-card :is(.desc,p){color:rgba(255,255,255,.72)}
+body.studio .story-card .quote{color:#fff}
+body.studio .story-cta{background:var(--c-accent);background-image:none;box-shadow:none}
