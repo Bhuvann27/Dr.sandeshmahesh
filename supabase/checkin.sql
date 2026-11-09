@@ -37,3 +37,11 @@ create policy checkin_leads_admin_manage_assigned on public.checkin_leads for al
 -- 3) 2026-11-02: free-text note. checkin_complete now takes an optional p_note (max 500 chars).
 alter table public.checkin_leads add column if not exists other_note text check (other_note is null or char_length(other_note) <= 500);
 -- (old checkin_complete(uuid,uuid,text[],text[],text) was dropped and replaced by the 6-argument version in the live project)
+
+-- 4) 2026-11-08: check-in v2. Structured answers (jsonb), two new paths (menopause, general).
+alter table public.checkin_leads add column if not exists answers jsonb;
+alter table public.checkin_leads add constraint checkin_leads_answers_size check (answers is null or pg_column_size(answers) <= 12000);
+alter table public.checkin_leads drop constraint if exists checkin_leads_stage_check;
+alter table public.checkin_leads add constraint checkin_leads_stage_check
+  check (stage = any (array['planning','trimester1','trimester2','trimester3','after_birth','periods_other','menopause','general']));
+-- checkin_complete now has the signature (uuid, uuid, text[], text[], text, text, jsonb); the previous overload was dropped.
