@@ -45,3 +45,7 @@ alter table public.checkin_leads drop constraint if exists checkin_leads_stage_c
 alter table public.checkin_leads add constraint checkin_leads_stage_check
   check (stage = any (array['planning','trimester1','trimester2','trimester3','after_birth','periods_other','menopause','general']));
 -- checkin_complete now has the signature (uuid, uuid, text[], text[], text, text, jsonb); the previous overload was dropped.
+
+-- 5) 2026-11-10: booking functions must also work for a browser that is signed in to the admin portal.
+grant execute on function public.get_available_consultation_slots(date, text) to authenticated;
+grant execute on function public.request_appointment(text, text, text, text, date, time) to authenticated;
