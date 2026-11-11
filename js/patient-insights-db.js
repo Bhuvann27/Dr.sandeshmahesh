@@ -9,9 +9,10 @@ window.PatientInsightsDB = (function(){
   let client = null;
   function getClient(){
     if(client) return client;
+    if(window.getPublicSupabase){ client = window.getPublicSupabase(); return client; }
     if(!window.isSupabaseConfigured || !window.isSupabaseConfigured()) return null;
     if(!window.supabase || !window.supabase.createClient) return null;
-    client = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+    client = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
     return client;
   }
 

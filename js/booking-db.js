@@ -14,9 +14,10 @@ window.BookingDB = (function(){
   let client = null;
   function getClient(){
     if(client) return client;
+    if(window.getPublicSupabase){ client = window.getPublicSupabase(); return client; }
     if(!window.isSupabaseConfigured || !window.isSupabaseConfigured()) return null;
     if(!window.supabase || !window.supabase.createClient) return null;
-    client = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+    client = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
     return client;
   }
 
@@ -48,7 +49,7 @@ window.BookingDB = (function(){
       p_date: dateISO,
       p_doctor_slug: window.SUPABASE_CONFIG.doctorSlug,
     });
-    if(error) throw error;
+    if(error){ console.error("[booking] could not load slots", error); throw error; }
 
     const slots = (data || []).map((row) => String(row.start_time).slice(0,5));
     const now = indiaNowParts();

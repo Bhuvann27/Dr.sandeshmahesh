@@ -61,11 +61,11 @@
   const fromConfig = () => renderVideos((cfg.youtubeVideos || []).map((x) => ({ video_id: x })));
 
   if(!configured()){ fromConfig(); return; }
-  const c = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+  const c = window.getPublicSupabase ? window.getPublicSupabase() : window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
   c.from("youtube_videos")
     .select("video_id,title,description")
     .eq("doctor_id", window.SUPABASE_CONFIG.doctorId)
-    .eq("status", "published").eq("visible", true).eq("featured", true)
+    .eq("visible", true).eq("featured", true)
     .order("sort_order", { ascending: true }).limit(6)
     .then(({ data, error }) => (!error && data && data.length) ? renderVideos(data) : fromConfig(), fromConfig);
 })();
