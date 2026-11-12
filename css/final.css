@@ -409,3 +409,11 @@ body.studio .foot-word{font-size:1.15rem}
 .footer-grid{gap:20px}
 body.studio .stories-focus-head h2{max-width:none}
 body.studio .stories-focus-head>div{max-width:none;width:100%}
+
+/* ---------- caption: each line stays on one line ---------- */
+.note-photo figcaption .cap-line{display:block;white-space:nowrap}
+
+/* ---------- hero fills the whole first screen ---------- */
+.hero{display:flex;align-items:center;min-height:100vh;min-height:100svh;padding:132px 0 48px}
+@media(min-width:881px){.hero{padding:96px 0 48px;min-height:100vh;min-height:100svh}}
+@media(max-width:900px){.hero{align-items:center}}
