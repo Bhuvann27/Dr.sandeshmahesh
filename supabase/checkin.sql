@@ -49,3 +49,6 @@ alter table public.checkin_leads add constraint checkin_leads_stage_check
 -- 5) 2026-11-10: booking functions must also work for a browser that is signed in to the admin portal.
 grant execute on function public.get_available_consultation_slots(date, text) to authenticated;
 grant execute on function public.request_appointment(text, text, text, text, date, time) to authenticated;
+
+-- 6. 2026-11-11: the three conversations were saved as normal (non-demo) rows with final slugs:
+--    irregular-periods-and-pcos-worries, first-pregnancy-and-antenatal-care, menopause-symptoms.
