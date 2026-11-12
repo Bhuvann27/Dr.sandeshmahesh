@@ -31,7 +31,7 @@
   new MutationObserver(() => markLongQuotes()).observe(document.body, { childList: true, subtree: true });
 
   /* 2b. Home page story cards: use the doctor's published stories when
-        available; otherwise the static preview cards in the HTML stay. */
+        available; otherwise the static cards in the HTML stay. */
   const cards = document.getElementById("homeStoryCards");
   if(cards && window.PatientInsightsDB){
     const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -40,16 +40,14 @@
       .then((stories) => {
         if(!stories || !stories.length) return;
         const pick = stories.slice(0, 2);
-        cards.innerHTML = pick.map((s, i) => `<a class="story-card ${i ? "story-card-secondary" : "story-card-primary"}" href="stories.html?story=${encodeURIComponent(s.slug)}" aria-label="Read patient story: ${esc(clean(s.title))}">
-          <span class="story-kicker">PATIENT STORY ${String(i + 1).padStart(2, "0")}</span>${s.isDemo ? '<span class="story-tag">FICTIONAL PREVIEW</span>' : ""}
+        cards.innerHTML = pick.map((s, i) => `<a class="story-card ${i ? "story-card-secondary" : "story-card-primary"}" href="stories.html?story=${encodeURIComponent(s.slug)}" aria-label="Read conversation: ${esc(clean(s.title))}">
+          <span class="story-kicker">CONVERSATION ${String(i + 1).padStart(2, "0")}</span>
           <p class="quote">&ldquo;${esc(clean(s.title))}&rdquo;</p>
           <p class="desc">${esc(s.subtitle || s.intro || "")}</p>
           <span class="story-cta">READ STORY <span class="arrow">↗</span></span></a>`).join("");
         const note = document.getElementById("homeStoriesNote");
         if(note){
-          note.textContent = pick.some((s) => s.isDemo)
-            ? "These are fictional preview stories for demonstration. Real stories will replace them only after approval and consent."
-            : "Stories are shared anonymously with consent and open separately so you can read at your own pace.";
+          note.textContent = "Each conversation opens separately, so you can read at your own pace.";
         }
       }).catch(() => {});
   }
@@ -61,5 +59,17 @@
     ig.href = "https://www.instagram.com/" + handle + "/";
     const t = document.getElementById("instagramHandleText"); if(t) t.textContent = "@" + handle;
     ig.hidden = false;
+  }
+
+  /* 4. "Meet the doctor" video: shows only when js/site-config.js has a welcomeVideo */
+  const mv = document.getElementById("meetVideo");
+  const raw = String((window.SITE_CONFIG && window.SITE_CONFIG.welcomeVideo) || "").trim();
+  const vid = /^[\w-]{11}$/.test(raw) ? raw : ((raw.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([\w-]{11})/) || [])[1] || "");
+  if(mv && vid){
+    mv.hidden = false;
+    mv.innerHTML = `<button type="button" class="note-play" aria-label="Play a short welcome video from Dr. Sandesh"><img alt="" loading="lazy" src="https://i.ytimg.com/vi/${vid}/hqdefault.jpg"><span aria-hidden="true">&#9654;</span></button><small>A short hello from Dr. Sandesh</small>`;
+    mv.querySelector("button").addEventListener("click", () => {
+      mv.innerHTML = `<div class="note-frame"><iframe src="https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&rel=0" title="Welcome video from Dr. Sandesh" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;
+    });
   }
 })();

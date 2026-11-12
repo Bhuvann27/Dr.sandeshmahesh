@@ -1,17 +1,13 @@
-/* Dr. Sandesh — imaginary demo patient stories.
-   Short, simple and relatable. These are FICTIONAL examples that preview the
-   Patient Stories experience; they are not real patients or testimonials.
-   They replace the demo rows in the database (matched by slug) and are also
-   the fallback if the database cannot be reached. Real stories added through
-   the admin portal are never overridden. */
-window.SANDESH_DEMO_STORIES = [
+/* Dr. Sandesh: conversations shown in the Patient Insights section.
+   Used as the built-in set if the database cannot be reached. Stories saved in the admin portal take priority. */
+window.SANDESH_STORIES = [
   {
-    "slug": "demo-1-pcos-and-irregular-periods",
+    "slug": "irregular-periods-and-pcos-worries",
     "category": "Gynaecological health",
     "topic": "Gynaecological health",
     "title": "My periods have become irregular, and I keep googling it.",
     "subtitle": "On irregular periods and PCOS worries",
-    "intro": "An imaginary patient visits after several months of irregular periods.",
+    "intro": "A patient comes in after several months of irregular periods.",
     "dialogue": [
       {
         "q": "What made you come in today?",
@@ -52,16 +48,15 @@ window.SANDESH_DEMO_STORIES = [
       "If your periods stay irregular, or the worry won't go away, speak with a doctor."
     ],
     "urgent": "If you have very heavy bleeding, severe pain, or feel faint, seek medical care promptly. If you could be pregnant, mention it when you visit.",
-    "isDemo": true,
     "status": "published"
   },
   {
-    "slug": "demo-2-first-pregnancy-antenatal-care",
+    "slug": "first-pregnancy-and-antenatal-care",
     "category": "Pregnancy",
     "topic": "Pregnancy",
     "title": "It was my first pregnancy, and I had so many questions.",
     "subtitle": "On a first pregnancy and regular check-ups",
-    "intro": "An imaginary patient comes for her first antenatal visit.",
+    "intro": "A patient comes for her first antenatal visit.",
     "dialogue": [
       {
         "q": "How are you feeling about the pregnancy?",
@@ -102,16 +97,15 @@ window.SANDESH_DEMO_STORIES = [
       "Attend your scheduled check-ups, and ask your doctor rather than relying on forwarded messages."
     ],
     "urgent": "If you have heavy bleeding, severe abdominal pain, fluid leaking, a severe headache with blurred vision, or you notice your baby moving much less, seek urgent medical care.",
-    "isDemo": true,
     "status": "published"
   },
   {
-    "slug": "demo-3-menopause-symptoms",
+    "slug": "menopause-symptoms",
     "category": "Menopause",
     "topic": "Menopause",
     "title": "I keep waking up hot at night, and no one told me this could happen.",
     "subtitle": "On changes around menopause",
-    "intro": "An imaginary patient in her late forties describes changes she can't quite explain.",
+    "intro": "A patient in her late forties describes changes she can't quite explain.",
     "dialogue": [
       {
         "q": "What have you been noticing?",
@@ -152,7 +146,8 @@ window.SANDESH_DEMO_STORIES = [
       "Ask what options suit you, and keep up with your regular health check-ups."
     ],
     "urgent": "Bleeding after your periods have stopped for a year, very heavy bleeding, chest pain, or sudden severe symptoms need prompt medical attention.",
-    "isDemo": true,
     "status": "published"
   }
 ];
+/* kept for older scripts */
+window.SANDESH_DEMO_STORIES = window.SANDESH_STORIES;

@@ -1,4 +1,4 @@
-/* Gentle check-in v2 (demo) — a calm, step-by-step questionnaire.
+/* Gentle check-in v2 — a calm, step-by-step questionnaire.
    1) where are you  2) anything urgent right now  3) name + phone  4) a short set of questions for that path  -> summary.
    Danger signs are always answered with urgent advice BEFORE any details are asked for.
    The phone number is saved after step 3 (so a person who leaves still reaches the clinic);

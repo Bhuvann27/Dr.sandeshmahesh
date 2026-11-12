@@ -1,5 +1,4 @@
-/* Gentle check-in v2 — questions, wording and rules (DEMO VERSION).
-   Every question below is a placeholder for Dr. Sandesh to review and correct.
+/* Gentle check-in v2 — questions, wording and rules.
    Flow: where are you -> anything urgent right now -> name + phone -> a short set of
    questions for that path -> a calm summary. Levels on options:
    "urgent" = "please don't wait" message, "soon" = worth a conversation with the doctor. */

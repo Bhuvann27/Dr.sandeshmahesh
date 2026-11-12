@@ -37,9 +37,9 @@ window.PatientInsightsDB = (function(){
   }
 
   const PREFERRED_ORDER = [
-    "demo-1-pcos-and-irregular-periods",
-    "demo-2-first-pregnancy-antenatal-care",
-    "demo-3-menopause-symptoms",
+    "irregular-periods-and-pcos-worries",
+    "first-pregnancy-and-antenatal-care",
+    "menopause-symptoms",
   ];
 
   const demoBySlug = () => {
@@ -66,7 +66,7 @@ window.PatientInsightsDB = (function(){
         .order("published_at", { ascending: true });
       if(error || !data) return sortStories((window.SANDESH_DEMO_STORIES || []).slice());
       const demos = demoBySlug();
-      /* Demo rows get the short fictional content above; real stories pass through untouched. */
+      /* Rows flagged as built-in use the content in js/stories-data.js; everything else passes through untouched. */
       const demoList = window.SANDESH_DEMO_STORIES || [];
       let nextDemo = 0;
       return sortStories(data.map(toStoryShape).map((row) => {

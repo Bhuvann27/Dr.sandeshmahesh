@@ -230,7 +230,7 @@
       return "The website lists pregnancy and antenatal care, high-risk pregnancy, and labour, delivery and postnatal care among Dr. Sandesh's areas of care. I can't assess your own pregnancy from a chat, so questions about symptoms, scans or medicines are best discussed with the doctor. If anything feels sudden or severe, seek urgent in-person care.";
     }
     if(/period|menstru|pcos|pcod|fertil|hormon|irregular|pelvic|gynae|gynec/.test(x)){
-      return "Menstrual concerns, pelvic symptoms, PCOS and fertility-related concerns are listed among the areas of care on this website. The cause of a symptom can't be worked out safely from a chat, so it is worth discussing with a doctor. You can read the PCOS-related patient story or request a consultation from the website.";
+      return "Menstrual concerns, pelvic symptoms, PCOS and fertility-related concerns are listed among the areas of care on this website. The cause of a symptom can't be worked out safely from a chat, so it is worth discussing with a doctor. You can read the PCOS-related conversation or request a consultation from the website.";
     }
     if(/menopaus|hot flush|hot flash/.test(x)){
       return "Menopause and women's wellness are listed among the areas of care. Symptoms and their management differ from person to person, so an individual assessment is the right way to decide what suits you.";
@@ -245,7 +245,7 @@
       return "Dr. Sandesh shares educational videos on his YouTube channel, @Namma_DrSandesh. You can open it from the Insights section of this website.";
     }
     if(/story|stories|insight|article/.test(x)){
-      return "The Patient Stories section presents simple, anonymous conversations about common women's health concerns, which you can read at your own pace. The stories currently shown are fictional previews; real stories will be added only with consent.";
+      return "The Conversations section presents simple conversations between a patient and Dr. Sandesh about common women's health concerns, which you can read at your own pace.";
     }
     if(/symptom|diagnos|medicine|tablet|drug|dose|treatment|pain|scan|test/.test(x)){
       return "I can give general information and explain what the website covers, but I can't diagnose you or choose a personal medicine, dose or test from a chat. For anything about your own health, please speak with the doctor.";
