@@ -41,8 +41,7 @@
       <span class="ci-result-kicker">PLEASE DON'T WAIT ON THIS ONE</span>
       <h3>Go to the nearest hospital, or call your doctor now.</h3>
       <p>What you've picked needs attention without delay. Tell them what you've shared here. This guide can't replace being seen in person.</p>
-      <div class="ci-actions"><a class="ci-btn ci-btn-solid" href="tel:+91${PHONE}">Call the clinic</a>${full ? "" : `<button type="button" class="ci-btn ci-btn-ghost" data-act="continue">I'd also like the team to call me</button>`}</div>
-      ${full ? `<p class="ci-small">If you left your number, Dr. Sandesh's team will also try to reach you between 5 and 8 PM, Monday to Saturday.</p>` : ""}
+      <div class="ci-actions"><a class="ci-btn ci-btn-solid" href="tel:+91${PHONE}">Call the clinic</a>${full ? "" : `<button type="button" class="ci-btn ci-btn-ghost" data-act="continue">Continue to my summary</button>`}</div>
     </div>`;
   }
 
@@ -60,8 +59,7 @@
         <div class="ci-pace"><b>A good check-in rhythm for you</b><span>${esc(interval)}</span></div>
         ${overdue ? `<p class="ci-note">You mentioned your last check-up was a while ago, so a visit soon would be a good idea.</p>` : ""}
         <div class="ci-actions"><a class="ci-btn ci-btn-solid" href="#consult">Choose a time that suits you</a></div>
-        ${contact}
-        <p class="ci-small">The team may call you between 5 and 8 PM to help you pick a time. No pressure at all.</p></div>`;
+        ${contact}</div>`;
     }
     return `<div class="ci-result ci-common"><span class="ci-result-kicker">THANK YOU FOR SHARING, ${esc(state.name.toUpperCase())}</span>
       <h3>You're moving at a normal pace. There's no need to worry.</h3>
@@ -69,8 +67,7 @@
       <div class="ci-pace"><b>A good check-in rhythm for you</b><span>${esc(interval)}</span></div>
       ${overdue ? `<p class="ci-note">Your last check-up was a while ago, so it would be nice to fit one in when you can.</p>` : ""}
       ${contact}
-      <a class="ci-soft" href="#consult">Or choose a time to talk whenever you're free →</a>
-      <p class="ci-small">The team may call you between 5 and 8 PM, Monday to Saturday, just to say hello. No pressure at all.</p></div>`;
+      <a class="ci-soft" href="#consult">Or choose a time to talk whenever you're free →</a></div>`;
   }
 
   function questionScreen(){
@@ -107,15 +104,14 @@
           ${nav(true, "Continue →", false)}`;
       }
     } else if(state.step === 3){
-      html = bar("Almost there", 30) + `<h3 class="ci-q">Where can Dr. Sandesh's team reach you?</h3>
-        <p class="ci-sub">A gentle call, at a time you choose. You're never obliged to book anything.</p>
+      html = bar("Almost there", 30) + `<h3 class="ci-q">Just two quick details to continue</h3>
+        <p class="ci-sub">Enter your name and phone number to go on with your questions and see your summary.</p>
         <div class="ci-form">
-          <label>First name<input id="ciName" type="text" autocomplete="given-name" maxlength="60" value="${esc(state.name)}" placeholder="Your first name"></label>
+          <label>Name<input id="ciName" type="text" autocomplete="given-name" maxlength="60" value="${esc(state.name)}" placeholder="Your name"></label>
           <label>Phone number<input id="ciPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" value="${esc(state.phone)}" placeholder="10-digit mobile number"></label>
-          <div class="ci-field"><span>Best time for a call</span><div class="ci-chips">${D.windows.map((w) => `<button type="button" class="ci-chip${state.window === w.key ? " is-on" : ""}" data-window="${w.key}" aria-pressed="${state.window === w.key}">${w.label}</button>`).join("")}</div></div>
-          <label class="ci-consent"><input id="ciConsent" type="checkbox"${state.consent ? " checked" : ""}><span>I'm happy for the clinic to call me about my answers. Calls are made Monday to Saturday, 5 PM to 8 PM.</span></label>
         </div>
-        ${state.error ? `<p class="ci-error" role="alert">${esc(state.error)}</p><a class="ci-soft" target="_blank" rel="noopener" href="https://wa.me/91${PHONE}?text=${encodeURIComponent("Hello Dr. Sandesh, I'm " + state.name.trim() + ". Please call me on " + state.phone.trim() + " (best time: " + state.window + ").")}">Or send my details on WhatsApp instead →</a>` : ""}
+        <p class="ci-fine">By continuing, you agree to share your answers with Dr. Sandesh's team.</p>
+        ${state.error ? `<p class="ci-error" role="alert">${esc(state.error)}</p><a class="ci-soft" target="_blank" rel="noopener" href="https://wa.me/91${PHONE}?text=${encodeURIComponent("Hello Dr. Sandesh, my name is " + state.name.trim() + " and my number is " + state.phone.trim() + ".")}">Or send my details on WhatsApp instead →</a>` : ""}
         ${nav(true, state.saving ? "Saving…" : "Continue →", state.saving)}`;
     } else if(state.step === 4){
       html = questionScreen();
@@ -207,9 +203,8 @@
       }
       else if(state.step === 3){
         const digits = state.phone.replace(/\D/g, "");
-        if(!state.name.trim()){ state.error = "Please add your first name."; render(); return; }
+        if(!state.name.trim()){ state.error = "Please add your name."; render(); return; }
         if(digits.length < 10){ state.error = "Please enter a valid phone number."; render(); return; }
-        if(!state.consent){ state.error = "Please tick the box so the clinic can call you."; render(); return; }
         state.saving = true; render();
         const ok = await startLead(); state.saving = false;
         if(!ok){ render(); return; }
