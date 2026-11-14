@@ -28,15 +28,17 @@
   }
 
   async function loadStories(){
-    const local=[]; // Dr. Sandesh's stories come only from the database (published rows).
-    if(!window.PatientInsightsDB)return local.map(normaliseStory);
+    /* Built-in conversations (js/stories-data.js) are the base, so this section always works.
+       Stories saved in the database are merged on top by address (slug) and take priority. */
+    const builtIn=(window.SANDESH_STORIES||window.SANDESH_DEMO_STORIES||[]).map(normaliseStory);
+    if(!window.PatientInsightsDB)return builtIn;
     try{
-      const remote=await Promise.race([window.PatientInsightsDB.fetchPublished(),new Promise(resolve=>setTimeout(()=>resolve([]),2500))]);
-      if(!remote.length)return local.map(normaliseStory);
-      const bySlug=new Map(local.map(s=>[s.slug,normaliseStory(s)]));
+      const remote=await Promise.race([window.PatientInsightsDB.fetchPublished(),new Promise(resolve=>setTimeout(()=>resolve([]),6000))]);
+      if(!remote||!remote.length)return builtIn;
+      const bySlug=new Map(builtIn.map(s=>[s.slug,s]));
       remote.forEach(s=>bySlug.set(s.slug,normaliseStory(s)));
       return Array.from(bySlug.values());
-    }catch(e){return local.map(normaliseStory);}
+    }catch(e){return builtIn;}
   }
   function esc(value){return String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
   function inferCategory(story){const raw=String(story.category||story.topic||story.subtitle||story.title||"").toLowerCase();if(/pregnan|antenatal|postnatal|postpartum|labour|delivery/.test(raw))return "Pregnancy";if(/period|menstru|pcos|pcod|fertil|hormon|gynae|gynec|pelvic/.test(raw))return "Gynaecological health";if(/menopaus/.test(raw))return "Menopause";return "Women's health";}
