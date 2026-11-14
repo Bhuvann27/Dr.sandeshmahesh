@@ -69,3 +69,4 @@
 .ci-grid-many{grid-template-columns:1fr 1fr}
 .ci-other-big textarea{min-height:110px}
 @media(max-width:640px){.ci-grid-many{grid-template-columns:1fr}}
+.ci-fine{margin:14px 0 0;font-size:.82rem;color:var(--text-dim)}
