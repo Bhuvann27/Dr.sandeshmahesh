@@ -1,3 +1,13 @@
+-- =====================================================================================
+-- OUTDATED: DO NOT RUN THIS FILE ON THE LIVE SUPABASE PROJECT ("Doctor-websites").
+-- This is the original single-doctor schema. The live project is multi-doctor and differs:
+--   * every table has a doctor_id and policies are limited to each doctor's own admins
+--   * patient_insights is only visible to visitors when it is a built-in example (is_demo)
+--     or when every consent / privacy review box has been ticked
+--   * youtube_videos has no "status" column (it uses featured / visible)
+-- Running this file would replace those policies with looser ones.
+-- The live definitions are the source of truth; ask for an updated copy of this file generated from them.
+-- =====================================================================================
 create extension if not exists pgcrypto;
 
 create table if not exists patient_insights (
