@@ -1,0 +1,17 @@
+/* Pregnancy journey cards: responsive horizontal track. */
+.journey-wrap{position:relative;display:flex;align-items:stretch;gap:12px}
+.journey-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:8px 2px 22px;flex:1;scrollbar-width:thin}
+.journey-card{flex:0 0 min(340px,85vw);scroll-snap-align:start;border:1px solid rgba(23,19,15,.14);border-radius:16px;padding:22px;background:var(--paper,#fbf9f4)}
+.jc-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.jc-ring{width:42px;height:42px;flex:none}
+.jc-ring-bg{fill:none;stroke:rgba(23,19,15,.12);stroke-width:3}
+.jc-ring-fg{fill:none;stroke:var(--orange,#f2540c);stroke-width:3;stroke-linecap:round;stroke-dasharray:113;stroke-dashoffset:calc(113 - (var(--p,0) * 1.13));transform:rotate(-90deg);transform-origin:center}
+.jc-top small{font-size:.7rem;letter-spacing:.08em;color:var(--text-dim,#6b6259);font-weight:800}
+.jc-top h3{font-size:1.2rem;margin-top:4px}
+.jc-lead{color:var(--text-dim,#6b6259);line-height:1.55}
+.jc-block{padding-top:14px;margin-top:14px;border-top:1px solid var(--line,rgba(23,19,15,.12))}
+.jc-block b{font-size:.84rem}
+.jc-block ul{padding-left:18px;color:var(--text-dim,#6b6259);font-size:.86rem;line-height:1.6}
+.journey-arrow{flex:none;align-self:center;width:40px;height:40px;border:1px solid var(--line,rgba(23,19,15,.12));border-radius:50%;background:var(--paper,#fbf9f4);font-size:1.5rem;cursor:pointer}
+.journey-foot{color:var(--text-dim,#6b6259);font-size:.85rem}
+@media(max-width:700px){.journey-wrap{gap:6px}.journey-arrow{width:32px;height:32px}.journey-card{flex-basis:82vw}}
